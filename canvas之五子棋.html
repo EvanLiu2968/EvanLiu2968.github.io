@@ -5,7 +5,7 @@
     <title>人机大战之五子棋</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href=" ./favicon.ico" />
-    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-2.2.3.min.js"></script>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
     header{
         position: fixed;
         font-family:"微软雅黑";
-        top: 0px;
+        top: 0;
         width: 100%;
         height: 48px;
         background-color:#515151;
@@ -114,8 +114,8 @@
     </div>
 </header>
 <div class="chess_game">
-    <canvas id="chess" width="1200" height="600"></canvas>
-    <canvas id="animate" width="1200" height="600"></canvas>
+    <canvas id="chess" width="1200" height="600">您的浏览器out啦！建议使用使用谷歌浏览器</canvas>
+    <canvas id="animate" width="1200" height="600"><br>weibo:@绰号杀手</canvas>
 </div>
 
 <div class="result">
@@ -158,7 +158,7 @@
         c.fillStyle="#ffffff";
         c.fillText("AlphaDog",50,540);
         reset();
-    }
+    };
     var chessBoard=[];       //将落子坐标化，创建棋盘二维数组；
     var me;             //设定第一步为me落棋，即黑子
     var over;

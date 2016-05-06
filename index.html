@@ -7,15 +7,9 @@
     <meta name="author" content="EvanLiu 刘中泉">
     <meta name="description" content="个人博客，记录学习过程，展示项目成果">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <link rel="shortcut icon" href=" ./favicon.ico" />
     <link rel="stylesheet" media="screen" href="./dist/css/bootstrap.min.css">
     <link rel="stylesheet" media="screen" href="./css/index.css">
-=======
-    <link rel="stylesheet" media="screen" href="./css/index.css">
-    <script type="text/javascript" src="./js/index.js"></script>
-    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
->>>>>>> origin/master
 </head>
     <script type="text/javascript" src="./js/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="./dist/js/bootstrap.min.js"></script>
@@ -44,7 +38,7 @@
     </div>
 </header>
 <div class="container">
-    <div class="row">
+    <div class="row ">
         <div  style="margin-top: 16px"></div>
         <div  class="col-lg-8 ">
             <!-- 轮播图 -->
@@ -92,7 +86,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-4 introduction">
+        <div class="col-lg-4 introduction ">
             <div>
                 <span class="glyphicon glyphicon-time time"></span>
                 <span class="time"></span>
@@ -115,9 +109,57 @@
         <div class="col-lg-8">
             <div class="main-column ">
                 <h3>云多媒体播放器</h3>
+                <!-- index.css 195行至351行 -->
+                <div id="video-player"  style="background: #111111;z-index: 99;">
+                    <div class="video-screen">
+                        <div class="video-mask">
+                            <p style="margin-top: 16px;padding: 8px;">我是弹幕：该H5 播放器有播放速度，音量，进度条等简单功能，太长，不说了</p>
+                        </div>
+                        <div id="video-box">
+                            <video  id="video"  width="100%"  >
+                                <!--<source src="Diamonds%20-%20Rihanna.wmv" >-->
+                                <source src="http://hc.yinyuetai.com/uploads/videos/common/D2E9013AE21D9898F106BB92EA990A3E.flv?sc=d57722f74fbc32ac&br=787&vid=544906&aid=51&area=US&vst=0" >
+                                你的浏览器不支持该播放器，建议使用chrome浏览器
+                            </video>
+                        </div>
+                        <span id="btn-play1" class="glyphicon glyphicon-play"></span>
+                    </div>
+                    <div style="position: relative">
+                        <div class="video-progress">
+                            <div id="full-time"></div>
+                            <div id="buffered-time"></div>
+                            <div id="current-time"></div>
+                            <span id="current-circle"></span>
+                        </div>
+                        <div class="set-bar">
+                            <span id="btn-play2" class="glyphicon glyphicon-play btn-set"></span>
+                            <span id="btn-time" class="btn-set">00:00/05:35</span>
+                            <span id="btn-full" class="glyphicon glyphicon-fullscreen btn-set"></span>
+                    <span id="btn-speed" class="btn-set">
+                        <span>1.00×</span>
+                        <ul class="btn-speed-ul">
+                            <li>0.50×</li>
+                            <li>0.75×</li>
+                            <li>1.00×</li>
+                            <li>1.25×</li>
+                            <li>1.50×</li>
+                            <li>2.00×</li>
+                        </ul>
+                    </span>
+                    <span id="btn-volume">
+                        <span id="btn-voice" class="glyphicon glyphicon-volume-up btn-set" style="width: 32px;"></span>
+                    <div class="volume-progress">
+                        <div id="full-volume"></div>
+                        <div id="current-volume"></div>
+                        <span id="current-volume-circle"></span>
+                    </div>
+                    </span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div  style="margin-top: 16px"></div>
-            <div class="main-column">
+            <div class="main-column ">
                 <h3>摄影展区</h3>
                 <div class="img-box">
                     <div class="img ">
@@ -132,19 +174,19 @@
                 </div>
                 <div class="img-box">
                     <img class="img" src="./images/huangshan1.jpg">
-                    <div class="img img-mask"><p>山不在高，有仙则灵</p><span>--2016.5.4</span></div>
+                    <div class="img img-mask"><p>山与海的交汇，让人迷离<br>黄山西海大峡谷</p><span>--2014.6.7</span></div>
                 </div>
                 <div class="img-box">
                     <img class="img" src="./images/xiamen2.jpg">
-                    <div class="img img-mask"><p>山不在高，有仙则灵</p><span>--2016.5.4</span></div>
+                    <div class="img img-mask"><p>梦之所起，梦之所终<br>厦门鼓浪屿</p><span>--2016.9.5</span></div>
                 </div>
                 <div class="img-box">
                     <img class="img" src="./images/shenzhen3.jpg">
-                    <div class="img img-mask"><p>山不在高，有仙则灵</p><span>--2016.5.4</span></div>
+                    <div class="img img-mask"><p>都市之外，藏有一片海<br>深圳西冲</p><span>--2014.12.12</span></div>
                 </div>
                 <div class="img-box">
                     <img class="img" src="./images/xiaoxiang5.jpg">
-                    <div class="img img-mask"><p>山不在高，有仙则灵</p><span>--2016.5.4</span></div>
+                    <div class="img img-mask"><p>过去的琐碎，活成今天的你<br>肖像</p><span>--2013.9.9</span></div>
                 </div>
                 <div class="img-box">
                     <div class="img ">
@@ -159,11 +201,11 @@
                 </div>
                 <div class="img-box">
                     <img class="img" src="./images/weiju7.jpg">
-                    <div class="img img-mask"><p>山不在高，有仙则灵</p><span>--2016.5.4</span></div>
+                    <div class="img img-mask"><p>小蜜蜂啊，飞到花丛中啊<br>家门前的茶花</p><span>--2015.2.19</span></div>
                 </div>
                 <div class="img-box">
                     <img class="img" src="./images/jietou8.jpg">
-                    <div class="img img-mask"><p>山不在高，有仙则灵</p><span>--2016.5.4</span></div>
+                    <div class="img img-mask"><p>一树杜鹃出墙来<br>深圳版画村</p><span>--2014.10.4</span></div>
                 </div>
                 <div class="img-box">
                     <div class="img ">
@@ -178,30 +220,49 @@
                 </div>
                 <div class="img-box">
                     <img class="img" src="./images/xiangda10.jpg">
-                    <div class="img img-mask"><p>山不在高，有仙则灵</p><span>--2016.5.4</span></div>
+                    <div class="img img-mask"><p>时光时光慢些吧<br>湘谭大学</p><span>--2014.6.1</span></div>
                 </div>
                 <div class="img-box">
                     <img class="img" src="./images/liuya11.jpg">
-                    <div class="img img-mask"><p>山不在高，有仙则灵</p><span>--2016.5.4</span></div>
+                    <div class="img img-mask"><p>人看风景，风景看人<br>亚哥</p><span>--2014.10.4</span></div>
                 </div>
                 <div class="img-box">
                     <img class="img" src="./images/daoying12.jpg">
-                    <div class="img img-mask"><p>山不在高，有仙则灵</p><span>--2016.5.4</span></div>
+                    <div class="img img-mask"><p>真实？虚幻？随心就好<br>小池塘倒影</p><span>--2016.3.3</span></div>
                 </div>
             </div>
             <div  style="margin-top: 16px"></div>
-            <div class="main-column">
-                <h3>设计模式之状态模式</h3>
-                <p>asfafsssssssssssssssssssssssssssssssssss</p>
+            <div class="main-column " >
+                <h3>知识拓展</h3>
+                <article style="padding-left: 16px;" class="ellipsis">
+                    <a style="color:#000000;cursor: pointer;"><h4>Angular2.0与之前版本有哪些新特性</h4></a>
+                    <P class="article">Angular 2.0版本当中，移除和替代了directives, controllers,modules, scopes，几乎移除了1.X版本里所有最重要的核心concepts。</P>
+                     <p class="article">Angular 2.0相比与之前的版本，简单来说主要有:</p>
+                        <ul>
+                            <li>对自身性能的优化</li>
+                            <li>对于Native Apps的支持</li>
+                            <li>服务器端渲染</li>
+                        </ul>
+
+                    <p class="article"><b>性能方面</b><br>
+                        如果你接触Angular 1.X 时间够长 ，你会知道每一个digest周期，Angular都会检查成千上百数值的变化，这样会拖慢整个框架的速度。Angular 2.0 采用React所使用的模型：one-way data flow 和 immutable data。根据以上的加强与优化，Angular2.0只需要更新一次数据，侦测数据的变化不再是数值本身而是迅速的检查object的reference。<br>
+                        <b>对Native Apps的支持</b><br>
+                        Angular 2.0对Native apps的支持和渲染是基于react native的。所以在Angular 2.0中你可以使用原生ios/android 的UI。<br>
+                        <b>服务器端渲染</b><br>
+                        现版本的Angular对SEO的支持很差，哪怕是添加第三方的package，仍然不是那么理想。所以增加对服务器端渲染的支持势在必行。Angular 2.0的服务器渲染使初始页面的读取时间大大缩短，同时提高对SEO的支持和优化。
+                        <a href="http://www.zhihu.com/question/26722922/answer/74705838">原文链接</a>
+                    </P>
+                </article>
             </div>
         </div>
         <div class="col-lg-4" >
             <div class="aside-column">
                 <h3>MyProject</h3>
                 <div class="stage">
-                    <a href="canvas之五子棋.html" target="_blank" class="tag">canvas五子棋</a>
-                    <a href="javascript:;" target="_blank" class="tag">电商瀑布流</a>
-                    <a href="javascript:;" target="_blank" class="tag">多线程动画</a>
+                    <a href="canvas之五子棋.html" target="_blank" class="tag">canvas棋牌游戏</a>
+                    <a href="javascript:;" target="_blank" class="tag">Angular抢票大作战</a>
+                    <a href="javascript:;" target="_blank" class="tag">电商网站架构</a>
+                    <a href="javascript:;" target="_blank" class="tag">html5广告</a>
                     <a href="javascript:;" target="_blank" class="tag">云多媒体播放器</a>
                 </div>
             </div>
@@ -209,22 +270,20 @@
                 <h3>Markdown</h3>
                 <div class="stage">
                     <a href="javascript:;"  class="tag">github的多种运用</a>
-                    <a href="javascript:;"  class="tag">网站架构</a>
-                    <a href="javascript:;"  class="tag">逻辑算法优化</a>
-                    <a href="javascript:;"  class="tag">响应式布局</a>
-                    <a href="javascript:;"  class="tag">设计模式</a>
+                    <a href="javascript:;"  class="tag">离散数学应用</a>
+                    <a href="javascript:;"  class="tag">响应式布局核心</a>
+                    <a href="javascript:;"  class="tag">javascript设计模式</a>
                     <a href="javascript:;"  class="tag">AngularJS</a>
                     <a href="javascript:;"  class="tag">React JS</a>
+                    <a href="javascript:;"  class="tag">Node JS</a>
                 </div>
             </div>
             <div class="aside-column">
                 <h3>更新动态</h3>
                 <div class="stage">
-                    <a href="javascript:;"  class="update_link">离散数学及其应用</a>
-                    <a href="javascript:;"  class="update_link">逻辑算法优化</a>
-                    <a href="javascript:;"  class="update_link">设计模式之状态模式</a>
-                    <a href="javascript:;"  class="update_link">AngularJS的优点</a>
-                    <a href="javascript:;"  class="update_link">初识React JS</a>
+                    <a href="javascript:;"  class="update_link">Angular2.0与之前版本有哪些新特性</a>
+                    <a href="javascript:;"  class="update_link">设计模式之状态模式的优点</a>
+                    <a href="javascript:;"  class="update_link">用Angular开发web应用</a>
                 </div>
             </div>
         </div>
