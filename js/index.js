@@ -9,7 +9,7 @@ window.onload=function(){
 window.onresize=function(){
     getImageResize();
 };
-videoPlayer();
+getImageResize();
 function getImageResize(){
     var imgbox=$(".img-box");
     var imgwidth=imgbox.eq(0).width();
@@ -58,10 +58,6 @@ function videoPlayer(){
     var btn_voice=$("#btn-voice");
     var video_mask=$(".video-mask");
 
-    window.onresize=function(){
-        updateProgress();
-        getVideoResize();
-    };
     myVideo.onresize=function (){
         getVideoResize();
         updateProgress();
