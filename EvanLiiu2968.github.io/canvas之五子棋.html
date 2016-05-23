@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>人机大战之五子棋</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href=" ./favicon.ico" />
+    <script type="text/javascript" src="./js/jquery-2.2.3.min.js"></script>
+</head>
+
+<body>
+<style>
+    *{margin: 0 ;padding: 0;text-decoration: none;}
+    body{background-color: #e2e2e2; }
+    header{
+        position: fixed;
+        font-family:"微软雅黑";
+        top: 0;
+        width: 100%;
+        height: 48px;
+        background-color:#515151;
+        z-index: 99;}
+    .box{margin: 0 auto}
+    .fixed-header{width: 1200px;height: 48px;line-height: 48px;vertical-align: middle;}
+    .logo{
+        display: inline-block;
+        float: left;
+        height: 100%;
+        cursor: pointer;
+    }
+    .logo:hover{background-color:#333333;}
+    .logo img{
+        width:48px;
+        height:48px;
+        float: left;
+        border-radius: 50%;
+    }
+    .logo img:hover{
+        opacity: 0.6;
+    }
+    .logo h1{
+        display: inline-block;
+        margin:0px 32px ;
+        font-size: 24px;
+        color: #ffffff;
+    }
+    .fixed-header nav a{
+        display: inline-block;
+        height: 100%;
+        width: 100px;
+        color: #222222;
+        text-align: center;
+        font-weight: 300;
+        text-decoration: none;
+        cursor: pointer;}
+    .fixed-header nav a:hover{color: #61bb51;background-color:#333333;}
+    /*以上为固定导航栏*/
+    .chess_game{
+        position: relative;
+        margin: 48px auto;
+        width: 1200px;
+    }
+    canvas:nth-child(1){
+        margin: 0 auto;
+        display: block;
+        float: left;
+        cursor: pointer;
+        border-radius: 5px;
+        box-shadow: 3px 3px 5px  black;
+    }
+    canvas:nth-child(2){position: absolute;left: 0px;top: 0px;cursor: pointer;}
+    .result{
+        position: absolute;
+        width: 400px;
+        height: 300px;
+        background-color: #ece6e1;
+        border-radius: 5px;
+        font-family: "新宋体";
+        visibility: hidden;
+    }
+    .result h1{
+        height:48px;background: #e65e55;border-radius: 5px 5px 0 0;visibility: inherit;
+    }
+    .alpha {
+        font-size: 32px;color: #333333;padding: 16px;visibility: inherit;
+    }
+    .result button{
+        border-style: none;
+        position: relative;
+        font-size: 16px;
+        margin-top: 48px;margin-left: 80px;
+        width: 80px;
+        height:40px;background: #e65e55;
+        border-radius: 5px;
+        cursor: pointer;
+        visibility: inherit;
+    }
+</style>
+<header >
+    <div id="fix-header" class="fixed-header box">
+        <div class="logo">
+            <img src="images/mao.jpg" >
+            <h1><a>捕风捉影</a></h1>
+        </div>
+        <div>
+            <nav id="fixed_nav">
+                <a href="https://github.com/EvanLiu2968">GitHub</a>
+                <a href="https://www.gitbook.com/@evanliu2968">GitBook</a>
+                <a href="http://evanliu2968.github.io/">Blog</a>
+                <a type="mail" href="javascript:;">Mail</a>
+                <a href="javascript:;">More</a>
+            </nav>
+        </div>
+    </div>
+</header>
+<div class="chess_game">
+    <canvas id="chess" width="1200" height="600">您的浏览器out啦！建议使用使用谷歌浏览器</canvas>
+    <canvas id="animate" width="1200" height="600"><br>weibo:@绰号杀手</canvas>
+</div>
+
+<div class="result">
+    <h1></h1>
+    <div class="alpha"></div>
+    <button id="reset">重新挑战</button>
+    <button id="hidden">观看棋盘</button>
+</div>
+
+<script>
+    var chess=document.getElementById("chess");
+    var c=chess.getContext("2d");             //获取上下文
+    var animate=document.getElementById("animate");
+    var a=animate.getContext("2d");             //获取上下文
+    var clientwidth=document.documentElement.clientWidth;
+    var clientheight=document.documentElement.clientHeight;
+    var result=$(".result");                  //置中结果页；
+    result.css({left:(clientwidth-400)/2+"px",top:(clientheight-300)/2+"px"});
+    var resetbtn=$("#reset");
+    var hiddenbtn=$("#hidden");
+    var alpha=$(".alpha");
+    resetbtn.bind("click",function(){
+        result.css("visibility","hidden");
+        location.reload();
+    });
+    hiddenbtn.bind("click",function(){
+        result.css("visibility","hidden");
+    });
+    var backimage=new Image();               //创建背景
+    backimage.src="./images/board.jpg";
+    backimage.onload=function(){             //加载背景
+        c.drawImage(backimage,0,0,1200,600);  //绘制背景
+        drawChessBoard();                     //绘制棋盘
+        drawTaiJi(c,200,300,150,"#000000",Math.PI); //绘制太极
+        drawTaiJi(c,1000,300,150,"#ffffff",0);
+        drawChessPiece(c,200,225,false);      //绘制太极棋眼
+        drawChessPiece(c,1000,375,true);
+        c.font="bolder 50px 宋体";
+        c.fillText("Player",950,540);
+        c.fillStyle="#ffffff";
+        c.fillText("AlphaDog",50,540);
+        reset();
+    };
+    var chessBoard=[];       //将落子坐标化，创建棋盘二维数组；
+    var me;             //设定第一步为me落棋，即黑子
+    var over;
+    var flash=false;
+    var x, y,t=500;              //定义画布坐标，animation时间；
+    function reset(){           //重置棋盘；
+        for (var i= 0;i<15;i+=1){
+            chessBoard[i]=[];
+            for (var j=0;j<15;j+=1){
+                chessBoard[i][j]=0;  //遍历数组，值初始化为0；
+            }
+        }
+        a.clearRect(0,0,1200,600);
+        me=true;             //设定第一步为me落棋，即黑子
+        over=false;
+    }
+
+    var wins=[];              //创建赢法三维数组；
+    for (var i= 0;i<15;i+=1){
+        wins[i]=[];
+        for (var j=0;j<15;j+=1){
+            wins[i][j]=[];
+        }
+    }
+    var count = 0;
+    for (var i= 0;i<15;i+=1){    //遍历横向赢法数组
+        for (var j=0;j<11;j+=1){
+            for (var k=0;k<5;k+=1){
+                wins[i][j+k][count]=true;
+            }
+            count++;
+        }
+    }
+    for (var i= 0;i<15;i+=1){   //遍历纵向赢法数组
+        for (var j=0;j<11;j+=1){
+            for (var k=0;k<5;k+=1){
+                wins[j+k][i][count]=true;
+            }
+            count++;
+        }
+    }
+    for (var i= 0;i<11;i+=1){   //遍历反斜向赢法数组
+        for (var j=0;j<11;j+=1){
+            for (var k=0;k<5;k+=1){
+                wins[i+k][j+k][count]=true;
+            }
+            count++;
+        }
+    }
+    for (var i= 4;i<15;i+=1){  //遍历斜向赢法数组
+        for (var j=0;j<11;j+=1){
+            for (var k=0;k<5;k+=1){
+                wins[i-k][j+k][count]=true;
+            }
+            count++;
+        }
+    }
+    var myWin=[];
+    var computerWin=[];
+    for(var i=0;i<count;i++){  //初始化数组；
+        myWin[i]=0;
+        computerWin[i]=0
+    }
+
+
+    function drawChessBoard() {  //定义绘制棋盘函数
+        c.strokeStyle="#454545";
+        c.lineWidth=1;
+        for(var i=0;i<15;i+=1){
+            c.moveTo(320+i*40,20);
+            c.lineTo(320+i*40,580);
+            c.stroke();
+            c.moveTo(320,20+i*40);
+            c.lineTo(880,20+i*40);
+            c.stroke();
+        }
+    }
+
+    function oneStep(i,j,me){      //定义落子函数；
+        c.beginPath();
+        c.arc(320+i*40,20+j*40,15,0,Math.PI*2);
+        c.closePath();
+        var gradient= c.createRadialGradient(320+i*40,20+j*40,10,320+i*40+2,20+j*40-2,0);//创建圆形渐变，两个圆之间为渐变区域；
+        if(me){                      //绘制黑棋；
+            gradient.addColorStop(0,"#0a0a0a"); // gradient.addColorStop(0.3,"blue"); 可以在渐变区域渐变多种颜色；
+            gradient.addColorStop(1,"#636363");
+        }
+        else{                        //绘制白棋；
+            gradient.addColorStop(0,"#e1e1e1");
+            gradient.addColorStop(1,"#f1f1f1");
+        }
+        c.fillStyle=gradient;
+        setTimeout(function(){    //延迟落子，时间为动画时间；
+            c.fill();flash=false;
+        },500);
+    }
+
+    animate.onclick=function(e){      //定义棋盘点击落子事件
+        if(over){
+            return;
+        }
+        if(!me){
+            return;
+        }
+        if(flash){
+            return
+        }
+        var x = e.offsetX;       //用offset方法获取屏幕点与canvas元素原点的相对坐标；
+        var y = e.offsetY;
+        var i=Math.floor(x/40-7.5);       //向下取整；完整算法为：（x-边距+棋格宽度/2）/40，此处边距等于320,棋格40；
+        var j=Math.floor(y/40);
+        if(chessBoard[i][j]==0) {     //判断当前位置是否有棋子，无则执行落棋
+            var m=i*40+320;                 //计算计算落子的坐标
+            var n=j*40+20;
+            animation(m,n,me);              //执行落子动画；
+            flash=true;
+            oneStep(i,j,me);    //落子；
+            chessBoard[i][j]=1; //设定黑子位置为1；
+            for(var k=0;k<count;k++){
+                if(wins[i][j][k]){
+                    myWin[k]++;
+                    computerWin[k]=6;
+                    if(myWin[k]==5){
+                        alpha.append("<p>AlphaDog：<br>放学别走，让我大哥AlphaGo来教你做人！</p>");
+                        result.css("visibility","visible");
+                        over=true;
+                    }
+                }
+            }
+            if(!over){
+                me = !me;                 //将me取反为false,对方落子；
+                setTimeout(computerAI,500); //延迟电脑落子500毫秒；
+            }
+        }
+    }
+    function computerAI(){            //定义计算机智能落子函数；
+        var myScore=[];
+        var computerScore=[];
+        var max=0;
+        var u= 0,v=0;
+        for(var i=0;i<15;i++){
+            myScore[i]=[];
+            computerScore[i]=[];
+            for(var j=0;j<15;j++){
+                myScore[i][j]=0;
+                computerScore[i][j]=0;
+            }
+        }
+        for (var i= 0;i<15;i+=1){
+            for (var j=0;j<15;j+=1){
+                if(chessBoard[i][j]==0){
+                    for(var k=0;k<count;k++){
+                        if(wins[i][j][k]){
+                            if(myWin[k]==1){
+                                myScore[i][j]+=200;
+                            }else if(myWin[k]==2){
+                                myScore[i][j]+=400;
+                            }else if(myWin[k]==3){
+                                myScore[i][j]+=2000;
+                            }else if(myWin[k]==4){
+                                myScore[i][j]+=10000;
+                            }
+                            if(computerWin[k]==1){
+                                computerScore[i][j]+=210;
+                            }else if(computerWin[k]==2){
+                                computerScore[i][j]+=420;
+                            }else if(computerWin[k]==3){
+                                computerScore[i][j]+=2400;
+                            }else if(computerWin[k]==4){
+                                computerScore[i][j]+=20000;
+                            }
+                        }
+                    }
+                    if(myScore[i][j]>max){
+                        max=myScore[i][j];
+                        u=i;
+                        v=j;
+                    }else if(myScore[i][j]==max){
+                        if(computerScore[i][j]>computerScore[u][v]){
+                            u=i;
+                            v=j;
+                        }
+                    }
+                    if(computerScore[i][j]>max){
+                        max=computerScore[i][j];
+                        u=i;
+                        v=j;
+                    }else if(computerScore[i][j]==max){
+                        if(myScore[i][j]>myScore[u][v]){
+                            u=i;
+                            v=j;
+                        }
+                    }
+                }
+            }
+        }
+        var m=u*40+320;                 //计算计算落子的坐标
+        var n=v*40+20;
+        animation(m,n,me);              //执行落子动画；
+        flash=true;
+        oneStep(u,v,me);      //在分数最高的位置落子；
+        chessBoard[u][v]=2;       //设定白子位置为2；
+        for(var k=0;k<count;k++){
+            if(wins[u][v][k]){
+                computerWin[k]++;
+                myWin[k]=6;
+                if(computerWin[k]==5){
+                    alpha.append("<p>AlphaDog：<br>回去多练练吧，毕竟我的大哥是AlphaGo！</p>");
+                    result.css("visibility","visible");
+                    over=true;
+                }
+            }
+        }
+        if(!over){
+            me=!me;
+        }
+    }
+
+</script>
+<script>
+    function drawTaiJi(context,x,y,r,color,deg){ //定义绘制太极图函数，参数为上下文id，x/y坐标,半径，颜色，角度；
+        context.save();           //保存状态
+        context.translate(x,y);   //设置画布旋转的中心点
+        context.rotate(deg);
+        context.translate(-x,-y); //
+        context.shadowColor="rgba(10,10,10,0.5)"; //阴影颜色
+        context.shadowOffsetX=context.shadowOffsetY=5;  //阴影方向
+        context.shadowBlur=5;  //高斯值
+        context.fillStyle=color;
+        context.beginPath();
+        context.arc(x,y,r,Math.PI*1.5,Math.PI*0.5);
+        context.arc(x,y+r/2,r/2,Math.PI*0.5,Math.PI*1.5);
+        context.arc(x,y-r/2,r/2,Math.PI*0.5,Math.PI*1.5,true);  //默认顺时针，值为false；逆时针为true；
+        context.lineJoin="round";
+        context.closePath();
+        context.fill();
+        context.shadowColor="rgba(10,10,10,0)";  //初始化阴影颜色
+        context.restore();         //恢复状态；
+    }
+    function drawChessPiece(context,x,y,color){     //绘制棋子函数
+        context.beginPath();
+        context.arc(x,y,15,0,2*Math.PI);
+        context.closePath();
+        var gradient= c.createRadialGradient(x,y,10,x+2,y-2,0);//创建圆形渐变，两个圆之间为渐变区域；
+        if(color){                      //绘制黑棋；
+            gradient.addColorStop(0,"#0a0a0a");
+            gradient.addColorStop(1,"#636363");
+        }
+        else{                                 //绘制白棋；
+            gradient.addColorStop(0,"#e1e1e1");
+            gradient.addColorStop(1,"#f1f1f1");
+        }
+        context.fillStyle=gradient;
+        context.fill();
+    }
+    function animation(i,j,me){              //棋子落子时的动画函数；
+        if(me){                               //判断哪方落子
+            var sx=(1000-i)/10;              //将两点之间x轴、y轴分别分成10段
+            var sy=(375-j)/10;
+            var k=1;
+            timer();
+            function timer() {
+                if (k< 11) {
+                    a.clearRect(0,0,1200,600);
+//                    c.globalAlpha=1; //绘制像素的透明度；
+
+                    drawChessPiece(a, 1000 - sx*k, 375 - sy*k, true); //绘制十次棋子
+                    k++;
+                    setTimeout(timer, 50);
+                }
+            }
+        }else {                           //白子落子；
+            var sx=(200-i)/10;
+            var sy=(225-j)/10;
+            var k=1;
+            timer();
+            function timer() {
+                if (k< 11) {
+                    a.clearRect(0,0,1200,600);   //清除画布；
+                    drawChessPiece(a, 200 - sx*k, 225 - sy*k, false); //绘制十次棋子
+                    k++;
+                    setTimeout(timer, 50);
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

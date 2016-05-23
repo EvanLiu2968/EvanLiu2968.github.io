@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular2.0与之前版本有哪些新特性</title>
+    <meta name="keyword" content="github pages 个人网站">
+    <meta name="author" content="EvanLiu 刘中泉">
+    <meta name="description" content="个人博客，html5，css3">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href=" ../favicon.ico" />
+    <link rel="stylesheet" media="screen" href="../dist/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="../css/article_masterplate.css">
+</head>
+    <script type="text/javascript" src="../js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="../dist/js/bootstrap.min.js"></script>
+<body>
+<header class="header" >
+    <div class="container">
+        <div class="logo">
+            <img src="../images/mao.jpg" class="logo-img">
+            <a href="http://evanliu2968.github.io/" class="logo-txt" >捕风捉影</a>
+        </div>
+        <div class="th-list-ctrl" style="z-index: 100;">
+            <span class="glyphicon glyphicon-th-list " style="z-index: 100;"></span>
+            <nav class="xs-nav">
+                <a class="btn" href="https://github.com/EvanLiu2968" target="_blank">GitHub</a>
+                <a class="btn " href="http://evanliu2968.github.io/" target="_blank">Blog</a>
+                <a class="btn " href="http://weibo.com/rockmist " target="_blank">weibo</a>
+                <a class="btn"  href="http://mail.qq.com" target="_blank">Mail</a>
+                <a class="btn hover-btn" data-content="下方有微信二维码扫描哦" >More
+                    <div class="hover-tips"><img src="../images/weixin.png" alt="微信二维码" ><p>扫描微信二维码</p></div>
+                </a>
+        </nav>
+        </div>
+        <nav class="nav">
+                <a class="btn" href="https://github.com/EvanLiu2968" target="_blank">GitHub</a>
+                <a class="btn " href="http://evanliu2968.github.io/" target="_blank">Blog</a>
+                <a class="btn " href="http://weibo.com/rockmist " target="_blank">weibo</a>
+                <a class="btn"  href="http://mail.qq.com" target="_blank">Mail</a>
+                <a class="btn hover-btn" data-content="下方有微信二维码扫描哦" >More
+                    <div class="hover-tips"><img src="../images/weixin.png" alt="微信二维码" ><p>扫描微信二维码</p></div>
+                </a>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div>
+        <iframe width="100%" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=5"></iframe>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <article style="padding-left: 16px;" >
+                <h2>Angular2.0与之前版本有哪些新特性</h2>
+                <div>
+                    <span>作者</span>
+                    <a style="margin: 0 32px 0 8px;text-decoration:none" >EvanLiu</a>
+                    <span>最后编辑于 2016.05.02 16:55</span>
+                </div>
+                <P class="article">Angular 2.0版本当中，移除和替代了directives, controllers,modules, scopes，几乎移除了1.X版本里所有最重要的核心concepts。</P>
+                <p class="article">
+                    Angular 2.0相比与之前的版本，简单来说主要有:
+                    <ul>
+                        <li>对自身性能的优化</li>
+                        <li>对于Native Apps的支持</li>
+                        <li>服务器端渲染</li>
+                    </ul>
+                </p>
+                <p class="article">
+                    <b>性能方面</b><br>
+                    如果你接触Angular 1.X 时间够长 ，你会知道每一个digest周期，Angular都会检查成千上百数值的变化，这样会拖慢整个框架的速度。Angular 2.0 采用React所使用的模型：one-way data flow 和 immutable data。根据以上的加强与优化，Angular2.0只需要更新一次数据，侦测数据的变化不再是数值本身而是迅速的检查object的reference。<br>
+                    <b>对Native Apps的支持</b><br>
+                    Angular 2.0对Native apps的支持和渲染是基于react native的。所以在Angular 2.0中你可以使用原生ios/android 的UI。<br>
+                    <b>服务器端渲染</b><br>
+                    现版本的Angular对SEO的支持很差，哪怕是添加第三方的package，仍然不是那么理想。所以增加对服务器端渲染的支持势在必行。Angular 2.0的服务器渲染使初始页面的读取时间大大缩短，同时提高对SEO的支持和优化。
+                    <a href="http://www.zhihu.com/question/26722922/answer/74705838">原文链接</a>
+
+
+                </P>
+            </article>
+        </div>
+        <div class="visible-lg col-lg-4">
+            <div>
+                <h3>目录</h3>
+                <dl style="list-style: none">
+                    <dt><a href="#">性能方面</a></dt>
+                    <dt><a href="#">对Native Apps的支持</a></dt>
+                    <dt><a href="#">服务器端渲染</a></dt>
+                    <dt><a href="#">...</a></dt>
+                    <dt><a href="#">...</a></dt>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</div>
+<footer>
+    <div class="container">
+        <ul class="list-inline text-center">
+            <li><a href=https://github.com/EvanLiu2968>GitHub</a></li>
+            <li><a href=http://weibo.com/rockmist >微博</a></li>
+            <li><a href="http://mail.qq.com">邮箱</a></li>
+            <li><a href="">关于</a></li>
+        </ul>
+        <p class="text-center">Designed and built with all the love in the world by
+            <a href=http://weibo.com/rockmist target=_blank>@绰号杀手</a></p>
+        <p class="text-center">@copyright 2016 ，version 1.0.0</p>
+    </div>
+</footer>
+</body>
+</html>
