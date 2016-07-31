@@ -2,22 +2,22 @@
  * Created by Administrator on 2016/5/4.
  */
 window.onload=function(){
-    getTime();
     getImageResize();
     videoPlayer();
 };
-//var body=document
-
 
 window.onresize=function(){
     getImageResize();
 };
+
+getTime();
 
 function getImageResize(){
     var imgbox=$(".img-box");
     var imgwidth=imgbox.eq(0).width();
     imgbox.css("height",imgwidth+"px");
 }
+
 function getTime(){
     var time=new Date();
     var y=time.getFullYear();

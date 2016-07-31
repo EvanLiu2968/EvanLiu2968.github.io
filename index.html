@@ -8,83 +8,31 @@
     <meta name="description" content="个人博客，html5，css3">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href=" ./favicon.ico" />
-    <link rel="stylesheet" media="screen" href="./dist/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="./lib/bootstrap-3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="./css/header_footer.css">
     <link rel="stylesheet" media="screen" href="./css/index.css">
 </head>
-    <script type="text/javascript" src="./js/jquery-2.2.3.min.js"></script>
-    <script type="text/javascript" src="./dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./js/index.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=kO4BW1FKYzI97bzjZizusV63ZXBFNcyp">
-    //v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
-    //v1.4版本及以前版本的引用方式：src="http://api.map.baidu.com/api?v=1.4&key=您的密钥&callback=initialize"
-    </script>
-    <script>
-        $('.carousel').carousel();
 
-        if(navigator.geolocation){
-        	navigator.geolocation.getCurrentPosition(showPosition,showError);
-        }
-        function showPosition(position){
-        	console.log("纬度是："+position.coordinates.latitude)
-        	console.log("经度是："+position.coordinates.longitude)
-        }
-        function showError(error){
-			switch(error.code){
-				case error.PERMISSION_DENIED:
-		  		  console.log("User denied the request for Geolocation.")
-		  		  break;
-				case error.POSITION_UNAVAILABLE:
-				  console.log("Location information is unavailable.")
-				  break;
-				case error.TIMEOUT:
-				  console.log("The request to get user location timed out.")
-				  break;
-				case error.UNKNOWN_ERROR:
-				  console.log("An unknown error occurred.")
-				  break;
-			}
-		}
-        $(function(){
-            var map = new BMap.Map("bd_map");          // 创建地图实例
-            var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
-            map.centerAndZoom(point, 15);// 初始化地图，设置中心点坐标和地图级别
-            map.addControl(new BMap.NavigationControl());
-            map.addControl(new BMap.ScaleControl());
-            map.addControl(new BMap.OverviewMapControl());
-            map.addControl(new BMap.MapTypeControl());
-            map.setCurrentCity("广州"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
-        });
-    </script>
 <body>
+<!--导航栏-->
 <header class="header" >
     <div class="container">
         <div class="logo">
-            <img src="images/mao.jpg" class="logo-img">
-            <a href="http://evanliu2968.github.io/" class="logo-txt" >捕风捉影</a>
+            <img src="images/mao.jpg" class="logo-img pull-left">
+            <a href="http://evanliu2968.github.io/" class="logo-txt pull-left" >捕风捉影</a>
         </div>
-        <div class="th-list-ctrl" style="z-index: 100;">
-        	<span class="glyphicon glyphicon-th-list " style="z-index: 100;"></span>
-        	<nav class="xs-nav">
-                <a class="btn" href="https://github.com/EvanLiu2968" target="_blank">GitHub</a>
-                <a class="btn " href="http://evanliu2968.github.io/" target="_blank">Blog</a>
-                <a class="btn " href="http://weibo.com/rockmist " target="_blank">weibo</a>
-                <a class="btn"  href="http://mail.qq.com" target="_blank">Mail</a>
-                <a class="btn hover-btn" data-content="下方有微信二维码扫描哦" >More
-                    <div class="hover-tips"><img src="./images/weixin.png" alt="微信二维码" ><p>扫描微信二维码</p></div>
-                </a>
-        </nav>
-    	</div>
     	<nav class="nav">
-                <a class="btn" href="https://github.com/EvanLiu2968" target="_blank">GitHub</a>
-                <a class="btn " href="http://evanliu2968.github.io/" target="_blank">Blog</a>
-                <a class="btn " href="http://weibo.com/rockmist " target="_blank">weibo</a>
-                <a class="btn"  href="http://mail.qq.com" target="_blank">Mail</a>
-                <a class="btn hover-btn" data-content="下方有微信二维码扫描哦" >More
-                    <div class="hover-tips"><img src="./images/weixin.png" alt="微信二维码" ><p>扫描微信二维码</p></div>
-                </a>
+            <a class="btn" href="https://github.com/EvanLiu2968" target="_blank">GitHub</a>
+            <a class="btn " href="http://evanliu2968.github.io/" target="_blank">Blog</a>
+            <a class="btn " href="http://weibo.com/rockmist " target="_blank">weibo</a>
+            <a class="btn"  href="http://mail.qq.com" target="_blank">Mail</a>
+            <a class="btn hover-btn" data-content="下方有微信二维码扫描哦" >More
+                <div class="hover-tips"><img src="./images/weixin.png" alt="微信二维码" ><p>扫描微信二维码</p></div>
+            </a>
         </nav>
     </div>
 </header>
+
 <div class="container">
     <div class="row ">
         <div  style="margin-top: 16px"></div>
@@ -189,6 +137,7 @@
         </div>
     </div>
 </div>
+
 <div class="container">
     <div  style="margin-top: 16px"></div>
     <div class="row">
@@ -341,45 +290,35 @@
         </div>
         <div class="col-lg-4" >
             <div class="aside-column">
-                <h3>MyProject</h3>
+                <h3 class="column-title">沙堡手札</h3>
                 <div class="stage">
-                    <a href="canvas之五子棋.html" target="_blank" class="tag">canvas棋牌游戏</a>
-                    <a href="javascript:;" target="_blank" class="tag">Angular抢票大作战</a>
-                    <a href="javascript:;" target="_blank" class="tag">电商网站架构</a>
-                    <a href="javascript:;" target="_blank" class="tag">html5广告</a>
-                    <a href="#video-player" target="" class="tag">云多媒体播放器</a>
+                    <a href="./pages/canvas_five_chess.html" target="_blank" class="tag tag-blue">canvas之五子棋</a>
+                    <a href="https://EvanLiu2968.github.io/ionic-weixin" target="_blank" class="tag tag-pink">Angular之我的微信</a>
+                    <a href="./pages/public_search.html" target="_blank" class="tag tag-yellow">公共信息查询服务</a>
+                    <a href="javascript:;" target="_blank" class="tag tag-green">H5之我要回家</a>
+                    <a href="#video-player" target="" class="tag tag-red">云媒体播放器</a>
                 </div>
             </div>
             <div class="aside-column">
-                <h3>Markdown</h3>
+                <h3 class="column-title">更新动态</h3>
                 <div class="stage">
-                    <a href="javascript:;"  class="tag">github的多种运用</a>
-                    <a href="javascript:;"  class="tag">离散数学应用</a>
-                    <a href="javascript:;"  class="tag">响应式布局核心</a>
-                    <a href="javascript:;"  class="tag">javascript设计模式</a>
-                    <a href="javascript:;"  class="tag">AngularJS</a>
-                    <a href="javascript:;"  class="tag">React JS</a>
-                    <a href="javascript:;"  class="tag">Node JS</a>
-                </div>
-            </div>
-            <div class="aside-column">
-                <h3>更新动态</h3>
-                <div class="stage">
+                    <a href="javascript:;"  class="update_link">Css、Js编写规范</a>
                     <a href="./pages/20160502.html"  class="update_link">Angular2.0与之前版本有哪些新特性</a>
-                    <a href="javascript:;"  class="update_link">设计模式之状态模式的优点</a>
-                    <a href="javascript:;"  class="update_link">用Angular开发web应用</a>
+                    <a href="javascript:;"  class="update_link">Angular Directive命令详解</a>
+                    <a href="javascript:;"  class="update_link">ionic实践，angular+cordova+ionic三剑客</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <footer >
     <div class="container">
         <ul class="list-inline text-center">
             <li><a href=https://github.com/EvanLiu2968>GitHub</a></li>
             <li><a href=http://weibo.com/rockmist >微博</a></li>
             <li><a href="http://mail.qq.com">邮箱</a></li>
-            <li><a href="#book">关于</a></li>
+            <li><a href="#">关于</a></li>
         </ul>
         <p class="text-center">Designed and built with all the love in the world by
             <a href=http://weibo.com/rockmist target=_blank>@绰号杀手</a></p>
@@ -387,4 +326,49 @@
     </div>
 </footer>
 </body>
+
+<script type="text/javascript" src="./lib/jquery/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="./lib/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=kO4BW1FKYzI97bzjZizusV63ZXBFNcyp">
+    //v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
+    //v1.4版本及以前版本的引用方式：src="http://api.map.baidu.com/api?v=1.4&key=您的密钥&callback=initialize"
+</script>
+<script>
+    $('.carousel').carousel();
+
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showPosition,showError);
+    }
+    function showPosition(position){
+        console.log("纬度是："+position.coordinates.latitude)
+        console.log("经度是："+position.coordinates.longitude)
+    }
+    function showError(error){
+        switch(error.code){
+            case error.PERMISSION_DENIED:
+                console.log("User denied the request for Geolocation.")
+                break;
+            case error.POSITION_UNAVAILABLE:
+                console.log("Location information is unavailable.")
+                break;
+            case error.TIMEOUT:
+                console.log("The request to get user location timed out.")
+                break;
+            case error.UNKNOWN_ERROR:
+                console.log("An unknown error occurred.")
+                break;
+        }
+    }
+    $(function(){
+        var map = new BMap.Map("bd_map");          // 创建地图实例
+        var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
+        map.centerAndZoom(point, 15);// 初始化地图，设置中心点坐标和地图级别
+        map.addControl(new BMap.NavigationControl());
+        map.addControl(new BMap.ScaleControl());
+        map.addControl(new BMap.OverviewMapControl());
+        map.addControl(new BMap.MapTypeControl());
+        map.setCurrentCity("广州"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+    });
+</script>
 </html>

@@ -4,57 +4,13 @@
     <meta charset="utf-8">
     <title>人机大战之五子棋</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href=" ./favicon.ico" />
-    <script type="text/javascript" src="./js/jquery-2.2.3.min.js"></script>
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <link rel="stylesheet" media="screen" href="../lib/bootstrap-3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="../css/header_footer.css">
 </head>
-
-<body>
 <style>
     *{margin: 0 ;padding: 0;text-decoration: none;}
     body{background-color: #e2e2e2; }
-    header{
-        position: fixed;
-        font-family:"微软雅黑";
-        top: 0;
-        width: 100%;
-        height: 48px;
-        background-color:#515151;
-        z-index: 99;}
-    .box{margin: 0 auto}
-    .fixed-header{width: 1200px;height: 48px;line-height: 48px;vertical-align: middle;}
-    .logo{
-        display: inline-block;
-        float: left;
-        height: 100%;
-        cursor: pointer;
-    }
-    .logo:hover{background-color:#333333;}
-    .logo img{
-        width:48px;
-        height:48px;
-        float: left;
-        border-radius: 50%;
-    }
-    .logo img:hover{
-        opacity: 0.6;
-    }
-    .logo h1{
-        display: inline-block;
-        margin:0px 32px ;
-        font-size: 24px;
-        color: #ffffff;
-    }
-    .fixed-header nav a{
-        display: inline-block;
-        height: 100%;
-        width: 100px;
-        color: #222222;
-        text-align: center;
-        font-weight: 300;
-        text-decoration: none;
-        cursor: pointer;}
-    .fixed-header nav a:hover{color: #61bb51;background-color:#333333;}
-    /*以上为固定导航栏*/
     .chess_game{
         position: relative;
         margin: 48px auto;
@@ -68,7 +24,7 @@
         border-radius: 5px;
         box-shadow: 3px 3px 5px  black;
     }
-    canvas:nth-child(2){position: absolute;left: 0px;top: 0px;cursor: pointer;}
+    canvas:nth-child(2){position: absolute;left: 0;top: 0;cursor: pointer;}
     .result{
         position: absolute;
         width: 400px;
@@ -96,35 +52,39 @@
         visibility: inherit;
     }
 </style>
-<header >
-    <div id="fix-header" class="fixed-header box">
+
+<body>
+<!--导航栏-->
+<header class="header" >
+    <div class="container">
         <div class="logo">
-            <img src="images/mao.jpg" >
-            <h1><a>捕风捉影</a></h1>
+            <img src="../images/mao.jpg" class="logo-img pull-left">
+            <a href="http://evanliu2968.github.io/" class="logo-txt pull-left" >捕风捉影</a>
         </div>
-        <div>
-            <nav id="fixed_nav">
-                <a href="https://github.com/EvanLiu2968">GitHub</a>
-                <a href="https://www.gitbook.com/@evanliu2968">GitBook</a>
-                <a href="http://evanliu2968.github.io/">Blog</a>
-                <a type="mail" href="javascript:;">Mail</a>
-                <a href="javascript:;">More</a>
-            </nav>
-        </div>
+        <nav class="nav">
+            <a class="btn" href="https://github.com/EvanLiu2968" target="_blank">GitHub</a>
+            <a class="btn " href="http://evanliu2968.github.io/" target="_blank">Blog</a>
+            <a class="btn " href="http://weibo.com/rockmist " target="_blank">weibo</a>
+            <a class="btn"  href="http://mail.qq.com" target="_blank">Mail</a>
+            <a class="btn hover-btn" data-content="下方有微信二维码扫描哦" >More
+                <div class="hover-tips"><img src="../images/weixin.png" alt="微信二维码" ><p>扫描微信二维码</p></div>
+            </a>
+        </nav>
     </div>
 </header>
+
 <div class="chess_game">
     <canvas id="chess" width="1200" height="600">您的浏览器out啦！建议使用使用谷歌浏览器</canvas>
     <canvas id="animate" width="1200" height="600"><br>weibo:@绰号杀手</canvas>
 </div>
-
 <div class="result">
     <h1></h1>
     <div class="alpha"></div>
     <button id="reset">重新挑战</button>
     <button id="hidden">观看棋盘</button>
 </div>
-
+</body>
+<script type="text/javascript" src="../lib/jquery/jquery-2.2.3.min.js"></script>
 <script>
     var chess=document.getElementById("chess");
     var c=chess.getContext("2d");             //获取上下文
@@ -145,7 +105,7 @@
         result.css("visibility","hidden");
     });
     var backimage=new Image();               //创建背景
-    backimage.src="./images/board.jpg";
+    backimage.src="../images/board.jpg";
     backimage.onload=function(){             //加载背景
         c.drawImage(backimage,0,0,1200,600);  //绘制背景
         drawChessBoard();                     //绘制棋盘
@@ -446,5 +406,4 @@
         }
     }
 </script>
-</body>
 </html>
