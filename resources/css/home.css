@@ -154,7 +154,7 @@
 
     width: 100%;
     height: 100%;
-
+    text-align: center;
     color: #fff;
 }
 .photo-mask
@@ -180,11 +180,8 @@
 .photo div
 {
     position: relative;
-    left: 50%;
 
     display: inline-block;
-
-    margin-left: -66px;
 
     text-align: center;
 
