@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>公共信息查询服务</title>
+    <meta name="keyword" content="github pages 个人网站">
+    <meta name="author" content="EvanLiu 刘中泉">
+    <meta name="description" content="个人博客，html5，css3">
+    <link rel="shortcut icon" href=" ../../favicon.ico" />
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="../../resources/libs/bootstrap-3.3.6/css/bootstrap.min.css">
+    <!-- app.css -->
+    <link rel="stylesheet" href="../../resources/css/app.css">
+    <link rel="stylesheet" media="screen" href="../../resources/css/info_search.css">
+</head>
+
+<body>
+<div class="main-content">
+    <div class="server-wrapper">
+        <div class="server-head">
+            <div class="container">
+                <h1 class="server-title">身份证查询</h1>
+            </div>
+        </div>
+        <div class="server-body container">
+            <div class="form-group clearfix" id="id_card_info">
+                <label class="item-label pull-left">身份证信息查询</label>
+                <div class="col-md-3 col-xs-9">
+                    <input class="form-control" name="id_card" placeholder="请输入身份证号码">
+                </div>
+                <div class="col-md-3 col-xs-3">
+                    <a class="btn btn-primary btn-search">
+                        <i class="glyphicon glyphicon-search"></i>
+                        查询
+                    </a>
+                </div>
+            </div>
+            <div id="id_card_info_response"></div>
+            <script id="id_card_info_temp" type="text/html">
+                <div class="response-box">
+                    <a class="btn-expand btn1" id="id_card_out">查询是否泄漏</a>
+                    <a class="btn-expand btn2" id="id_card_lose">查询是否挂失</a>
+                    <p>性别：<span class="response-result">{{sex}}</span></p>
+                    <p>地区：<span class="response-result">{{area}}</span></p>
+                    <p>出生日期：<span class="response-result">{{birthday}}</span></p>
+                    <p id="id_card_tip" ></p>
+                </div>
+            </script>
+        </div>
+    </div>
+    <div class="server-wrapper">
+        <div class="server-head">
+            <div class="container">
+                <h1 class="server-title">手机号码归属地查询</h1>
+            </div>
+        </div>
+        <div class="server-body container">
+            <div class="form-group clearfix" id="phoneno_info">
+                <label class="item-label pull-left">手机号码归属地查询</label>
+                <div class="col-md-3 col-xs-9">
+                    <input class="form-control" name="phoneno" placeholder="请输入手机号码">
+                </div>
+                <div class="col-md-3 col-xs-3">
+                    <a class="btn btn-primary btn-search">
+                        <i class="glyphicon glyphicon-search"></i>
+                        查询
+                    </a>
+                </div>
+            </div>
+            <div id="phoneno_info_response"></div>
+            <script id="phone_info_temp" type="text/html">
+                <div class="response-box">
+                    <p>省份：<span class="response-result">{{province}}</span></p>
+                    <p>城市：<span class="response-result">{{city}}</span></p>
+                    <p>区号：<span class="response-result">{{areacode}}</span></p>
+                    <p>邮编：<span class="response-result">{{zip}}</span></p>
+                    <p>运营商：<span class="response-result">{{company}}</span></p>
+                    <p>卡类型：<span class="response-result">{{card}}</span></p>
+                </div>
+            </script>
+        </div>
+    </div>
+</div>
+<div class="server-wrapper">
+        <div class="server-head">
+            <div class="container">
+                <h1 class="server-title">artTemplate示例</h1>
+            </div>
+        </div>
+        <div class="server-body container">
+
+            <div id="tempDiv"></div>
+        </div>
+    </div>
+</div>
+<script id="tempTest" type="text/html">
+    <h3>{{title}}</h3>
+    <p>标签：
+        {{each tags as value i}}
+        <span data-tag='{{i}}' style="margin-right:25px;padding:5px 10px;border:1px solid #54a5e5;color:#54a5e5;border-radius:3px;background:#fff;">{{value}}</span>
+        {{/each}}
+    </p>
+    <p>{{time | hourFormat:'我没用'}}</p>
+    <div>
+        <h4>歌曲：{{song.title}}<h4>
+        <span>作曲：{{song.info.creater}}&nbsp;演唱：{{song.info.singer}}</span>
+        <p>
+        <h5>歌词：</h5>
+        <ul style="list-style:none">
+            {{each song.word as value i}}
+            <li data-line={{i}} >{{value}}</li>
+            {{/each}}
+        </ul>
+        </p>
+    <div>
+</script>
+</body>
+
+<!-- jQuery 2.1.4 -->
+<script src="../../resources/libs/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.5 -->
+<script src="../../resources/libs/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+
+<script src="../../resources/libs/artTemplate/template.js"></script>
+
+<script type="text/javascript" src="../../resources/js/service/info_search.js"></script>
+<script type="text/javascript">
+    $(function(){
+        publicSearch.init();
+        var data={
+            title:"那年那首歌",
+            tags:["发呆","忘记","哎哟，不错"],
+            time:'2016-10-12 18:00:00',
+            song:{
+                title:"轨迹",
+                info:{
+                    creater:"周杰伦",
+                    singer:"周杰伦"
+                },
+                word:["我会发着呆","然后忘记你","接着紧紧闭上眼","想着那一天","会有人代替","让我不再想念你"]
+                    
+            }
+        };
+        template.helper('hourFormat',function (date,format){
+            console.log(date,format);
+
+            var h=date.split(" ")[1].split(":")[0];
+            var m=date.split(" ")[1].split(":")[1];
+            var time="AM",str;
+            if(h>12){
+                h=h-12;
+               time="PM" ;
+            }
+            str=h+":"+m+" "+time;
+            return str;
+        })
+        $("#tempDiv").html(template("tempTest",data));
+
+        /*var id_card = 430424199204200615;
+        var key="b23dc3ca8d841356331b30898eb2232a";
+        $.ajax({
+            url:'http://apis.juhe.cn/idcard/index?key='+key+'&cardno='+id_card,
+            type:"GET",
+            dataType:'jsonp',
+            data:'',
+            success:function(data){
+                console.log(data);
+                var reponse_box=template('id_card_info_temp',data.result)
+                $("#id_card_info_response").html(reponse_box);
+            },
+            error:function(data){
+                alert(data);
+            }
+            ,beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-Custom-Header1", "Bar");
+            }
+        });*/
+    })
+</script>
+</html>

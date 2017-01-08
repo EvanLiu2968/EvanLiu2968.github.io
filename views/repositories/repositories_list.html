@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>广州市交通工程质量监督站交通工程质量安全监督监管系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="../../resources/libs/bootstrap-3.3.6/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../resources/libs/font-awesome-4.5.0/css/font-awesome.min.css">
+    <!-- app.css -->
+    <link rel="stylesheet" href="../../resources/css/app.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 支持HTML5元素和媒体查询 -->
+    <!-- 警告: Respond.js使用file://无法正常工作 -->
+    <!--[if lt IE 9]>
+        <script src="../../resources/js/html5shiv.min.js"></script>
+        <script src="../../resources/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body >
+    <!-- 页面容器 -->
+    <div class="wrapper">
+      <!-- Main content -->
+      <section class="content">
+        <div class="" id="toolbar">
+          <button class="btn btn-default" id="btn-add" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i>添加</button>
+          <button class="btn btn-primary" id="btn-edit"><i class="fa fa-edit"></i>编辑</button>
+          <button type="button" class="btn btn-danger" id="btn-delete"><i class="fa fa-trash"></i>删除</button>
+        </div>
+        <table id="table"></table>
+      </section><!-- /.content -->
+    </div><!-- 页面容器 -->
+    <!-- 添加设备Modal -->
+    <div class="modal" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" >添加仓库信息</h4>
+          </div>
+          <div class="modal-body clearfix">
+            <form class="form-horizontal" id="form-add">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">名称</label>
+                <div class="col-sm-8 col-md-6 ">
+                  <input type="text" class="form-control" name="name" placeholder="请输入名称" value="" validate="{required:true,charEnCheck:true}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label  class="col-sm-3 control-label">状态</label>
+                <div class="col-sm-8 col-md-6 ">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="view" value="0">可演示
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">描述</label>
+                <div class="col-sm-8 col-md-6 ">
+                  <input type="text" class="form-control" name="description" placeholder="请输入描述" value="" validate="required:true">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-reply"></i>取消</button>
+            <button type="button" class="btn btn-primary" id="modal-add-save"><i class="fa fa-save"></i>保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 编辑设备Modal -->
+    <div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">编辑终端信息</h4>
+          </div>
+          <div class="modal-body clearfix">
+            <form class="form-horizontal" id="form-edit">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">名称</label>
+                <div class="col-sm-8 col-md-6 ">
+                  <input type="text" class="form-control" name="name" placeholder="请输入名称" value="" validate="{required:true,charEnCheck:true}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label  class="col-sm-3 control-label">状态</label>
+                <div class="col-sm-8 col-md-6 ">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="view" value="0">可演示
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">描述</label>
+                <div class="col-sm-8 col-md-6 ">
+                  <input type="text" class="form-control" name="description" placeholder="请输入描述" value="" validate="required:true">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-reply"></i>取消</button>
+            <button type="button" class="btn btn-primary" id="modal-edit-save"><i class="fa fa-save"></i>保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery 2.1.4 -->
+    <script src="../../resources/libs/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="../../resources/libs/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <!-- jquery.validate -->
+    <script src="../../resources/libs/jquery.validate/jquery.validate.js"></script>
+    <script src="../../resources/libs/jquery.validate/validate.extend.js"></script>
+    <!-- bootstrap-table -->
+    <link rel="stylesheet" href="../../resources/libs/bootstrap-table/bootstrap-table.css">
+    <script src="../../resources/libs/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="../../resources/libs/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
+    <script src="../../resources/libs/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+    <!--主要格式-->
+    <script src="../../resources/libs/bootstrap-table/extensions/export/tableExport.jquery.plugin/FileSaver/FileSaver.min.js"></script>
+    <!--excel2007和xml-->
+    <script src="../../resources/libs/bootstrap-table/extensions/export/tableExport.jquery.plugin/js-xlsx/xlsx.core.min.js"></script>
+    <!--表格导出插件-->
+    <script src="../../resources/libs/bootstrap-table/extensions/export/tableExport.jquery.plugin/tableExport.js"></script>
+
+    <!--公用common.js-->
+    <link rel="stylesheet" href="../../resources/libs/layer/skin/default/layer.css">
+    <script src="../../resources/libs/layer/layer.js"></script>
+    <script src="../../resources/js/common.js"></script>
+    <!-- 业务逻辑js -->
+    <script src="../../resources/js/repositories/repositories_list.js"></script>
+  </body>
+</html>

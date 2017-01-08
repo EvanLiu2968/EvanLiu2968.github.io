@@ -1,374 +1,283 @@
 <!DOCTYPE html>
-<html lang="zh-cn" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
+<html lang="zn_cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta http-equiv="cache-control" content="no-cache">
     <title>捕风捉影</title>
-    <meta name="keyword" content="github pages 个人网站">
-    <meta name="author" content="EvanLiu 刘中泉">
-    <meta name="description" content="个人博客，html5，css3">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href=" ./favicon.ico" />
-    <link rel="stylesheet" media="screen" href="./lib/bootstrap-3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" media="screen" href="./css/header_footer.css">
-    <link rel="stylesheet" media="screen" href="./css/index.css">
-</head>
+    <meta name="description" content="这是一个个人github空间,欢迎各位朋友共同交流">
+    <meta name="keywords" content="github,前端,web,evanliu,require female">
+    <meta name="author" content="EvanLiu|刘中泉">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="./resources/libs/bootstrap-3.3.6/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./resources/libs/font-awesome-4.5.0/css/font-awesome.min.css">
+    <!-- 主题 -->
+    <link rel="stylesheet" href="./resources/css/app.css">
+    <!-- 皮肤 -->
+    <link rel="stylesheet" href="./resources/css/skins/skin-blue.css">
+    <!--iframe页面加载进度条-->
+    <link rel="stylesheet" href="./resources/libs/nprogress/nprogress.css">
+    <script src="./resources/libs/nprogress/nprogress.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 支持HTML5元素和媒体查询 -->
+    <!-- 警告: Respond.js使用file://无法正常工作 -->
+    <!--[if lt IE 9]>
+        <script src="./resources/js/html5shiv.min.js"></script>
+        <script src="./resources/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="sidebar-mini sidebar-collapse skin-blue">
+    <!-- 页面容器 -->
+    <div class="wrapper">
+      <!-- 头部 -->
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="./index.html" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><img style="height:50px;" src="./resources/images/mao.jpg"></span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg" ><img style="height:30px;" src="./resources/images/logo-text.png"></span>
+        </a>
 
-<body>
-<!--导航栏-->
-<header class="header" >
-    <div class="container">
-        <div class="logo">
-            <img src="images/mao.jpg" class="logo-img pull-left">
-            <a href="http://evanliu2968.github.io/" class="logo-txt pull-left" >捕风捉影</a>
-        </div>
-    	<nav class="nav">
-            <a class="btn" href="https://github.com/EvanLiu2968" target="_blank">GitHub</a>
-            <a class="btn " href="http://evanliu2968.github.io/" target="_blank">Blog</a>
-            <a class="btn " href="http://weibo.com/rockmist " target="_blank">weibo</a>
-            <a class="btn"  href="http://mail.qq.com" target="_blank">Mail</a>
-            <a class="btn hover-btn" data-content="下方有微信二维码扫描哦" >More
-                <div class="hover-tips"><img src="./images/weixin.png" alt="微信二维码" ><p>扫描微信二维码</p></div>
-            </a>
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">切换导航</span>
+          </a>
+          <!-- 项目名称 -->
+          <h1 class="navbar-title">这里有个宝藏，它空无一物，它价值千金</h1>
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- Messages: style can be found in dropdown.less-->
+              <li ><a href="https://github.com/EvanLiu2968" target="_blank">GitHub</a></li>
+              <li ><a href="http://weibo.com/rockmist " target="_blank">weibo</a></li>
+              <li class="dropdown ">
+                <!-- Menu toggle button -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">微信</a>
+                <ul class="dropdown-menu">
+                  <li class="header"><img style="width:200px;margin:20px 40px;" src="./resources/images/weixin.png"></li>
+                  <li class="footer text-center">打开微信扫描二维码</li>
+                </ul>
+              </li>
+              <!-- User Account Menu -->
+              <li class="dropdown user user-menu">
+                <!-- Menu Toggle Button -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <!-- The user image in the navbar-->
+                  <img src="./resources/images/user.jpg" class="user-image" alt="User Image">
+                  <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                  <span class="hidden-xs">游客</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- The user image in the menu -->
+                  <li class="user-header">
+                    <img src="./resources/images/user.jpg" class="img-circle" alt="User Image">
+                    <p>
+                      游客
+                      <small>一只游荡的飞鸟</small>
+                    </p>
+                  </li>
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="#" id="btn-login" class="btn btn-default btn-flat">登录</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="#" id="btn-exit" class="btn btn-default btn-flat">退出</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </nav>
-    </div>
-</header>
+      </header><!-- 头部 -->
 
-<div class="container">
-    <div class="row ">
-        <div  style="margin-top: 16px"></div>
-        <div id="carousel_container" class="col-lg-8 ">
-            <!-- 轮播图 -->
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
-                <!-- 轮播图标识 -->
-                <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
-                </ol>
-                <!-- 幻灯片包装 -->
-                <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <img src="images/1.jpg" alt="..." style="width: 100%">
-                        <div class="carousel-caption"></div>
-                    </div>
-                    <div class="item ">
-                        <img src="images/2.jpg" alt="..." style="width: 100%">
-                        <div class="carousel-caption"></div>
-                    </div>
-                    <div class="item ">
-                        <img src="images/3.jpg" alt="..." style="width: 100%">
-                        <div class="carousel-caption"></div>
-                    </div>
-                    <div class="item ">
-                        <img src="images/4.jpg" alt="..." style="width: 100%">
-                        <div class="carousel-caption"></div>
-                    </div>
-                    <div class="item ">
-                        <img src="images/5.jpg" alt="..." style="width: 100%">
-                        <div class="carousel-caption"></div>
-                    </div>
-                </div>
+      <!-- 左侧菜单栏 -->
+      <aside class="main-sidebar">
 
-                <!-- 前后控制按钮 -->
-                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+        <section class="sidebar">
+          <!-- search form (Optional) -->
+          <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="搜索...">
+              <span class="input-group-btn">
+                <button type="button" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
             </div>
-        </div>
-        <div class="col-lg-4 introduction ">
-            <div>
-                <span class="glyphicon glyphicon-time time"></span>
-                <span class="time"></span>
-            </div>
-            <div>
-            	<iframe width="100%" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=5"></iframe>
-            </div>
-          <!-- 3D书籍; -->
-            <figure class='book'>
-            	<figcaption>
-					<h3>我的平凡之路</h3>
-					<span>By EvanLiu</span>
-					<p>每个人都有自己的故事，而我的故事，在这里。</p>
-				</figcaption>
-				<!-- Front -->
-				<ul class='hardcover_front'>
-					<li>
-						<div class="coverDesign yellow">
-							<span class="ribbon text-center">2016</span><br>
-							<img class="center-block" src="images/logo-txt-112x54.png" style="width:80px;">
-							<h3 class="text-center">时光如刻</h3>
-							<p>不科学不靠谱不可能</p>
-							<p class="book-footer">生命出版社</p>
-						</div>
-					</li>
-					<li></li>
-				</ul>
-				<!-- Pages -->
-				<ul class='page' >
-					<li><p>我的平凡人生</p></li>
-					<li style="padding:16px;">
-						<div><img src="./images/body-3.jpg" style="width:140px;" class="center-block"></div>
-						<p >欢迎来到这个一本正经胡扯的世界，生命不息，想象不止。</p>
-					</li>
-					<li>
-						<h1 class="text-center">我</h1>
-						<h1 class="text-center">是</h1>
-						<h1 class="text-center">谁</h1>
-					</li>
-					<li></li>
-					<li style="padding:16px;">
-						<h5>简介</h5>
-						<p style="font-size: 4px">欢迎来到这个一本正经胡扯的世界，生命不息，想象不止。</p>
-					</li>
-				</ul>
-				<!-- Back -->
-				<ul class='hardcover_back'>
-					<li></li>
-					<li></li>
-				</ul>			
-			</figure>
-        </div>
-    </div>
-</div>
+          </form>
+          <!-- /.search form -->
 
-<div class="container">
-    <div  style="margin-top: 16px"></div>
-    <div class="row">
-        <div class="col-lg-8">
-            <div  class="main-column ">
-                <h3>云多媒体播放器</h3>
-                <!-- index.css 195行至351行 -->
-                <div id="video-player"  style="background: #111111;z-index: 99;">
-                    <div class="video-screen">
-                        <div class="video-mask">
-                            <div class="video-bullet">
-                                <p style="margin-top: 16px;margin-bottom:0;padding: 8px;">我是本H5播放器</p>
-                            </div>
-                            <div class="video-bullet">
-                                <p style="padding: 4px;margin:0;">我是第二条弹幕</p>
-                            </div>
-                            <div class="video-bullet">
-                                <p style="padding: 4px;margin:0;">我有播放速度，进度条，音量，全屏等功能……</p>
-                            </div>
-                            <div class="video-bullet">
-                                <p style="padding: 4px;margin:0;">太长，别说话，点我</p>
-                            </div>
-                        </div>
-                        <div id="video-box">
-                            <video  id="video"  width="100%"  >
-                                <!--<source src="Diamonds%20-%20Rihanna.wmv" >-->
-                                <source src="http://hc.yinyuetai.com/uploads/videos/common/D2E9013AE21D9898F106BB92EA990A3E.flv?sc=d57722f74fbc32ac&br=787&vid=544906&aid=51&area=US&vst=0" >
-                                你的浏览器不支持该播放器，建议使用chrome浏览器
-                            </video>
-                        </div>
-                        <span id="btn-play1" class="glyphicon glyphicon-play"></span>
-                    </div>
-                    <div style="position: relative">
-                        <div class="video-progress">
-                            <div id="full-time"></div>
-                            <div id="buffered-time"></div>
-                            <div id="current-time"></div>
-                            <span id="current-circle"></span>
-                        </div>
-                        <div class="set-bar">
-                            <span id="btn-play2" class="glyphicon glyphicon-play btn-set"></span>
-                            <span id="btn-time" class="btn-set">00:00/05:35</span>
-                            <span id="btn-full" class="glyphicon glyphicon-fullscreen btn-set"></span>
-                    <span id="btn-speed" class="btn-set">
-                        <span>1.00×</span>
-                        <ul class="btn-speed-ul">
-                            <li>0.50×</li>
-                            <li>0.75×</li>
-                            <li>1.00×</li>
-                            <li>1.25×</li>
-                            <li>1.50×</li>
-                            <li>2.00×</li>
-                        </ul>
-                    </span>
-                    <span id="btn-volume">
-                        <span id="btn-voice" class="glyphicon glyphicon-volume-up btn-set" style="width: 32px;"></span>
-                    <div class="volume-progress">
-                        <div id="full-volume"></div>
-                        <div id="current-volume"></div>
-                        <span id="current-volume-circle"></span>
-                    </div>
-                    </span>
-                        </div>
-                    </div>
-                </div>
-                <div style="display:flex;margin-top:16px">
-                	<span class="btn btn-info">试试弹幕？</span>
-            		<input name="bullet" type="text" placeholder="弹幕真好玩！" style="flex:1;margin: 0 16px">
-            		<button class="btn btn-info">发送</button>
-                </div>
-            </div>
-            <div  style="margin-top: 16px"></div>
-            <div class="main-column " >
-                <h3>百度地图</h3>
-                <div id="bd_map" style="width:100%;"></div>
-            </div>
-            <div  style="margin-top: 16px"></div>
-            <div class="main-column ">
-                <h3>摄影展区</h3>
-                <div class="img-box">
-                    <div class="img ">
-                        <h1>爱旅游</h1>
-                        <div>
-                            <a>[黄山]</a>
-                            <a>[深圳]</a>
-                            <a>[广州]</a>
-                            <a>[厦门]</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-box">
-                    <img class="img" src="./images/huangshan1.jpg">
-                    <div class="img img-mask"><p>山与海的交汇，让人迷离<br>黄山西海大峡谷</p><span>--2014.6.7</span></div>
-                </div>
-                <div class="img-box">
-                    <img class="img" src="./images/xiamen2.jpg">
-                    <div class="img img-mask"><p>梦之所起，梦之所终<br>厦门鼓浪屿</p><span>--2016.9.5</span></div>
-                </div>
-                <div class="img-box">
-                    <img class="img" src="./images/shenzhen3.jpg">
-                    <div class="img img-mask"><p>都市之外，藏有一片海<br>深圳西冲</p><span>--2014.12.12</span></div>
-                </div>
-                <div class="img-box">
-                    <img class="img" src="./images/xiaoxiang5.jpg">
-                    <div class="img img-mask"><p>过去的琐碎，活成今天的你<br>肖像</p><span>--2013.9.9</span></div>
-                </div>
-                <div class="img-box">
-                    <div class="img ">
-                        <h1>文艺范</h1>
-                        <div>
-                            <a>[风景]</a>
-                            <a>[人像]</a>
-                            <a>[微距]</a>
-                            <a>[概念]</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-box">
-                    <img class="img" src="./images/weiju7.jpg">
-                    <div class="img img-mask"><p>小蜜蜂啊，飞到花丛中啊<br>家门前的茶花</p><span>--2015.2.19</span></div>
-                </div>
-                <div class="img-box">
-                    <img class="img" src="./images/jietou8.jpg">
-                    <div class="img img-mask"><p>一树杜鹃出墙来<br>深圳版画村</p><span>--2014.10.4</span></div>
-                </div>
-                <div class="img-box">
-                    <div class="img ">
-                        <h1>纪录片</h1>
-                        <div>
-                            <a>[小镇]</a>
-                            <a>[湘大]</a>
-                            <a>[成长]</a>
-                            <a>[城市]</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-box">
-                    <img class="img" src="./images/xiangda10.jpg">
-                    <div class="img img-mask"><p>时光时光慢些吧<br>湘谭大学</p><span>--2014.6.1</span></div>
-                </div>
-                <div class="img-box">
-                    <img class="img" src="./images/liuya11.jpg">
-                    <div class="img img-mask"><p>人看风景，风景看人<br>亚哥</p><span>--2014.10.4</span></div>
-                </div>
-                <div class="img-box">
-                    <img class="img" src="./images/daoying12.jpg">
-                    <div class="img img-mask"><p>真实？虚幻？随心就好<br>小池塘倒影</p><span>--2016.3.3</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4" >
-            <div class="aside-column">
-                <h3 class="column-title">沙堡手札</h3>
-                <div class="stage">
-                    <a href="./pages/canvas_five_chess.html" target="_blank" class="tag tag-blue">canvas之五子棋</a>
-                    <a href="https://EvanLiu2968.github.io/ionic-weixin" target="_blank" class="tag tag-pink">Angular之我的微信</a>
-                    <a href="./pages/public_search.html" target="_blank" class="tag tag-yellow">公共信息查询服务</a>
-                    <a href="javascript:;" target="_blank" class="tag tag-green">H5之我要回家</a>
-                    <a href="#video-player" target="" class="tag tag-red">云媒体播放器</a>
-                </div>
-            </div>
-            <div class="aside-column">
-                <h3 class="column-title">更新动态</h3>
-                <div class="stage">
-                    <a href="javascript:;"  class="update_link">Css、Js编写规范</a>
-                    <a href="./pages/20160502.html"  class="update_link">Angular2.0与之前版本有哪些新特性</a>
-                    <a href="javascript:;"  class="update_link">Angular Directive命令详解</a>
-                    <a href="javascript:;"  class="update_link">ionic实践，angular+cordova+ionic三剑客</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+          <!-- Sidebar Menu -->
+          <ul class="sidebar-menu">
+            <li class="header">导航菜单</li>
+            <li class="active">
+              <a class="ajaxify start" href="./views/home/home.html" data-tabs-dynamic="tab" data-tabcontainer="iframe" ><i class="fa fa-home"></i> <span>我的主页</span> </a>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-tree"></i> <span>我的空间</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a class="ajaxify start" href="./views/space/canvas_five_chess.html" data-tabs-dynamic="tab" data-tabcontainer="iframe">五子棋大作战</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-globe"></i> <span>我的服务</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a class="ajaxify start" href="./views/service/info_search.html" data-tabs-dynamic="tab" data-tabcontainer="iframe">信息查询</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-cube"></i> <span>我的仓库</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a class="ajaxify start" href="./views/repositories/repositories_list.html" data-tabs-dynamic="tab" data-tabcontainer="iframe">仓库列表</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-star-o"></i> <span>我的收藏</span><i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a class="ajaxify start" href="https://www.baidu.com/" data-tabcontainer="iframe" data-tabs-dynamic="tab"><i class="fa fa-paw"></i><span>百度</span></a></li>
+                <li>
+                  <a href="#"><i class="fa fa-mail-reply-all"></i>更多<i class="fa fa-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu">
+                    <li><a class="ajaxify start" href="http://www.iconfont.cn/" data-tabcontainer="iframe" data-tabs-dynamic="tab">阿里字体库</a></li>
+                    <li><a class="ajaxify start" href="http://www.qiuziti.com/" data-tabcontainer="iframe" data-tabs-dynamic="tab">求字体</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul><!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+      </aside><!-- 左侧菜单栏 -->
 
-<footer >
-    <div class="container">
-        <ul class="list-inline text-center">
-            <li><a href=https://github.com/EvanLiu2968>GitHub</a></li>
-            <li><a href=http://weibo.com/rockmist >微博</a></li>
-            <li><a href="http://mail.qq.com">邮箱</a></li>
-            <li><a href="#">关于</a></li>
+      <!-- 主内容容器 -->
+      <div class="content-wrapper">
+        <div class="btn-iframe-refresh"><i class="fa fa-refresh"></i></div>
+        <ul class="nav nav-tabs" data-tabsid="dynamicTab-window-top-main">
+          <li class="classic-menu-dropdown nav-tabs-header-btns">
+            <a href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="javascript:void (0);" class="btn-refresh"> <i class="fa fa-refresh"></i>刷新</a>
+              </li>
+            </ul>
+          </li>
         </ul>
-        <p class="text-center">Designed and built with all the love in the world by
-            <a href=http://weibo.com/rockmist target=_blank>@绰号杀手</a></p>
-        <p class="text-center">@copyright 2016 ，version 1.0.0</p>
-    </div>
-</footer>
-</body>
+        <div class="tab-content" data-tabsid="dynamicTab-window-top-main"></div>
+      </div><!-- .content-wrapper -->
 
-<script type="text/javascript" src="./lib/jquery/jquery-2.2.3.min.js"></script>
-<script type="text/javascript" src="./lib/bootstrap-3.3.6/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/index.js"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=kO4BW1FKYzI97bzjZizusV63ZXBFNcyp">
-    //v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
-    //v1.4版本及以前版本的引用方式：src="http://api.map.baidu.com/api?v=1.4&key=您的密钥&callback=initialize"
-</script>
-<script>
-    $('.carousel').carousel();
+    </div><!-- 页面容器 -->
 
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(showPosition,showError);
-    }
-    function showPosition(position){
-        console.log("纬度是："+position.coordinates.latitude)
-        console.log("经度是："+position.coordinates.longitude)
-    }
-    function showError(error){
-        switch(error.code){
-            case error.PERMISSION_DENIED:
-                console.log("User denied the request for Geolocation.")
-                break;
-            case error.POSITION_UNAVAILABLE:
-                console.log("Location information is unavailable.")
-                break;
-            case error.TIMEOUT:
-                console.log("The request to get user location timed out.")
-                break;
-            case error.UNKNOWN_ERROR:
-                console.log("An unknown error occurred.")
-                break;
-        }
-    }
+    <!-- jQuery 2.1.4 -->
+    <script src="./resources/libs/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="./resources/libs/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <!-- common -->
+    <link rel="stylesheet" href="./resources/libs/layer/skin/default/layer.css">
+    <script src="./resources/libs/layer/layer.js"></script>
+    <script src="./resources/js/common.js"></script>
+    <script src="./resources/js/gciPlugin.boostrap.dynamicTab.js"></script>
+    <script>
     $(function(){
-        var map = new BMap.Map("bd_map");          // 创建地图实例
-        var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
-        map.centerAndZoom(point, 15);// 初始化地图，设置中心点坐标和地图级别
-        map.addControl(new BMap.NavigationControl());
-        map.addControl(new BMap.ScaleControl());
-        map.addControl(new BMap.OverviewMapControl());
-        map.addControl(new BMap.MapTypeControl());
-        map.setCurrentCity("广州"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+      index.init();
     });
-</script>
+    var index=(function(){
+      //首页左侧下拉菜单
+      var treeviewmenuToggle = function(menu) {
+        var animationSpeed = 200;
+        $(document).on('click', menu + ' li a', function (e) {
+          //Get the clicked link and the next element
+          var $this = $(this);
+          var checkElement = $this.next();
+
+          //Check if the next element is a menu and is visible
+          if ((checkElement.is('.treeview-menu')) && (checkElement.is(':visible'))) {
+            //Close the menu
+            checkElement.slideUp(animationSpeed, function () {
+              checkElement.removeClass('menu-open');
+              //Fix the layout in case the sidebar stretches over the height of the window
+              //_this.layout.fix();
+            });
+            checkElement.parent("li").removeClass("active");
+          }
+          //If the menu is not visible
+          else if ((checkElement.is('.treeview-menu')) && (!checkElement.is(':visible'))) {
+            //Get the parent menu
+            var parent = $this.parents('ul').first();
+            //Close all open menus within the parent
+            var ul = parent.find('ul:visible').slideUp(animationSpeed);
+            //Remove the menu-open class from the parent
+            ul.removeClass('menu-open');
+            //Get the parent li
+            var parent_li = $this.parent("li");
+
+            //Open the target menu and add the menu-open class
+            checkElement.slideDown(animationSpeed, function () {
+              //Add the class active to the parent li
+              checkElement.addClass('menu-open');
+              parent.find('li.active').removeClass('active');
+              parent_li.addClass('active');
+            });
+          }
+          //if this isn't a link, prevent the page from being redirected
+          if (checkElement.is('.treeview-menu')) {
+            e.preventDefault();
+          }
+        });
+      };
+
+      //显示/隐藏菜单
+      var sidebarToggle = function(){
+        $(".sidebar-toggle").on('click', function (e) {
+          e.preventDefault();
+          $("body").toggleClass("sidebar-collapse");
+        });
+        $('.btn-group[data-toggle="btn-toggle"]').each(function () {
+          var group = $(this);
+          $(this).find(".btn").on('click', function (e) {
+            group.find(".btn.active").removeClass("active");
+            $(this).addClass("active");
+            e.preventDefault();
+          });
+        });
+      };
+
+      //页面初始化
+      var pageInit = function(){
+        $(document).on("iframeStart",function(){
+          NProgress.start();
+        }).on("iframeEnd",function(){
+          NProgress.done();
+        });
+        //首页默认打开第一个页面
+        $('.sidebar-menu  a[data-tabs-dynamic="tab"]').eq(0).trigger("click");
+
+        //点击操作
+        $("#btn-login").on("click",function(){
+          $.msg('您没有权限操作');
+        });
+        $("#btn-exit").on("click",function(){
+          $.alert('您还没有登录！',"提示");
+        });
+        $(".btn-iframe-refresh").on("click",function(){
+          $(".btn-refresh").trigger("click");
+        });
+
+      };
+      return {
+        init:function(){
+          treeviewmenuToggle('.sidebar');
+          sidebarToggle();
+          pageInit();
+        }
+      }
+    })();
+    
+    </script>
+  </body>
 </html>
