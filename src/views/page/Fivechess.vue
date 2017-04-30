@@ -1,76 +1,334 @@
 <template>
-    <div>
-        <div class="form-box">
-            <el-form ref="form" :model="form" label-width="80px">
-                <el-form-item label="表单名称">
-                    <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="选择器">
-                    <el-select v-model="form.region" placeholder="请选择">
-                        <el-option label="步步高" value="bbk"></el-option>
-                        <el-option label="小天才" value="xtc"></el-option>
-                        <el-option label="imoo" value="imoo"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="日期时间">
-                    <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-                    </el-col>
-                    <el-col class="line" :span="2">-</el-col>
-                    <el-col :span="11">
-                        <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                    </el-col>
-                </el-form-item>
-                <el-form-item label="选择开关">
-                    <el-switch on-text="" off-text="" v-model="form.delivery"></el-switch>
-                </el-form-item>
-                <el-form-item label="多选框">
-                    <el-checkbox-group v-model="form.type">
-                        <el-checkbox label="步步高" name="type"></el-checkbox>
-                        <el-checkbox label="小天才" name="type"></el-checkbox>
-                        <el-checkbox label="imoo" name="type"></el-checkbox>
-                    </el-checkbox-group>
-                </el-form-item>
-                <el-form-item label="单选框">
-                    <el-radio-group v-model="form.resource">
-                        <el-radio label="步步高"></el-radio>
-                        <el-radio label="小天才"></el-radio>
-                        <el-radio label="imoo"></el-radio>
-                    </el-radio-group>
-                </el-form-item>
-                <el-form-item label="文本框">
-                    <el-input type="textarea" v-model="form.desc"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit">提交</el-button>
-                    <el-button>取消</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
-
-    </div>
+<div style="position:relative;margin:0 auto;width:1200px">
+	<canvas id="chess" width="1200" height="600" style="position:absolute;top:0;left:0;border-radius:6px"></canvas>
+	<canvas id="animate" width="1200" height="600" style="position:relative;width:1200px;height:600px;"><br>您的浏览器out啦！建议使用使用谷歌浏览器</canvas>
+</div>
 </template>
 
 <script>
-    export default {
-        data: function(){
-            return {
-                form: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: true,
-                    type: ['步步高'],
-                    resource: '小天才',
-                    desc: ''
-                }
-            }
-        },
-        methods: {
-            onSubmit() {
-                this.$message.success('提交成功！');
-            }
-        }
-    }
+	export default {
+		data: function(){
+			return {
+			}
+		},
+		methods: {
+			onSubmit() {
+				this.$message.success('提交成功！');
+			}
+		},
+		mounted:function(){
+			const $this=this;
+			let chess=document.getElementById("chess");
+			let c=chess.getContext("2d");             //获取上下文
+			let animate=document.getElementById("animate");
+			let a=animate.getContext("2d");             //获取上下文
+			let clientwidth=document.documentElement.clientWidth;
+			let clientheight=document.documentElement.clientHeight;
+			let chessBoard=[];       //将落子坐标化，创建棋盘二维数组；
+			let me=true,over=false,flash=false;//设定第一步为me落棋，即黑子
+			let x, y,t=500;              //定义画布坐标，animation时间；
+			let myWin=[],computerWin=[];
+			let WinData=getWinData(),wins=WinData.wins,count=WinData.count;
+			let backimage=new Image();               //创建背景
+			backimage.src="static/images/board.jpg";
+			backimage.onload=function(){             //加载背景
+				reset();
+			};
+			function reset(){           //重置棋盘；
+				for (let i= 0;i<15;i+=1){
+					chessBoard[i]=[];
+					for (let j=0;j<15;j+=1){
+						chessBoard[i][j]=0;  //遍历数组，值初始化为0；
+					}
+				}
+				for(let i=0;i<count;i++){  //初始化数组；
+					myWin[i]=0;
+					computerWin[i]=0
+				}
+				a.clearRect(0,0,1200,600);
+				c.clearRect(0,0,1200,600);
+				c.drawImage(backimage,0,0,1200,600);  //绘制背景
+				drawChessBoard();                     //绘制棋盘
+				drawTaiJi(c,200,300,150,"#000000",Math.PI); //绘制太极
+				drawTaiJi(c,1000,300,150,"#ffffff",0);
+				drawChessPiece(c,200,225,false);      //绘制太极棋眼
+				drawChessPiece(c,1000,375,true);
+				c.font="bolder 50px 宋体";
+				c.fillText("Player",950,540);
+				c.fillStyle="#ffffff";
+				c.fillText("AlphaDog",50,540);
+				me=true;             //设定第一步为me落棋，即黑子
+				over=false;
+			}
+
+			function getWinData(){
+				let wins=[],count = 0;              //创建赢法三维数组；
+				for (let i= 0;i<15;i+=1){
+					wins[i]=[];
+					for (let j=0;j<15;j+=1){
+						wins[i][j]=[];
+					}
+				}
+				for (let i= 0;i<15;i+=1){    //遍历横向赢法数组
+					for (let j=0;j<11;j+=1){
+						for (let k=0;k<5;k+=1){
+							wins[i][j+k][count]=true;
+						}
+						count++;
+					}
+				}
+				for (let i= 0;i<15;i+=1){   //遍历纵向赢法数组
+					for (let j=0;j<11;j+=1){
+						for (let k=0;k<5;k+=1){
+							wins[j+k][i][count]=true;
+						}
+						count++;
+					}
+				}
+				for (let i= 0;i<11;i+=1){   //遍历反斜向赢法数组
+					for (let j=0;j<11;j+=1){
+						for (let k=0;k<5;k+=1){
+							wins[i+k][j+k][count]=true;
+						}
+						count++;
+					}
+				}
+				for (let i= 4;i<15;i+=1){  //遍历斜向赢法数组
+					for (let j=0;j<11;j+=1){
+						for (let k=0;k<5;k+=1){
+							wins[i-k][j+k][count]=true;
+						}
+						count++;
+					}
+				}
+				return {
+					wins:wins,
+					count:count
+				}
+			}
+			
+			function drawChessBoard() {  //定义绘制棋盘函数
+				c.strokeStyle="#454545";
+				c.lineWidth=1;
+				for(let i=0;i<15;i+=1){
+					c.beginPath();
+					c.moveTo(320+i*40,20);
+					c.lineTo(320+i*40,580);
+					c.stroke();
+					c.closePath();
+					c.beginPath();
+					c.moveTo(320,20+i*40);
+					c.lineTo(880,20+i*40);
+					c.stroke();
+					c.closePath();
+				}
+			}
+
+			function oneStep(i,j,me){      //定义落子函数；
+				c.beginPath();
+				c.arc(320+i*40,20+j*40,15,0,Math.PI*2);
+				c.closePath();
+				let gradient= c.createRadialGradient(320+i*40,20+j*40,10,320+i*40+2,20+j*40-2,0);//创建圆形渐变，两个圆之间为渐变区域；
+				if(me){                      //绘制黑棋；
+					gradient.addColorStop(0,"#0a0a0a"); // gradient.addColorStop(0.3,"blue"); 可以在渐变区域渐变多种颜色；
+					gradient.addColorStop(1,"#636363");
+				}
+				else{                        //绘制白棋；
+					gradient.addColorStop(0,"#e1e1e1");
+					gradient.addColorStop(1,"#f1f1f1");
+				}
+				c.fillStyle=gradient;
+				setTimeout(function(){    //延迟落子，时间为动画时间；
+					c.fill();
+					flash=false;
+				},500);
+			}
+
+			animate.onclick=function(e){      //定义棋盘点击落子事件
+				if(over){
+					return;
+				}
+				if(!me){
+					return;
+				}
+				if(flash){
+					return
+				}
+				let x = e.offsetX;       //用offset方法获取屏幕点与canvas元素原点的相对坐标；
+				let y = e.offsetY;
+				let i=Math.floor(x/40-7.5);       //向下取整；完整算法为：（x-边距+棋格宽度/2）/40，此处边距等于320,棋格40；
+				let j=Math.floor(y/40);
+				if(chessBoard[i][j]==0) {     //判断当前位置是否有棋子，无则执行落棋
+					let m=i*40+320;                 //计算计算落子的坐标
+					let n=j*40+20;
+					animation(m,n,me);              //执行落子动画；
+					flash=true;
+					oneStep(i,j,me);    //落子；
+					chessBoard[i][j]=1; //设定黑子位置为1；
+					for(let k=0;k<count;k++){
+						if(wins[i][j][k]){
+							myWin[k]++;
+							computerWin[k]=6;
+							if(myWin[k]==5){
+								over=true;
+								$this.$alert('AlphaDog：放学别走，让我大哥AlphaGo来教你做人！', '恭喜，你赢了！', {
+									confirmButtonText: '再来一盘',
+									callback: action => {
+										reset();
+									}
+								});
+							}
+						}
+					}
+					if(!over){
+						me = !me;                 //将me取反为false,对方落子；
+						setTimeout(computerAI,500); //延迟电脑落子500毫秒；
+					}
+				}
+			}
+			function computerAI(){            //定义计算机智能落子函数；
+				let myScore=[];
+				let computerScore=[];
+				let max=0;
+				let u= 0,v=0;
+				for(let i=0;i<15;i++){
+					myScore[i]=[];
+					computerScore[i]=[];
+					for(let j=0;j<15;j++){
+						myScore[i][j]=0;
+						computerScore[i][j]=0;
+					}
+				}
+				for (let i= 0;i<15;i+=1){
+					for (let j=0;j<15;j+=1){
+						if(chessBoard[i][j]==0){
+							for(let k=0;k<count;k++){
+								if(wins[i][j][k]){
+									if(myWin[k]==1){
+										myScore[i][j]+=200;
+									}else if(myWin[k]==2){
+										myScore[i][j]+=400;
+									}else if(myWin[k]==3){
+										myScore[i][j]+=2000;
+									}else if(myWin[k]==4){
+										myScore[i][j]+=10000;
+									}
+									if(computerWin[k]==1){
+										computerScore[i][j]+=210;
+									}else if(computerWin[k]==2){
+										computerScore[i][j]+=420;
+									}else if(computerWin[k]==3){
+										computerScore[i][j]+=2400;
+									}else if(computerWin[k]==4){
+										computerScore[i][j]+=20000;
+									}
+								}
+							}
+							if(myScore[i][j]>max){
+								max=myScore[i][j];
+								u=i;
+								v=j;
+							}else if(myScore[i][j]==max){
+								if(computerScore[i][j]>computerScore[u][v]){
+									u=i;
+									v=j;
+								}
+							}
+							if(computerScore[i][j]>max){
+								max=computerScore[i][j];
+								u=i;
+								v=j;
+							}else if(computerScore[i][j]==max){
+								if(myScore[i][j]>myScore[u][v]){
+									u=i;
+									v=j;
+								}
+							}
+						}
+					}
+				}
+				let m=u*40+320;                 //计算计算落子的坐标
+				let n=v*40+20;
+				animation(m,n,me);              //执行落子动画；
+				flash=true;
+				oneStep(u,v,me);      //在分数最高的位置落子；
+				chessBoard[u][v]=2;       //设定白子位置为2；
+				for(let k=0;k<count;k++){
+					if(wins[u][v][k]){
+						computerWin[k]++;
+						myWin[k]=6;
+						if(computerWin[k]==5){
+							over=true;
+							$this.$alert('AlphaDog：回去多练练吧，毕竟我的大哥是AlphaGo！', '抱歉，你输了！', {
+								confirmButtonText: '再来一盘',
+								callback: action => {
+									reset();
+								}
+							});
+						}
+					}
+				}
+				if(!over){
+					me=!me;
+				}
+			}
+			function drawTaiJi(context,x,y,r,color,deg){ //定义绘制太极图函数，参数为上下文id，x/y坐标,半径，颜色，角度；
+				context.save();           //保存状态
+				context.translate(x,y);   //设置画布旋转的中心点
+				context.rotate(deg);
+				context.translate(-x,-y); //
+				context.shadowColor="rgba(10,10,10,0.5)"; //阴影颜色
+				context.shadowOffsetX=context.shadowOffsetY=5;  //阴影方向
+				context.shadowBlur=5;  //高斯值
+				context.fillStyle=color;
+				context.beginPath();
+				context.arc(x,y,r,Math.PI*1.5,Math.PI*0.5);
+				context.arc(x,y+r/2,r/2,Math.PI*0.5,Math.PI*1.5);
+				context.arc(x,y-r/2,r/2,Math.PI*0.5,Math.PI*1.5,true);  //默认顺时针，值为false；逆时针为true；
+				context.lineJoin="round";
+				context.closePath();
+				context.fill();
+				context.shadowColor="rgba(10,10,10,0)";  //初始化阴影颜色
+				context.restore();         //恢复状态；
+			}
+			function drawChessPiece(context,x,y,color){     //绘制棋子函数
+				context.beginPath();
+				context.arc(x,y,15,0,2*Math.PI);
+				context.closePath();
+				let gradient= c.createRadialGradient(x,y,10,x+2,y-2,0);//创建圆形渐变，两个圆之间为渐变区域；
+				if(color){                      //绘制黑棋；
+					gradient.addColorStop(0,"#0a0a0a");
+					gradient.addColorStop(1,"#636363");
+				}
+				else{                                 //绘制白棋；
+					gradient.addColorStop(0,"#e1e1e1");
+					gradient.addColorStop(1,"#f1f1f1");
+				}
+				context.fillStyle=gradient;
+				context.fill();
+			}
+			function animation(i,j,me){              //棋子落子时的动画函数；
+				let chessEye={};
+				if(me){                               //判断哪方落子
+					chessEye.x=1000,chessEye.y=375;
+				}else {                           //白子落子；
+					chessEye.x=200,chessEye.y=225;
+				}
+				let sx=(chessEye.x-i)/10;              //将两点之间x轴、y轴分别分成10段
+				let sy=(chessEye.y-j)/10;
+				let k=1;
+				timer();
+				function timer() {
+					if (k< 11) {
+						a.clearRect(0,0,1200,600);
+						drawChessPiece(a, chessEye.x - sx*k, chessEye.y - sy*k, me); //绘制十次棋子
+						k++;
+						setTimeout(timer, 50);
+					}
+				}
+			}
+		}
+	}
 </script>
+<style scoped>
+</style>

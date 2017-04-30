@@ -23,12 +23,6 @@
 					</template>
 				</el-table-column>
 			</el-table>
-			<div class="pagination">
-				<el-pagination
-						layout="prev, pager, next"
-						:total="1000">
-				</el-pagination>
-			</div>
 		</div>
 		<el-dialog title="编辑信息" v-model="dialogFormVisible">
 			<el-form :model="editForm" ref="editForm">

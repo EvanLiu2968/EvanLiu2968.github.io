@@ -10,6 +10,16 @@ import './assets/css/common.css';
 import './assets/js/util.js';
 Vue.use(VueAxios,axios);
 Vue.use(ElementUI);
+
+router.beforeEach((to, from, next) => { //切换网页标题
+	if(to.matched.length===0){
+		next({ path: '/404' })
+	}else{
+		document.title = to.meta.title;
+		next()
+	}
+});
+
 new Vue({
     router,
     render: h => h(App)
