@@ -28,26 +28,26 @@
 			</el-menu>
 		</div>
 		<el-dialog v-model="wechatBox" size="tiny">
-			<img src="../../../static/images/weixin.png" style="display:block;margin:0 auto;width:80%;">
+			<img src="static/images/weixin.jpg" style="display:block;margin:0 auto;width:80%;">
 			<p style="text-align:center">微信扫描二维码</p>
 		</el-dialog>
 	</div>
 	<div class="content">
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <template v-for="item in $route.matched">
-                    <el-breadcrumb-item v-if="item.name"><i v-if="item.meta.icon" :class="item.meta.icon"></i>{{ item.name }}</el-breadcrumb-item>
-                </template>
-            </el-breadcrumb>
-        </div>
-        <transition name="move" mode="out-in">
-            <router-view></router-view>
-        </transition>
-    </div>
+		<div class="crumbs">
+			<el-breadcrumb separator="/">
+				<template v-for="item in $route.matched">
+					<el-breadcrumb-item v-if="item.name"><i v-if="item.meta.icon" :class="item.meta.icon"></i>{{ item.name }}</el-breadcrumb-item>
+				</template>
+			</el-breadcrumb>
+		</div>
+		<transition name="move" mode="out-in">
+			<router-view></router-view>
+		</transition>
+	</div>
 </div>
 </template>
 <script>
-    import Menu from '../../router/menu.js'
+	import Menu from '../../router/menu.js'
 	export default {
 		data() {
 			return {
