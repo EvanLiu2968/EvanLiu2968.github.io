@@ -38,18 +38,18 @@
 			</el-table>
 			<div class="pagination">
 				<el-pagination
-			        @size-change="handleSizeChange"
-			        @current-change="handleCurrentChange"
-			        :current-page="pagination.currentPage"
-			        :page-sizes="[10, 20, 50, 100]"
-			        :page-size="pagination.pageSize"
-			        layout="total, sizes, prev, pager, next, jumper"
-			        :total="pagination.total">
-			    </el-pagination>
+					@size-change="handleSizeChange"
+					@current-change="handleCurrentChange"
+					:current-page="pagination.currentPage"
+					:page-sizes="[10, 20, 50, 100]"
+					:page-size="pagination.pageSize"
+					layout="total, sizes, prev, pager, next, jumper"
+					:total="pagination.total">
+				</el-pagination>
 			</div>
 		</div>
 		<el-dialog title="详情信息" v-model="detailVisible">
-			<p>{{detailContent}}</p>
+			<p style="text-indent:2em">{{detailContent}}</p>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click="detailVisible = false">关闭</el-button>
 			</div>
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import jsonp from "jsonp";
 	export default {
 		data() {
 			return {
@@ -86,33 +87,47 @@
 				return (row.year+"年");
 			},
 			handleDetail(index,row){
-				var headers={
-					"Accept":"application/json;charset=utf-8"
-				};
-				this.axios.get('/api/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id='+row._id,{headers:headers}).then( (res) => {
-	                this.detailContent=res.data.result[0].content;
-	                console.log(res);
-	                this.detailVisible=true;
-	            });
+				jsonp('https://bird.ioliu.cn/v1?url=http://api.juheapi.com/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id='+row._id, null, (err, res) => {
+					if (err) {
+						console.error(err.message);
+					} else {
+						console.log(res);
+						this.detailContent=res.result[0].content;
+						this.detailVisible=true;
+					}
+				});
+				/*this.axios.get('http://api.juheapi.com/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id='+row._id).then( (res) => {
+					this.detailContent=res.data.result[0].content;
+					console.log(res);
+					this.detailVisible=true;
+				});*/
 			},
 			dateChange(e){
 				//e;
 			},
 			search(){
 				var queryDay=new Date(this.queryForm.date);
-				var params={
+				/*var params={
 					month:queryDay.getMonth()+1,
 					day:queryDay.getDate()
 				};
-				var headers={
-					"Accept":"application/json;charset=utf-8"
-				};
-	            this.axios.get('/api/japi/toh?key=e676ca1db545a88c1a22c7da35253776&v=1.0',{params:params,headers:headers}).then( (res) => {
-	                this.resData = res.data.result;
-	                this.pagination.currentPage=1;
-                	this.pagination.total=this.resData.length;
-                	this.paginate();
-	            });
+				this.axios.get('http://api.juheapi.com/japi/toh?key=e676ca1db545a88c1a22c7da35253776&v=1.0,{params:params}).then( (res) => {
+					//console.log(res);
+					this.resData = res.data.result;
+					this.pagination.currentPage=1;
+					this.pagination.total=this.resData.length;
+					this.paginate();
+				});*/
+				jsonp('https://bird.ioliu.cn/v1?url=http://api.juheapi.com/japi/toh?key=e676ca1db545a88c1a22c7da35253776&v=1.0&month='+(queryDay.getMonth()+1)+'&day='+queryDay.getDate(), null, (err, res) => {
+					if (err) {
+						console.error(err.message);
+					} else {
+						this.resData = res.result;
+						this.pagination.currentPage=1;
+						this.pagination.total=this.resData.length;
+						this.paginate();
+					}
+				});
 			},
 			paginate(){
 				let pageSize=this.pagination.pageSize;
@@ -130,6 +145,6 @@
 		},
 		beforeMount(){
 			this.search();
-        }
+		}
 	}
 </script>

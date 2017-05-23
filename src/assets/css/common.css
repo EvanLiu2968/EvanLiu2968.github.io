@@ -56,6 +56,11 @@ a{text-decoration: none}
 .el-table tr:hover{
 	background: #f6faff;
 }
+.center-block{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
 .pull-right{
 	float:right;
 }
@@ -71,3 +76,64 @@ a{text-decoration: none}
 .text-center{
 	text-align:center;
 }
+.text-small{
+	font-size:80%;
+}
+.text-blue{
+	color:#20A0FF;
+}
+.text-success{
+	color:#13CE66;
+}
+.text-warning{
+	color:#F7BA2A;
+}
+.text-danger{
+	color:#FF4949;
+}
+/* 电影条目 */
+.movie-list-title{
+	padding-left:2em;
+	color:#8492A6;
+	font-size:16px;
+}
+.movie-list-title>i{
+	margin-right:5px;
+}
+.movie-list{
+	padding:15px;
+}
+.movie-item{
+	display:block;
+	position:relative;
+	color:#99A9BF;
+	padding-left: 70px;
+	height:90px;
+	margin-bottom:15px;
+}
+.movie-cover{
+	position:absolute;
+	top:0;
+	left:0;
+	width:60px;
+	height:90px;
+}
+.movie-cover>img{
+	display:block;
+	height:100%;
+	width:100%;
+}
+.movie-content{
+	position:relative;
+	padding:5px;
+}
+.movie-row{
+	position:relative;
+	font-size:14px;
+	line-height:20px;
+}
+.movie-tag{
+	display:inline-block;
+	margin-right:15px;
+}
+

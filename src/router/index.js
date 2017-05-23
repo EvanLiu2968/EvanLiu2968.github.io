@@ -9,6 +9,10 @@ let routes=[
 			redirect: '/login'
 		},
 		{
+			path: '/movie',
+			redirect: '/movie/top250'
+		},
+		{
 			path: '/login',
 			meta:{title:'登录 | 捕风捉影'}, //title作为网页标题
 			component: resolve => require(['../views/common/Login.vue'], resolve)

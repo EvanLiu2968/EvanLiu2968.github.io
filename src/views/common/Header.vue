@@ -12,6 +12,7 @@
 					<el-dropdown-item command="github">github</el-dropdown-item>
 					<el-dropdown-item command="weibo">weibo</el-dropdown-item>
 					<el-dropdown-item command="wechat">wechat</el-dropdown-item>
+					<el-dropdown-item command="facebook">facebook</el-dropdown-item>
 					<el-dropdown-item divided command="loginout">切换帐号</el-dropdown-item>
 				</el-dropdown-menu>
 			</el-dropdown>
@@ -74,6 +75,8 @@
 					window.open("http://weibo.com/rockmist");
 				}else if (command == 'wechat'){
 					this.wechatBox=true;
+				}else if (command == 'facebook'){
+					window.open("https://www.facebook.com/evanliu2968");
 				}
 			}
 		}
