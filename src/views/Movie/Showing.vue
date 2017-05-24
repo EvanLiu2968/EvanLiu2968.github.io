@@ -9,7 +9,7 @@
 			<div class="movie-content">
 				<div class="movie-row">
 					{{subject.title}} ( {{subject.original_title}} )
-					<el-tag class="movie-tag" type="success" v-for="genre in subject.genres">{{genre}}</el-tag>
+					<el-tag class="movie-genre" type="success" v-for="genre in subject.genres">{{genre}}</el-tag>
 				</div>
 				<div class="movie-row">
 					年份：<span class="movie-tag">{{subject.year}}</span>导演：

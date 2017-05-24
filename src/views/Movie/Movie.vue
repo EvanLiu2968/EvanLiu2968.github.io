@@ -1,27 +1,51 @@
 <template>
 <div>
-	<el-row :gutter="20">
-		<el-col :xs="24" :sm="6" style="background:#f6f6f6">
+	<div style="position:relative;padding-left:250px;">
+		<div style="position:absolute;top:0;left:0;width:250px;background:#f6f6f6">
 			<h2 class="movie-title">电影榜单</h2>
-			<div class="movie-billboard">
-				<router-link to="/movie/top250" class="movie-list">
-					<img src="static/images/movie/shawshank.webp">
-					<div class="movie-list-name"><span>豆瓣电影<br>TOP250</span></div>
-				</router-link>
-				<router-link to="/movie/showing" class="movie-list">
-					<img src="static/images/movie/thefast.webp">
-					<div class="movie-list-name"><span>正在热映</span></div>
-				</router-link>
-				<router-link to="/movie/coming" class="movie-list">
-					<img src="static/images/movie/threebody.webp">
-					<div class="movie-list-name"><span>即将上映</span></div>
-				</router-link>
+			<div class="movie-billboard clearfix">
+				<div class="rotateBox">
+					<div class="transBox">
+						<div class="movie-list-box color_1 front">
+							<div class="movie-list-name"><span>TOP250</span></div>
+						</div>
+						<div class="movie-list-box color_1 back">
+							<router-link to="/movie/top250" class="movie-list">
+								<img src="https://img3.doubanio.com/view/photo/raw/public/p480747492.jpg">
+							</router-link>
+						</div>
+					</div>
+				</div>
+				<div class="rotateBox">
+					<div class="transBox">
+						<div class="movie-list-box color_2 front">
+							<div class="movie-list-name"><span>正在热映</span></div>
+						</div>
+						<div class="movie-list-box color_2 back">
+							<router-link to="/movie/showing" class="movie-list">
+								<img src="https://img3.doubanio.com/view/photo/raw/public/p2458825426.jpg">
+							</router-link>
+						</div>
+					</div>
+				</div>
+				<div class="rotateBox">
+					<div class="transBox">
+						<div class="movie-list-box color_3 front">
+							<div class="movie-list-name"><span>即将上映</span></div>
+						</div>
+						<div class="movie-list-box color_3 back">
+							<router-link to="/movie/coming" class="movie-list">
+								<img src="https://img1.doubanio.com/view/photo/raw/public/p2248627938.jpg">
+							</router-link>
+						</div>
+					</div>
+				</div>
 			</div>
-		</el-col>
-		<el-col :xs="24" :sm="18">
+		</div>
+		<div >
 			<router-view></router-view>
-		</el-col>
-	</el-row>
+		</div>
+	</div>
 </div>
 </template>
 
@@ -50,34 +74,58 @@ export default {
 }
 .movie-billboard{
 	margin-bottom:15px;
+	padding:25px;
 }
 .movie-list{
-	position:relative;
+	position:absolute;
+	padding:0;
 	display:block;
-	width:100px;
-	margin:10px auto;
+	top:0;left:0;bottom:0;right:0;
 }
 .movie-list>img{
 	display:block;
-	width:100%;
+	width:200px;
+	height:300px;
 }
 .movie-list-name{
-	position:absolute;
-	display: table-cell;
-	vertical-align:middle;
-	text-align:center;
-	top:0;right:0;
-	bottom:0;left:0;
+	line-height:300px;
+	font-size:30px;
+	font-weight:bolder;
 	color:#fff;
-	font-size:74px;
-	font-weight:900;
+	text-align: center;
 }
-.movie-list-name:hover{
-	background-color: rgba(0,0,0,.3)
+/*动画*/
+.rotateBox{ 
+	overflow:hidden; height: 300px; width: 200px; float: left; position: relative;
+	-webkit-perspective: 2000px; perspective:600px;-moz-perspective: 600px;-o-perspective: 600px; -ms-perspective: 600px;
 }
-.movie-list-name>span{
-	display:inline-block;
-	/*vertical-align: middle;*/
-	font-size:20px;
+.transBox{
+	-webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d;-o-transform-style: preserve-3d; 
+	position:absolute; top: 0; left: 0;height: 300px; width: 200px; transform-origin: center center -100px;
+	-webkit-transition:.4s;-moz-transition:.4s;-o-transition:.5s; 
 }
+.transBox .movie-list-box{
+	position: absolute; height: 500px;
+}
+.transBox .front{
+	left: 0; top:0;
+}
+.transBox .back{
+	left: 200px; top:0;
+	-webkit-transform-origin: left; -moz-transform-origin: left;-o-transform-origin: left;-ms-transform-origin: left;
+	-webkit-transform: rotateY(90deg);-moz-transform: rotateY(90deg);-o-transform: rotateY(90deg);-ms-transform: rotateY(90deg);
+}
+.transBox .backed{
+	left:200px; top:0; position: absolute
+}
+.rotateBox:hover .transBox{
+	-webkit-transform: rotateY(-90deg);-moz-transform: rotateY(-90deg);-o-transform: rotateY(-90deg);
+}
+.movie-list-box{
+	position:relative;height: 300px; width: 200px;float:left; display:block;overflow:hidden;
+}
+.color_1{background:#20A0FF;}
+.color_2{background:#13CE66;}
+.color_3{background:#F7BA2A;}
+.color_4{background:#FF4949;}
 </style>

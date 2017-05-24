@@ -69,15 +69,12 @@ img{border: none;}
 .pull-left{
 	float:left !important;
 }
-.clearfix {
-	&:before,
-	&:after {
-		content: " "; // 1
-		display: table; // 2
-	}
-	&:after {
-		clear: both;
-	}
+.clearfix:before, .clearfix:after {
+	content: " ";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
 }
 .center-block {
 	display: block;

@@ -61,6 +61,13 @@ a{text-decoration: none}
 	margin-left:auto;
 	margin-right:auto;
 }
+.clearfix:before, .clearfix:after {
+	content: " ";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
+}
 .pull-right{
 	float:right;
 }
@@ -93,7 +100,7 @@ a{text-decoration: none}
 }
 /* 电影条目 */
 .movie-list-title{
-	padding-left:2em;
+	padding-left:30px;
 	color:#8492A6;
 	font-size:16px;
 }
@@ -101,7 +108,7 @@ a{text-decoration: none}
 	margin-right:5px;
 }
 .movie-list{
-	padding:15px;
+	padding:20px;
 }
 .movie-item{
 	display:block;
@@ -135,5 +142,10 @@ a{text-decoration: none}
 .movie-tag{
 	display:inline-block;
 	margin-right:15px;
+}
+.movie-genre{
+	margin-left:10px;
+	height:20px;
+	line-height:18px;
 }
 
