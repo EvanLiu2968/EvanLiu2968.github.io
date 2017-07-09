@@ -48,12 +48,13 @@
 				sourceBase:'https://github.com/EvanLiu2968/',
 				viewBase:'https://evanliu2968.github.io/',
 				dataList:[
-					{name:"EvanLiu2968.github.io",view:"1",description:"github个人主页"},
-					{name:"notebook",view:"0",description:"前端开发填坑手册"},
+					{name:"EvanLiu2968.github.io",view:"1",description:"github主页，coding是一种生活方式"},
+					{name:"notebook",view:"0",description:"始于学，忠于信，耕于野，收于忆"},
 					{name:"ionic-weixin",view:"1",description:"ionic搭建的仿微信混合APP"},
-					{name:"h5-animate",view:"1",description:"用jQuery和animate.css搭建的宣传H5"},
-					{name:"Angular1.3_Admin_Template",view:"1",description:"用gulp搭建的基于Angular1.3的后台管理模版"},
-					{name:"cyztc",view:"1",description:"春运直通车"}
+					{name:"animateDemo",view:"1",description:"用jQuery和animate.css搭建的demo页面"},
+					{name:"Angular1.3_Admin_Template",view:"1",description:"gulp构建,基于Angular和bootstrap的后台管理模版"},
+					{name:"vueSystem",view:"1",description:"vue2+vue-router+vuex，动态路由及权限控制，刷新缓存"},
+					{name:"rycx",view:"1",description:"gulp构建的广州购票webapp界面"}
 				],
 				dialogFormVisible: false,
 				editForm: {}
@@ -73,16 +74,20 @@
 					type: 'warning'
 				}).then(() => {
 					this.$message({
-							type: 'error',
-							message: '您的权限无法删除！'
-						});
+						type: 'error',
+						message: '游客无法删除！'
+					});
 				});
 			},
 			saveForm() {
 				let index=this.editForm.index;
 				this.$set(this.dataList,index,this.editForm);//利用索引/长度直接设置一个数组项时不会检测更新
 				this.$set(this.dataList,index,this.editForm);//利用索引/长度直接设置一个数组项时不会检测更新
-				this.dialogFormVisible = false
+				this.dialogFormVisible = false;
+				this.$message({
+					type: 'error',
+					message: '游客无法编辑！'
+				});
 			}
 		},
 		beforeMount(){}

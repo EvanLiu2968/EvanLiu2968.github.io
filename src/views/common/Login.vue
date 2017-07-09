@@ -10,8 +10,9 @@
 				</el-form-item>
 				<div class="text-center">
 					<el-button type="primary" @click="submitForm('loginForm')" class="login-btn">登录</el-button>
+					<el-button type="default" @click="cancelLogin" class="login-btn">我是游客</el-button>
 				</div>
-				<p style="font-size:12px;line-height:30px;color:#999;">Tips : 游客统一用帐号：visitor，密码123456。</p>
+				<p style="font-size:12px;line-height:30px;color:#999;">Tips : 管理员帐号登录。</p>
 			</el-form>
 		</div>
 	</div>
@@ -24,8 +25,8 @@ import particlesJS from '../../assets/js/particles.js'
 			return {
 				scaleIn:false,
 				loginForm: {
-					username: 'visitor',
-					password: '123456'
+					username: '',
+					password: ''
 				},
 				loginFormRules: {
 					username: [
@@ -41,10 +42,11 @@ import particlesJS from '../../assets/js/particles.js'
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						let username=this.loginForm.username,password=this.loginForm.password;
-						if(username==="visitor"&&password==="123456"){
-							localStorage.setItem('ms_username',username);
-							this.$router.push('/home'); 
+						let userInfo=JSON.parse(JSON.stringify(this.loginForm));
+						if(userInfo.username==="admin"&&userInfo.password==="123456"){
+							userInfo.role='admin';
+							this.$store.commit('loginIn',userInfo);
+							this.$router.push('/home');
 						} else{
 							this.$message.error("用户名或密码错误！")
 						}
@@ -52,6 +54,9 @@ import particlesJS from '../../assets/js/particles.js'
 						return false;
 					}
 				});
+			},
+			cancelLogin(){
+				this.$router.push('/home');
 			}
 		},
 		mounted:function(){
@@ -210,7 +215,7 @@ import particlesJS from '../../assets/js/particles.js'
 		left:50%;
 		top:50%;
 		width:300px;
-		height:160px;
+		/* height:160px; */
 		margin:-150px 0 0 -190px;
 		padding:40px;
 		border-radius: 5px;
@@ -228,6 +233,8 @@ import particlesJS from '../../assets/js/particles.js'
 		animation-name: scaleIn;
 	}
 	.login-btn{
+		display:block;
+		margin:0 0 10px 0;
 		width:100%;
 		height:36px;
 	}

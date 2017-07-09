@@ -5,15 +5,16 @@
 		<div class="user-info">
 			<el-dropdown trigger="hover" @command="handleCommand">
 				<span class="el-dropdown-link">
-					<img class="user-logo" src="../../../static/images/user.jpg">
-					{{username}}
+					<img class="user-logo" :src="userInfo.head">
+					{{userInfo.username}}
 				</span>
 				<el-dropdown-menu slot="dropdown">
 					<el-dropdown-item command="github">github</el-dropdown-item>
 					<el-dropdown-item command="weibo">weibo</el-dropdown-item>
 					<el-dropdown-item command="wechat">wechat</el-dropdown-item>
 					<el-dropdown-item command="facebook">facebook</el-dropdown-item>
-					<el-dropdown-item divided command="loginout">切换帐号</el-dropdown-item>
+					<el-dropdown-item v-if="login" divided command="loginout">注销</el-dropdown-item>
+					<el-dropdown-item v-else divided command="login">登录</el-dropdown-item>
 				</el-dropdown-menu>
 			</el-dropdown>
 		</div>
@@ -48,27 +49,41 @@
 </div>
 </template>
 <script>
-	import Menu from '../../router/menu.js'
+import tool from '../../assets/js/tool.js';
 	export default {
 		data() {
 			return {
-				menu:Menu,
+				defaultUserInfo:{
+					username:'游客',
+					role:'general',
+					head:'static/images/user.jpg'
+				},
 				wechatBox:false,
 				logoText: '这里有个宝藏，它空无一物，它价值千金',
 				name: '游客'
 			}
 		},
 		computed:{
-			username(){
-				let username = localStorage.getItem('ms_username');
-				return username ? username : this.name;
+			userInfo(){
+				let userInfo = this.$store.getters.getUserInfo;
+				userInfo=tool.extend(true,this.defaultUserInfo,userInfo);
+				return userInfo;
+			},
+			login(){
+				return this.$store.state.login;
+			},
+			menu(){
+				return this.$store.getters.getMenu;
 			}
 		},
 		methods:{
 			handleCommand(command) {
 				if(command == 'loginout'){
-					localStorage.removeItem('ms_username')
-					this.$router.push('/login');
+					this.$store.commit('loginOut');
+				}else if (command == 'login'){
+					this.$router.push({
+						path:'/login'
+					});
 				}else if (command == 'github'){
 					window.open("https://github.com/EvanLiu2968");
 				}else if (command == 'weibo'){
