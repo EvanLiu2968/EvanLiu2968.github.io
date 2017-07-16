@@ -3,97 +3,103 @@ export const getUserInfo = state => {
 	return state.userInfo
 }
 export const getRoute = state => {
-	let route=[];
-	if(state.userInfo.role==='admin'){
-		route= routes.menus['general'].concat(routes.menus['admin'],routes.others['general'],routes.others['admin']);
-	}else{
-		route= routes.menus['general'].concat(routes.others['general']);
-	}
-	return route;
+	return routes;
 }
 export const getMenu = state => {
-	let route=[];
-	if(state.userInfo.role==='admin'){
-		route= routes.menus['general'].concat(routes.menus['admin']);
-	}else{
-		route= routes.menus['general'];
-	}
-	return route;
+	return routes;
 }
 //路由及菜单配置
 import Header from '../views/common/Header.vue';
-let routes={
-	//菜单路由
-	menus:{
-		//普通角色
-		'general':[
-					{
-				path: '/',
-				component:Header,
-				name: '',
-				meta:{
-					leaf:true, //只有一个节点
-					icon:'el-icon-star-on' //图标样式class
-				},
-				children: [
-					{ path: '/home', component: resolve => require(['../views/Home/Home.vue'], resolve), name: '首页',meta:{title:"首页 | 捕风捉影",icon:'el-icon-star-on'}}
-				]
-			},
-			{
-				path: '/',
-				component:Header,
-				name: '娱乐',
-				meta:{
-					leaf:false,
-					icon:'el-icon-information'
-				},
-				children: [
-					{ path: '/fivechess', component: resolve => require(['../views/Game/FiveChess.vue'], resolve), name: '五子棋',meta:{title:"五子棋 | 捕风捉影"}}
-				]
-			},
-			{
-				path: '/',
-				component:Header,
-				name: '搜索',
-				meta:{
-					leaf:false,
-					icon:'el-icon-search'
-				},
-				children: [
-					{ 
-						path: '/movie',
-						component: resolve => require(['../views/Movie/Movie.vue'], resolve),
-						name: '电影',
-						meta:{title:"电影 | 捕风捉影"},
-						children: [
-							{ path: '/movie/top250', component: resolve => require(['../views/Movie/Top250.vue'], resolve), name: '豆瓣电影Top250',meta:{title:"豆瓣电影Top250 | 捕风捉影"}},
-							{ path: '/movie/showing', component: resolve => require(['../views/Movie/Showing.vue'], resolve), name: '正在热映',meta:{title:"正在热映 | 捕风捉影"}},
-							{ path: '/movie/coming', component: resolve => require(['../views/Movie/Coming.vue'], resolve), name: '即将上映',meta:{title:"即将上映 | 捕风捉影"}}
-						]
-					},
-					{ path: '/music', component: resolve => require(['../views/Music/Music.vue'], resolve), name: '音乐',meta:{title:"音乐 | 捕风捉影"}},
-					{ path: '/historytoday', component: resolve => require(['../views/Search/HistoryToday.vue'], resolve), name: '历史今天',meta:{title:"历史今天 | 捕风捉影"}},
-					{ path: '/repositories', component: resolve => require(['../views/Search/Repositories.vue'], resolve), name: '仓库',meta:{title:"仓库 | 捕风捉影"}}
-				]
-			}
-		],
-		//系统管理员
-		'admin':[]
+const Login =resolve => require(['../views/common/Login.vue'], resolve);
+const Home =resolve => require(['../views/Home/Home.vue'], resolve);
+const FiveChess =resolve => require(['../views/Game/FiveChess.vue'], resolve);
+const Movie =resolve => require(['../views/Movie/Movie.vue'], resolve);
+const MovieDetail =resolve => require(['../views/Movie/Detail.vue'], resolve);
+const Music =resolve => require(['../views/Music/Music.vue'], resolve);
+const HistoryToday =resolve => require(['../views/Search/HistoryToday.vue'], resolve);
+const Repository =resolve => require(['../views/Search/Repository.vue'], resolve);
+const NotFound =resolve => require(['../views/common/404.vue'], resolve);
+let routes=[
+	{
+		path: '/login',
+		name:'login',
+		meta:{title:'登录',isMenu:false},
+		component: Login
 	},
-	//非菜单路由
-	others:{
-		'general':[
+	{
+		path: '/',
+		component:Header,
+		meta:{
+			title: '首页',
+			isMenu:true,   //是否是菜单
+			isParent:false, //是否是父级
+			icon:'el-icon-star-on' //图标样式class
+		},
+		children: [
 			{
-				path: '/login',
-				meta:{title:'登录 | 捕风捉影'}, //title作为网页标题
-				component: resolve => require(['../views/common/Login.vue'], resolve)
+				path: '/home',
+				component: Home,
+				name: 'home',
+				meta:{title:"首页",isMenu:true,isParent:false,icon:'el-icon-star-on'}
+			}
+		]
+	},
+	{
+		path: '/',
+		component:Header,
+		meta:{title:'娱乐',isMenu:true,isParent:true,icon:'el-icon-information'
+		},
+		children: [
+			{
+				path: '/fivechess',
+				component: FiveChess,
+				name: 'fivechess',
+				meta:{title:"五子棋",isMenu:true,isParent:false}
+			}
+		]
+	},
+	{
+		path: '/',
+		component:Header,
+		meta:{title:'搜索',isMenu:true,isParent:true,icon:'el-icon-search'
+		},
+		children: [
+			{
+				path: '/movie',
+				component: Movie,
+				name: 'movie',
+				meta:{title:"电影",isMenu:true,isParent:false}
 			},
 			{
-				path: '/404',
-				meta:{title:'404 | 捕风捉影'},
-				component: resolve => require(['../views/common/404.vue'], resolve)
+				path: '/movie/detail/:id',
+				component:MovieDetail,
+				name: 'movie/detail',
+				meta:{title:'电影详情',isMenu:false}
+			},
+			{
+				path: '/music',
+				component: Music,
+				name: 'music',
+				meta:{title:"音乐",isMenu:true,isParent:false}
+			},
+			{
+				path: '/historytoday',
+				component:HistoryToday,
+				name: 'historytoday',
+				meta:{title:"历史今天",isMenu:true,isParent:false}
+			},
+			{
+				path: '/repository',
+				component:Repository,
+				name: 'repository',
+				meta:{title:"仓库",isMenu:true,isParent:false}
 			}
-		],
-		'admin':[]
+		]
+	},
+	{
+		path: '/404',
+		name:'404',
+		component: NotFound,
+		meta:{title:'404',isMenu:false}
 	}
-};
+];

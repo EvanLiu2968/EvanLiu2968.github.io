@@ -5,11 +5,8 @@ Vue.use(Router);
 let routes=[
 		{
 			path: '/',
+			name: '首页',
 			redirect: '/home'
-		},
-		{
-			path: '/movie',
-			redirect: '/movie/top250'
 		}
 	];
 export default new Router({

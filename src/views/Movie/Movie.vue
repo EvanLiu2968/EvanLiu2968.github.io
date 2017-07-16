@@ -1,81 +1,58 @@
 <template>
-<div>
-	<div style='position:absolute;top:15px;right:25px;width:300px;z-index:99;'>
-		<el-input
-			size="small"
-			placeholder="请输入电影或人名"
-			icon="search"
-			v-model="searchText"
-			@keyup.enter="searchMovie"
-			:on-icon-click="searchMovie">
-		</el-input>
-		<ul v-if='searchListShow' v-loading="searchLoading" class="search-list">
-			<li v-for='subject in subjects'>
-				<a :href='subject.alt' target='_blank'>
-					<span class="">{{subject.title}}</span>
-					<span class="original-title">{{subject.original_title}}</span>
-					<span class="year">{{subject.year}}</span>
-				</a>
-			</li>
-			<li class="text-center">
-				<el-pagination
-					small
-					layout="prev, pager, next"
-					@current-change="searchPageChange"
-					:current-page="pagination.currentPage"
-					:page-size="pagination.pageSize"
-					:total="pagination.total">
-				</el-pagination>
-			</li>
-			<li >
-				<a class="text-center" role="button" v-on:click="hideSearchList">关闭搜索栏</a>
-			</li>
-		</ul>
-	</div>
-	<div style="position:relative;padding-left:250px;" v-loading.fullscreen.lock="loading">
+<div v-loading.fullscreen.lock="loading">
+	<movie-search></movie-search>
+	<div style="position:relative;padding-left:250px;">
 		<div style="position:absolute;top:0;left:0;width:250px;background:#f6f6f6">
 			<h2 class="movie-title">电影榜单</h2>
 			<div class="movie-billboard clearfix">
-				<div class="rotateBox">
+				<div class="rotateBox" v-for="list in lists">
 					<div class="transBox">
-						<div class="movie-list-box color_1 front">
-							<div class="movie-list-name"><span>TOP250</span></div>
+						<div class="movie-list-box front" v-bind:style="{background:list.color}">
+							<div class="movie-list-name"><span>{{list.name}}</span></div>
 						</div>
-						<div class="movie-list-box color_1 back">
-							<router-link to="/movie/top250" class="movie-list">
-								<img v-bind:src="cover.top250">
-							</router-link>
-						</div>
-					</div>
-				</div>
-				<div class="rotateBox">
-					<div class="transBox">
-						<div class="movie-list-box color_2 front">
-							<div class="movie-list-name"><span>正在热映</span></div>
-						</div>
-						<div class="movie-list-box color_2 back">
-							<router-link to="/movie/showing" class="movie-list">
-								<img v-bind:src="cover.showing">
-							</router-link>
-						</div>
-					</div>
-				</div>
-				<div class="rotateBox">
-					<div class="transBox">
-						<div class="movie-list-box color_3 front">
-							<div class="movie-list-name"><span>即将上映</span></div>
-						</div>
-						<div class="movie-list-box color_3 back">
-							<router-link to="/movie/coming" class="movie-list">
-								<img v-bind:src="cover.coming">
-							</router-link>
+						<div class="movie-list-box back" v-bind:style="{background:list.color}">
+							<div class="movie-list-cover" @click="toggleList(list)">
+								<img v-bind:src="list.cover">
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div >
-			<router-view></router-view>
+		<div>
+			<h1 class="movie-list-title"><i class="el-icon-menu"></i>{{activeList.name}}</h1>
+			<div class="movie-list">
+				<div v-for="subject in subjects" class="movie-item" >
+					<div class="movie-cover">
+						<img :src="subject.images.small">
+					</div>
+					<div class="movie-content">
+						<div class="movie-row">
+							{{subject.title}} ( {{subject.original_title}} )
+							<el-tag class="movie-genre" type="success" v-for="genre in subject.genres">{{genre}}</el-tag>
+						</div>
+						<div class="movie-row">
+							年份：<span class="movie-tag">{{subject.year}}</span>导演：
+							<a class="movie-tag" :href="director.alt" v-for="director in subject.directors" target="_blank">{{director.name}}</a>
+						</div>
+						<div class="movie-row">
+							主演：
+							<a class="movie-tag" :href="cast.alt" v-for="cast in subject.casts" target="_blank">{{cast.name}}</a>
+						</div>
+						<div class="movie-row">
+							评分：<span style="color:#F7BA2A">{{subject.rating.average}}</span><span class="movie-tag">/{{subject.rating.max}}</span>
+							<router-link class="movie-tag" :to="{ name: 'movie/detail', params: { id: subject.id }}">查看详情 <i class="el-icon-d-arrow-right text-small"></i></router-link>
+						</div>
+					</div>
+				</div>
+			</div>
+			<el-pagination
+				@current-change="handleCurrentChange"
+				:current-page="pagination.currentPage"
+				:page-size="pagination.pageSize"
+				layout="prev, pager, next, jumper"
+				:total="pagination.total">
+			</el-pagination>
 		</div>
 	</div>
 </div>
@@ -83,90 +60,99 @@
 
 <script>
 import jsonp from "jsonp";
+import movieSearch from "./MovieSearch.vue";
 export default {
+	components:{
+		movieSearch
+	},
 	data: function(){
 		return {
-			cover:{
-				top250:'',
-				showing:'',
-				coming:''
-			},
-			searchText:'',
-			searchListShow:false,
+			lists:[
+				{
+					name:'TOP250',
+					api:'top250',
+					cover:'',
+					color:'#20A0FF'
+				},
+				{
+					name:'正在热映',
+					api:'in_theaters',
+					cover:'',
+					color:'#13CE66'
+				},
+				{
+					name:'即将上映',
+					api:'coming_soon',
+					cover:'',
+					color:'#F7BA2A'
+				}
+				/*{
+					name:'口碑榜',
+					api:'weekly',
+					cover:'',
+					color:'#FF4949'
+				},
+				{
+					name:'新片榜',
+					api:'new_movies',
+					cover:'',
+					color:'#324057'
+				},
+				{
+					name:'北美票房榜',
+					api:'us_box',
+					cover:'',
+					color:'#CC3399'
+				}*/
+			],
+			activeList:{},
 			subjects:[],
 			pagination:{
 				currentPage:1,
 				pageSize:10,
 				total:0
 			},
-			searchLoading:false,
 			loading:false
 		}
 	},
 	methods: {
-		searchMovie() {
-			let q=this.searchText;
-			if(q==''){
-				this.$message({
-					type: 'error',
-					message: '请输入电影或人名关键字！'
-				});
-				this.hideSearchList();
-				return;
-			}
-			if(!this.searchListShow){
-				this.loading=true;
-			}
-			this.searchLoading=true;
-			let start=(this.pagination.currentPage-1)*this.pagination.pageSize,count=this.pagination.pageSize;
-			//q:搜索关键字 tag:标签
-			jsonp('https://api.douban.com/v2/movie/search?q='+ q +'&start='+ start +'&count='+count, null, (err, data)=> {
+		toggleList(list) {
+			this.activeList=list;
+			this.paginate();
+		},
+		paginate() {
+			let count=this.pagination.pageSize;
+			let start=(this.pagination.currentPage-1)*count;
+			let api=this.activeList.api;
+			this.loading=true;
+			jsonp('https://api.douban.com/v2/movie/'+api+'?start='+start+'&count='+count, null, (err, data)=> {
 				if (err) {
-					this.$message({
-						type: 'error',
-						message: err.message
-					});
+					this.loading=false;
+					console.error(err.message);
 				} else {
-					this.subjects=data.subjects;
+					this.loading=false;
 					this.pagination.total=data.total;
-					this.searchListShow=true;
+					this.subjects=data.subjects;
 				}
-				this.loading=false;
-				this.searchLoading=false;
 			});
 		},
-		hideSearchList() {
-			this.searchListShow=false;
-			this.pagination.currentPage=1;
-			this.pagination.total=0;
-			this.subjects=[];
-		},
-		searchPageChange(currentPage) {
-			this.pagination.currentPage=currentPage;
-			this.searchMovie();
+		handleCurrentChange(current){
+			this.pagination.currentPage=current;
+			this.paginate();
 		}
 	},
 	beforeMount:function(){
-		jsonp('https://api.douban.com/v2/movie/top250?start=0&count=1', null, (err, data)=> {
-			if (err) {
-				console.error(err.message);
-			} else {
-				this.cover.top250=data.subjects[0].images.large;
-			}
-		});
-		jsonp('https://api.douban.com/v2/movie/in_theaters?start=0&count=1', null, (err, data)=> {
-			if (err) {
-				console.error(err.message);
-			} else {
-				this.cover.showing=data.subjects[0].images.large;
-			}
-		});
-		jsonp('https://api.douban.com/v2/movie/coming_soon?start=0&count=1', null, (err, data)=> {
-			if (err) {
-				console.error(err.message);
-			} else {
-				this.cover.coming=data.subjects[0].images.large;
-			}
+		this.toggleList(this.lists[0]);
+	},
+	mounted:function(){
+		this.lists.forEach((list,index) => {
+			jsonp('https://api.douban.com/v2/movie/'+list.api+'?start=0&count=1', null, (err, data)=> {
+				if (err) {
+					console.error(err.message);
+				} else {
+					this.lists[index].cover=data.subjects[0].images.large;
+				}
+			});
 		});
 	}
 }
@@ -182,13 +168,13 @@ export default {
 	margin-bottom:15px;
 	padding:25px;
 }
-.movie-list{
+.movie-list-cover{
 	position:absolute;
 	padding:0;
 	display:block;
 	top:0;left:0;bottom:0;right:0;
 }
-.movie-list>img{
+.movie-list-cover>img{
 	display:block;
 	width:200px;
 	height:300px;
@@ -199,48 +185,6 @@ export default {
 	font-weight:bolder;
 	color:#fff;
 	text-align: center;
-}
-.search-list{
-	margin:3px 0 10px 0;
-	padding:0;
-	list-style:none;
-	color:#324057;
-	font-size:16px;
-	background:#fff;
-	border-radius:3px;
-	border:1px solid #D3DCE6;
-	box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.12);
-}
-.search-list>li{
-	border-bottom:1px solid #E5E9F2;
-}
-.search-list>li:last-child{
-	border-bottom:0;
-}
-.search-list>li>a{
-	position:relative;
-	display:block;
-	padding:6px 56px 6px 10px;
-	color:#324057;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 1;
-}
-.search-list>li>a:hover{
-	background:#EFF2F7;
-}
-.search-list>li>a .original-title{
-	margin-left:10px;
-	font-size:80%;
-	color:#99A9BF;
-}
-.search-list>li>a .year{
-	position:absolute;
-	top:6px;
-	right:10px;
-	color:#8492A6;
 }
 /*动画*/
 .rotateBox{ 
@@ -272,8 +216,4 @@ export default {
 .movie-list-box{
 	position:relative;height: 300px; width: 200px;float:left; display:block;overflow:hidden;
 }
-.color_1{background:#20A0FF;}
-.color_2{background:#13CE66;}
-.color_3{background:#F7BA2A;}
-.color_4{background:#FF4949;}
 </style>

@@ -23,9 +23,9 @@
 				</el-table-column>
 				<el-table-column prop="title" label="标题" width="200">
 				</el-table-column>
-				<el-table-column prop="pic" label="图片" width="120">
+				<el-table-column prop="pic" label="图片" width="100">
 					<template scope="scope">
-						<img v-bind:src="scope.row.pic" style="height:50px">
+						<img v-bind:src="scope.row.pic" role="button" style="height:50px" @click="showPic(scope.row.pic)">
 					</template>
 				</el-table-column>
 				<el-table-column prop="des" label="内容" >
@@ -48,11 +48,14 @@
 				</el-pagination>
 			</div>
 		</div>
-		<el-dialog title="详情信息" v-model="detailVisible">
+		<el-dialog title="内容详情" v-model="detailVisible">
 			<p style="text-indent:2em">{{detailContent}}</p>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click="detailVisible = false">关闭</el-button>
 			</div>
+		</el-dialog>
+		<el-dialog title="图片详情" v-model="currentPicVisible">
+			<img :src="currentPic" class="center-block" style="max-width:100%">
 		</el-dialog>
 	</div>
 </template>
@@ -73,7 +76,9 @@ import jsonp from "jsonp";
 					total:0
 				},
 				detailVisible:false,
-				detailContent:""
+				detailContent:"",
+				currentPicVisible:false,
+				currentPic:''
 			}
 		},
 		watch: {
@@ -105,19 +110,12 @@ import jsonp from "jsonp";
 			dateChange(e){
 				//e;
 			},
+			showPic(url){
+				this.currentPic=url;
+				this.currentPicVisible=true;
+			},
 			search(){
 				var queryDay=new Date(this.queryForm.date);
-				/*var params={
-					month:queryDay.getMonth()+1,
-					day:queryDay.getDate()
-				};
-				this.axios.get('http://api.juheapi.com/japi/toh?key=e676ca1db545a88c1a22c7da35253776&v=1.0,{params:params}).then( (res) => {
-					//console.log(res);
-					this.resData = res.data.result;
-					this.pagination.currentPage=1;
-					this.pagination.total=this.resData.length;
-					this.paginate();
-				});*/
 				jsonp('https://bird.ioliu.cn/v1?url=http://api.juheapi.com/japi/toh?key=e676ca1db545a88c1a22c7da35253776&v=1.0&month='+(queryDay.getMonth()+1)+'&day='+queryDay.getDate(), null, (err, res) => {
 					if (err) {
 						console.error(err.message);

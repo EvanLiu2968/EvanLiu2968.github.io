@@ -7,6 +7,7 @@ html,body,#app,.wrapper{
 }
 body{
 	font-family:"Helvetica Neue",Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
+	color:#1F2D3D;
 }
 a{text-decoration: none}
 [role="button"] {
@@ -24,6 +25,13 @@ a{text-decoration: none}
 	padding:25px;
 	box-sizing: border-box;
 	overflow-y: scroll;
+}
+.fix-container{
+	position:relative;
+	display:block;
+	max-width:950px;
+	margin-left:auto;
+	margin-right:auto;
 }
 .move-enter-active,.move-leave-active{
 	transition: opacity .5s;
@@ -56,6 +64,11 @@ a{text-decoration: none}
 }
 .el-table td,.el-table th{
 	padding:4px 8px;
+}
+.el-table .cell,
+.el-table th>div{
+	padding-left:8px;
+	padding-right:8px;
 }
 .el-table tr:hover{
 	background: #f6faff;
@@ -102,9 +115,12 @@ a{text-decoration: none}
 .text-danger{
 	color:#FF4949;
 }
+.text-gray{
+	color:#8492A6;
+}
 /* 电影条目 */
 .movie-list-title{
-	padding-left:30px;
+	padding-left:20px;
 	color:#8492A6;
 	font-size:16px;
 }

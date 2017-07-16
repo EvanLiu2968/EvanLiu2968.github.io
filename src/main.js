@@ -38,7 +38,7 @@ router.beforeEach((to, from, next) => { //切换网页标题
 			} else if(to.path!=='/404'){
 				//console.log(to);//这里有bug，通过addRoutes首次添加的路由（例如刷新）不能反馈到router.options和to,第二次就正常了
 				//console.log(from);
-				document.title = to.meta.title?to.meta.title:'捕风捉影';
+				document.title = to.meta.title?to.meta.title+' | 捕风捉影':'捕风捉影';
 				sessionStorage.setItem('cache_path',to.path);
 				next();
 				//console.log('页面已加载');

@@ -2,7 +2,7 @@
 	<div>
 		<div class="table">
 			<el-table :data="dataList" border style="width: 100%">
-				<el-table-column prop="name" label="项目名" width="200"></el-table-column>
+				<el-table-column prop="name" label="仓库名" width="200"></el-table-column>
 				<el-table-column prop="tag" label="地址" width="170">
 					<template scope="scope">
 						<a :href="sourceBase+scope.row.name" target="_blank">
@@ -17,16 +17,16 @@
 				<el-table-column label="管理" width="160">
 					<template scope="scope">
 						<el-button size="small"
-								   @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+							@click="handleEdit(scope.$index, scope.row)">编辑</el-button>
 						<el-button size="small" type="danger"
-								   @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+							@click="handleDelete(scope.$index, scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
 		</div>
 		<el-dialog title="编辑信息" v-model="dialogFormVisible">
 			<el-form :model="editForm" ref="editForm">
-				<el-form-item label="项目名" label-width="120px" prop="name">
+				<el-form-item label="仓库名" label-width="120px" prop="name">
 					<el-input v-model="editForm.name" auto-complete="off" disabled></el-input>
 				</el-form-item>
 				<el-form-item label="详情描述" label-width="120px" prop="description" :rules="{required:true,message:'请填写地址',trigger:'blur'}">
@@ -49,12 +49,14 @@
 				viewBase:'https://evanliu2968.github.io/',
 				dataList:[
 					{name:"EvanLiu2968.github.io",view:"1",description:"github主页，coding是一种生活方式"},
-					{name:"notebook",view:"0",description:"始于学，忠于信，耕于野，收于忆"},
+					{name:"clover",view:"0",description:"第一片叶子代表love，第二片叶子代表health，第三片叶子代表glory"},
+					{name:"manifast",view:"0",description:"记录我的清单"},
 					{name:"ionic-weixin",view:"1",description:"ionic搭建的仿微信混合APP"},
 					{name:"animateDemo",view:"1",description:"用jQuery和animate.css搭建的demo页面"},
 					{name:"Angular1.3_Admin_Template",view:"1",description:"gulp构建,基于Angular和bootstrap的后台管理模版"},
 					{name:"vueSystem",view:"1",description:"vue2+vue-router+vuex，动态路由及权限控制，刷新缓存"},
-					{name:"rycx",view:"1",description:"gulp构建的广州购票webapp界面"}
+					{name:"rycx",view:"1",description:"gulp构建的广州购票webapp界面"},
+					{name:"hosts",view:"0",description:"科学上网"},
 				],
 				dialogFormVisible: false,
 				editForm: {}

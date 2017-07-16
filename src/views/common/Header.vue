@@ -21,11 +21,15 @@
 		<div class="pull-right">
 			<el-menu :default-active="$route.path" class="el-menu-blue" unique-opened router mode="horizontal">
 			<template v-for="(item,index) in menu">
-				<el-submenu :index="index+''" v-if="!item.meta.leaf">
-					<template slot="title"><i :class="item.meta.icon"></i>{{item.name}}</template>
-					<el-menu-item v-for="child in item.children" :index="child.path">{{child.name}}</el-menu-item>
-				</el-submenu>
-				<el-menu-item v-else :index="item.children[0].path"><i :class="item.children[0].meta.icon"></i>{{item.children[0].name}}</el-menu-item>
+				<template v-if="item.meta.isMenu">
+					<el-submenu :index="index+''" v-if="item.meta.isParent">
+						<template slot="title"><i :class="item.meta.icon"></i>{{item.meta.title}}</template>
+						<template v-for="child in item.children">
+							<el-menu-item v-if="child.meta.isMenu" :index="child.path">{{child.meta.title}}</el-menu-item>
+						</template>
+					</el-submenu>
+					<el-menu-item v-else :index="item.children[0].path"><i :class="item.children[0].meta.icon"></i>{{item.children[0].meta.title}}</el-menu-item>
+				</template>
 			</template>
 			</el-menu>
 		</div>
@@ -38,7 +42,7 @@
 		<div class="crumbs">
 			<el-breadcrumb separator="/">
 				<template v-for="item in $route.matched">
-					<el-breadcrumb-item v-if="item.name"><i v-if="item.meta.icon" :class="item.meta.icon"></i>{{ item.name }}</el-breadcrumb-item>
+					<el-breadcrumb-item v-if="item.meta.title"><i v-if="item.meta.icon" :class="item.meta.icon"></i>{{ item.meta.title }}</el-breadcrumb-item>
 				</template>
 			</el-breadcrumb>
 		</div>

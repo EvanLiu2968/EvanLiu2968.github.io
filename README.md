@@ -1,55 +1,44 @@
 
 ## 前言 ##
-用vue2 + vue-router + vuex + axios + element UI搭建一个个人github主页，并对vue-cli的配置做了修改，dev的入口为src/index.html,build的入口为/index.html。
-访问地址：[evanliu2968.github.io](https://evanliu2968.github.io)
 
-## 目录结构介绍 ##
+github主页
 
+已修改vue-cli的配置做了修改，dev的入口为*/src/index.html*,build的入口为*/index.html*。
+
+> 访问地址：[https://evanliu2968.github.io](https://evanliu2968.github.io)
+> 项目地址：[https://github.com/EvanLiu2968](https://github.com/EvanLiu2968)
+> 邮箱：[evanLiu2968@gmail.com](mailto:evanLiu2968@gmail.com?subject=%E8%81%8A%E4%BA%BA%E7%94%9F%E3%80%81%E8%81%8A%E7%90%86%E6%83%B3)
+
+## 目录结构 ##
+```
 	|-- build                            // webpack配置文件
 	|-- config                           // 项目打包路径
 	|-- src                              // 源码目录
-	|   |-- views                        // 页面
-	|       |-- common                   // 公共组件
-	|           |-- Header.vue           // 公共头部
-	|           |-- Home.vue           	 // 公共路由入口
-	|           |-- Sidebar.vue          // 公共左边栏
-	|		|-- page                   	 // 主要路由页面
-	|           |-- BaseCharts.vue       // 基础图表
-	|           |-- BaseForm.vue         // 基础表单
-	|           |-- BaseTable.vue        // 基础表格
-	|           |-- Login.vue          	 // 登录
-	|           |-- Markdown.vue         // markdown组件
-	|           |-- MixCharts.vue        // 混合图表
-	|           |-- Readme.vue           // 自述组件
-	|           |-- Upload.vue           // 图片上传
-	|           |-- VueEditor.vue        // 富文本编辑器
-	|           |-- VueTable.vue         // vue表格组件
+	|   |-- assets                       // 资源
+	|   |-- router                       // 路由
+	|   |-- views                        // .vue组件
+	|   |-- vuex                         // 状态管理
 	|   |-- App.vue                      // app入口文件
 	|   |-- main.js                      // 程序入口文件，加载各种公共组件
 	|   |-- index.html                   // 开发入口html文件
 	|-- .babelrc                         // ES6语法编译配置
 	|-- .editorconfig                    // 代码编写规格
 	|-- .gitignore                       // 忽略的文件
-	|-- index.html                       // 编译后的入口html文件,同为github page的入口文件
+	|-- index.html                       // 编译后的入口html文件,同步github page
 	|-- package.json                     // 项目及工具的依赖配置文件
 	|-- README.md                        // 说明
+```
 
-
-## 安装步骤 ##
-	npm install													// 安装项目依赖，等待安装完成之后
-
-## 本地开发 ##
-
-	// 开启服务器，浏览器访问 http://localhost:8089
-	npm run dev
-
-## 构建生产 ##
-
-	// 执行构建命令，生成的dist文件夹放在服务器下即可访问
-	npm run build
-
-## 组件使用说明与演示 ##
-
-### element-ui ###
-一套基于vue.js2.0的桌面组件库。访问地址：[element](http://element.eleme.io/#/zh-CN/component/layout)
+## 开始 ##
+```
+npm install   // 安装项目依赖
+npm run dev   //构建开发环境，浏览器访问 => http://localhost:2968
+npm run build //构建生产环境，同步github
+```
+## 参考 ##
+ - [vue2](https://cn.vuejs.org/v2/guide/)
+ - [vue-router](https://router.vuejs.org/zh-cn/)
+ - [vuex](https://vuex.vuejs.org/zh-cn/)
+ - [axios](https://github.com/mzab)
+ - [element-UI](http://element.eleme.io/#/zh-CN/component/layout)
 
