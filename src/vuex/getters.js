@@ -13,12 +13,14 @@ import Header from '../views/common/Header.vue';
 const Login =resolve => require(['../views/common/Login.vue'], resolve);
 const Home =resolve => require(['../views/Home/Home.vue'], resolve);
 const FiveChess =resolve => require(['../views/Game/FiveChess.vue'], resolve);
+const TearCloth =resolve => require(['../views/Game/TearCloth.vue'], resolve);
 const Movie =resolve => require(['../views/Movie/Movie.vue'], resolve);
 const MovieDetail =resolve => require(['../views/Movie/Detail.vue'], resolve);
 const Music =resolve => require(['../views/Music/Music.vue'], resolve);
 const HistoryToday =resolve => require(['../views/Search/HistoryToday.vue'], resolve);
 const Repository =resolve => require(['../views/Search/Repository.vue'], resolve);
 const NotFound =resolve => require(['../views/common/404.vue'], resolve);
+
 let routes=[
 	{
 		path: '/login',
@@ -55,6 +57,12 @@ let routes=[
 				component: FiveChess,
 				name: 'fivechess',
 				meta:{title:"五子棋",isMenu:true,isParent:false}
+			},
+			{
+				path: '/tearcloth',
+				component: TearCloth,
+				name: 'tearcloth',
+				meta:{title:"勇敢的心",isMenu:true,isParent:false}
 			}
 		]
 	},

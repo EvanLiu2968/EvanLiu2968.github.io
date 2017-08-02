@@ -1,10 +1,20 @@
 <template>
-<div style="position:relative;margin:0 auto;width:1200px">
-	<canvas id="chess" width="1200" height="600" style="position:absolute;top:0;left:0;border-radius:6px"></canvas>
-	<canvas id="animate" width="1200" height="600" style="position:relative;width:1200px;height:600px;"><br>您的浏览器out啦！建议使用使用谷歌浏览器</canvas>
+<div class="fivechess-wrap">
+	<canvas id="chess" width="1200" height="600"></canvas>
+	<canvas id="animate" width="1200" height="600"></canvas>
 </div>
 </template>
-
+<style scoped>
+	.fivechess-wrap{
+		position:relative;margin:0 auto;width:1200px;
+	}
+	#chess{
+		position:absolute;top:0;left:0;border-radius:6px;
+	}
+	#chess{
+		position:relative;width:1200px;height:600px;
+	}
+</style>
 <script>
 	export default {
 		data: function(){
@@ -330,5 +340,3 @@
 		}
 	}
 </script>
-<style scoped>
-</style>

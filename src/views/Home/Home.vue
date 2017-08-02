@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<div>
-			<iframe width="100%" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=7"></iframe>
+		<div class="lunar">
+			<span>{{lunar.year}}</span>
+			<span>{{lunar.month}}</span>
+			<span>{{lunar.day}}</span>
 		</div>
 		<el-row :gutter="10">
 			<el-col :xs="24" :sm="16">
@@ -52,9 +54,16 @@
 </template>
 
 <script>
+import jsonp from "jsonp";
+import lunar from "../../assets/js/lunar.js";
 	export default {
 		data: function(){
 			return {
+				lunar:{
+					year:'',
+					month:'',
+					day:''
+				},
 				photoCard:false,
 				photoList:[
 					{
@@ -195,12 +204,22 @@
 			}
 		},
 		beforeMount:function(){
-			//
+			let date=new Date();
+			this.lunar.year=lunar.getYear(date);
+			this.lunar.month=lunar.getMonth(date)
+			this.lunar.day=lunar.getDay(date)
 		}
 	}
 </script>
 
 <style scoped>
+.lunar{
+	font-family: "宋体";
+	font-size:20px;
+	line-height:1.6;
+	margin-bottom:10px;
+	font-weight:100;
+}
 .column {
 	position: relative;
 	width: 100%;
