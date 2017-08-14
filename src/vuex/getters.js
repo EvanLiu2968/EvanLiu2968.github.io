@@ -62,7 +62,7 @@ let routes=[
 				path: '/tearcloth',
 				component: TearCloth,
 				name: 'tearcloth',
-				meta:{title:"勇敢的心",isMenu:true,isParent:false}
+				meta:{title:"信仰之跃",isMenu:true,isParent:false}
 			}
 		]
 	},

@@ -11,7 +11,7 @@
 	#chess{
 		position:absolute;top:0;left:0;border-radius:6px;
 	}
-	#chess{
+	#animate{
 		position:relative;width:1200px;height:600px;
 	}
 </style>

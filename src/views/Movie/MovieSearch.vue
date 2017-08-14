@@ -11,11 +11,11 @@
 		</el-input>
 		<ul v-if="searchListShow" v-loading="searchLoading" class="search-list">
 			<li v-for='subject in searchList'>
-				<a :href='subject.alt' target='_blank'>
+				<router-link :to="{ name: 'movie/detail', params: { id: subject.id }}">
 					<span class="">{{subject.title}}</span>
 					<span class="original-title">{{subject.original_title}}</span>
 					<span class="year">{{subject.year}}</span>
-				</a>
+				</router-link>
 			</li>
 			<li v-if="searchList.length===0">
 				<a class="text-center">
