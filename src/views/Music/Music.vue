@@ -1,53 +1,81 @@
 <template>
 <div>
 	<div class="song-container">
-		<audio :src="currentSong.src"></audio>
-		<el-row :gutter="10">
-			<el-col :span="12">
-				<div class="song-cover-box">
-					<div class="song-cover">
-						<img :src="currentSong.cover" class="cover-img">
-						<span class="cover-bg"></span>
+		<div class="el-body">
+			<audio :src="cSong.src" id="player"></audio>
+			<el-row :gutter="10">
+				<el-col :span="12">
+					<div class="song-cover-box">
+						<div class="song-cover" v-bind:class='{rotate:!player.paused}'>
+							<img :src="cSong.cover" class="cover-img">
+							<span class="cover-bg"></span>
+						</div>
+						<div class="round-top" v-bind:class='{paused:player.paused}'></div>
 					</div>
-					<div class="round-top"></div>
-				</div>
-			</el-col>
-			<el-col :span="12">
-				<div>
-					<h3>{{currentSong.name}}</h3>
-					<div>歌手：{{currentSong.singer}}&emsp;&emsp;专辑：{{currentSong.album}}</div>
-					<div ></div>
-				</div>
-			</el-col>
-		</el-row>
-		<table class="el-table">
-			<thead>
-				<tr>
-					<th>序号</th>
-					<th>操作</th>
-					<th>音乐标题</th>
-					<th>歌手</th>
-					<th>专辑</th>
-					<th>时长</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="(song,index) in songList">
-					<th>{{index+1}}</th>
-					<th>播放</th>
-					<th>{{song.name}}</th>
-					<th>{{song.name}}</th>
-					<th>{{song.name}}</th>
-					<th>{{song.duration}}</th>
-				</tr>
-			</tbody>
-		</table>
+				</el-col>
+				<el-col :span="12">
+					<div>
+						<h3 class="song-title">{{cSong.name}}</h3>
+						<div class="song-info">歌手：{{cSong.singer}}&emsp;&emsp;专辑：{{cSong.album}}</div>
+						<div class="lrc-wrap">
+							<p class="lrc-p" v-for="lrc in player.cLrc" :data-lrc="lrc.time">{{lrc.word}}</p>
+						</div>
+					</div>
+				</el-col>
+			</el-row>
+		</div>
+		<div class="n-songtb">
+			<div class="u-title">
+				<h3><span class="f-ff2">歌曲列表</span></h3>
+				<span class="sub">{{songList.length}}首歌</span>
+			</div>
+			<div class="j-flag">
+				<table class="m-table">
+					<thead>
+					<tr>
+						<th class="first w1"><div class="wp">&nbsp;</div></th>
+						<th><div class="wp">歌曲标题</div></th>
+						<th class="w2"><div class="wp">时长</div></th>
+						<th class="w3"><div class="wp">歌手</div></th>
+						<th class="w4"><div class="wp">专辑</div></th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="even" v-for="(song,index) in songList">
+						<td class="left"><div class="hd ">
+							<span class="ply">播放</span>
+							<span class="num">{{'0'+(index+1)}}</span>
+						</div></td>
+						<td class=""><div class="text">{{song.name}}</div></td>
+						<td class=""><div class="text">{{song.duration}}</div></td>
+						<td class=""><div class="text">{{song.singer}}</div></td>
+						<td class=""><div class="text">{{song.album}}</div></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="song-control">
+		<span class="control-play" @click="togglePlayer">
+			<i class="el-icon-caret-right" v-if="player.paused"></i>
+			<i class="el-icon-pause" v-else></i>
+		</span>
+		<div class="control-bar">
+			<span class="time-start">{{player.cTime}}</span>
+			<span class="time-end">{{cSong.duration}}</span>
+			<div class="bar-bg">
+				<div class="bar-current" v-bind:style="{width:player.cProcess}"></div>
+			</div>
+		</div>
+		<div class="control-volumn"></div>
 	</div>
 </div>
 </template>
 
 <script>
-import jsonp from "jsonp";
+let Player;
+import jQuery from '../../assets/js/jquery-2.2.3.js';
 export default {
 	data: function(){
 		return {
@@ -60,41 +88,107 @@ export default {
 					cover:'static/images/music/jay.jpg',
 					src:'static/images/music/青花瓷 - 周杰伦.mp3',
 					lrc:'static/images/music/青花瓷 - 周杰伦.lrc',
-					duration:'03:40.60'
+					duration:'03:40'
 				}
 			],
-			currentSong:{
-				id:'1',
-				name:'青花瓷',
-				singer:'周杰伦',
-				album:'我很忙',
-				cover:'static/images/music/jay.jpg',
-				src:'static/images/music/青花瓷 - 周杰伦.mp3',
-				lrc:'static/images/music/青花瓷 - 周杰伦.lrc',
-				duration:'03:40.60'
+			player:{
+				paused:true,
+				cTime:'00:00',
+				cProcess:'0%',
+				cLrc:[]
+			},
+			paused:true,
+			cSong:{}
+		}
+	},
+	computed:{
+	},
+	methods: {
+		getLrc:function(){
+			this.axios.get(this.cSong.lrc).then( (res) => {
+				let lrcArr=[];
+				let arr=res.data.split('[');
+				arr.splice(0,1);
+				arr.forEach(function(v){
+					let s=v.split(']');
+					lrcArr.push({
+						time:s[0],
+						word:s[1]
+					});
+				});
+				this.player.cLrc=lrcArr;
+			});
+		},
+		togglePlayer:function(){
+			if(Player.paused){
+				Player.play();
+				this.player.paused=false;
+				this.updateState();
+			}else{
+				Player.pause();
+				this.player.paused=true;
+			}
+		},
+		updateState:function(){
+			let _this=this;
+			console.log(!Player.paused);
+			function getTwo(n){
+				return n<10?'0'+n:n;
+			}
+			function timeFormat(t){
+				let s=~~t;
+				let m=~~(s/60);
+				s=s-m*60;
+				return getTwo(m)+':'+getTwo(s)
+			}
+			let update=function(){
+				if(!Player.paused){
+					_this.player.cTime=timeFormat(Player.currentTime);
+					_this.player.cProcess=parseInt((Player.currentTime/Player.duration)*100)+'%';
+					_this.scrollLrc();
+					setTimeout(update,300);
+				}else{
+					_this.player.cTime=timeFormat(Player.currentTime);
+					_this.player.cProcess=parseInt((Player.currentTime/Player.duration)*100)+'%';
+					_this.scrollLrc();
+				}
+			};
+			update();
+		},
+		scrollLrc:function(){
+			let time=this.player.cTime;
+			let index=0;
+			let lrc=this.player.cLrc;
+			for(let i=0,len=lrc.length;i<len;i++){
+				if(time>lrc[i].time&&time<lrc[i+1].time){
+					index=i;
+					break;
+				}
+				index=i;
+			}
+			let $lrcWrap=jQuery('.lrc-wrap');
+			let $lrc=jQuery('.lrc-p').eq(index);
+			$lrc.addClass("active").siblings(".active").removeClass("active");
+			let top=$lrc.height()*(index+1);
+			let h=$lrcWrap.height();
+			if(top<(h/2)){
+				$lrcWrap.animate({
+					"scrollTop":0
+				});
+			}else{
+				$lrcWrap.animate({
+					"scrollTop":top-h/2
+				});
 			}
 		}
 	},
-	methods: {
-		handleSearchClick() {
-			let search=this.search;
-			let pageSize=this.pagination.pageSize;
-			let currentPage=this.pagination.currentPage;
-			jsonp('http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.search.common&query='+search+'&page_size='+pageSize+'&page_no='+currentPage+'&format=json', null, (err, data)=> {
-				if (err) {
-					console.error(err.message);
-				} else {
-					this.pagination.total=parseInt(data.pages.total);
-					this.songList=data.song_list;
-				}
-			});
-		},
-		handleCurrentChange:function(current){
-			this.pagination.currentPage=current;
-			this.handleSearchClick();
-		}
-	},
 	beforeMount:function(){
+	},
+	mounted:function(){
+		Player=document.getElementById("player");
+		this.cSong=this.songList[0];
+		Player.src=this.cSong.src;
+		this.getLrc();
 	}
 }
 </script>
@@ -104,9 +198,18 @@ export default {
 	margin:20px auto;
 	width:900px;
 }
+.song-title{
+	font-size:20px;
+	margin-bottom:10px;
+}
+.song-info{
+	font-size:12px;
+	color:#8492A6;
+	margin-bottom:20px;
+}
 .song-cover-box{
 	position:relative;
-	width:201px;
+	width:300px;
 	margin:20px auto;
 }
 @-webkit-keyframes rotate {
@@ -144,19 +247,23 @@ export default {
 	transform-origin: center center;
 	-webkit-animation-timing-function: linear;
 	animation-timing-function: linear;
+}
+.song-cover.rotate{
 	-webkit-animation-name: rotate;
 	animation-name: rotate;
 }
 .song-cover .cover-img{
 	position:absolute;
-	top:36px;
-	left:36px;
+	top:53px;
+	left:54px;
+	width:195px;
+	height:195px;
 }
 .song-cover .cover-bg{
 	display:inline-block;
 	position:relative;
-	width:201px;
-	height:201px;
+	width:300px;
+	height:300px;
 	background-image: url('/static/images/music/coverall.png');
 	background-size: cover;
 }
@@ -164,11 +271,256 @@ export default {
 	display:inline-block;
 	position:absolute;
 	top:-40px;
-	left:96px;
+	left:140px;
 	width:60px;
 	height:90px;
 	background-image: url('/static/images/music/round-top.png');
 	background-repeat: no-repeat;
 	background-size: 100%;
+}
+.round-top.paused{
+	-webkit-transform-origin: top left;
+	transform-origin: top left;
+	-webkit-transform: rotate3d(0, 0, 1, -40deg);
+		transform: rotate3d(0, 0, 1, -40deg);
+}
+.song-control{
+	position:fixed;
+	display: -webkit-flex; /* Safari */
+	display: flex;
+	bottom:0;
+	left:0;
+	width:100%;
+	padding:6px 30px;
+	border-top:1px solid #eee;
+	background:#F9FAFC;
+}
+.control-play{
+	display:inline-block;
+	background:#ff4949;
+	color:#fff;
+	width:24px;
+	height:24px;
+	text-align:center;
+	line-height:24px;
+	border-radius:50%;
+	cursor:pointer;
+}
+.el-icon-pause{
+	display:inline-block;
+	height:0.8em;
+	width:0.4em;
+	border-left:2px solid #fff;
+	border-right:2px solid #fff;
+}
+.control-bar{
+	position:relative;
+	flex:4;
+	padding:0 60px;
+}
+.control-bar .time-start{
+	position:absolute;
+	left:15px;
+	font-size:12px;
+	line-height:24px;
+}
+.control-bar .time-end{
+	position:absolute;
+	right:15px;
+	font-size:12px;
+	line-height:24px;
+}
+.control-bar .bar-bg{
+	position:relative;
+	margin-top:10px;
+	height:4px;
+	border-radius:2px;
+	background:#99A9BF;
+	overflow: hidden;
+}
+.control-bar .bar-bg>.bar-current{
+	display:block;
+	position:absolute;
+	left:0;
+	height:4px;
+	width:0%;
+	background:#ff4949;
+}
+.control-volumn{
+	flex:1;
+}
+/*歌词*/
+.el-body{
+	padding:10px 0;
+	background: #d6dbdd url('/static/images/bg_uibody.png') repeat-x 0 0;
+}
+.el-tline{
+	padding-top:14px;
+	background: url('/static/images/ui-tline.png') center 0 no-repeat;
+}
+.lrc-wrap{
+	height:300px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+.lrc-wrap::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.lrc-wrap::-webkit-scrollbar-track {
+  background: none;
+}
+.lrc-wrap::-webkit-scrollbar-track-piece {
+  opacity: 0;
+}
+.lrc-wrap::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: #5c6e82;
+  background: rgba(92, 110, 130, .6);
+}
+.lrc-p{
+	height:28px;
+	line-height:28px;
+	font-size:14px;
+}
+.lrc-p.active{
+	color:#ff4949;
+}
+/*表格*/
+.n-songtb{
+	margin-top:20px;
+	margin-bottom:10px;
+	font-size:12px;
+}
+.u-title {
+	height: 33px;
+	border-bottom: 2px solid #c20c0c;
+}
+.u-title h3 {
+	font-weight: normal;
+	float:left;
+	font-size: 20px;
+	line-height: 28px;
+}
+.u-title .sub {
+	float:left;
+	font-size:12px;
+	color:#666;
+	margin: 9px 0 0 20px;
+}
+.m-table th, .m-table th .wp, .m-table td, .m-table .ply, .m-table .mv, .m-table .icn, .m-info .edit {
+	background: #d6dbdd url('/static/images/bg_uibody.png') repeat-x 0 0;
+}
+.m-table {
+	width: 100%;
+	border: 1px solid #d9d9d9;
+}
+.m-table th {
+	vertical-align: top;
+	text-align: left;
+	font-weight: normal;
+	color: #666;
+}
+.m-table th {
+	height: 38px;
+	background-color: #f7f7f7;
+	background-position: 0 0;
+	background-repeat: repeat-x;
+}
+.m-table th .wp {
+	height: 18px;
+	line-height: 18px;
+	padding: 8px 10px;
+	background-position: 0 -56px;
+}
+.m-table th.first .wp {
+	background: none;
+}
+.m-table td {
+	padding: 6px 10px;
+	line-height: 18px;
+	text-align: left;
+}
+.m-table .even td {
+	background-color: #f7f7f7;
+}
+.m-table .odd td {
+	background-color: #ececec;
+}
+.m-table .hd {
+	height: 18px;
+}
+.m-table .ply {
+	width: 2em;
+	height: 17px;
+	cursor: pointer;
+	color:#666;
+}
+.m-table .ply:hover {
+	color: #ff4949;
+}
+.m-table .hd .ply {
+	float: right;
+}
+.m-table .hd .num {
+	width: 25px;
+	margin-left: 5px;
+	color: #999;
+}
+.m-table .text {
+	width: 100%;
+	position: relative;
+	zoom: 1;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.m-table .text a {
+	white-space: nowrap;
+}
+.m-table .w0 {
+	width: 25px;
+}
+.m-table .w1 {
+	width: 74px;
+}
+.m-table .w2 {
+	width: 111px;
+}
+.m-table .w2-1 {
+	width: 91px;
+}
+.m-table .w3 {
+	width: 14%;
+}
+.m-table .w4 {
+	width: 20%;
+}
+.m-table .w5 {
+	width: 120px;
+}
+.m-table .w6 {
+	width: 78px;
+}
+.m-table .w7 {
+	width: 50px;
+}
+.m-table .w8 {
+	width: 200px;
+}
+.m-table .w9 {
+	width: 96px;
+}
+.m-table .w10 {
+	width: 50px;
+	padding-right: 20px;
+}
+.m-table .w11 {
+	width: 35px;
+	padding-right: 0;
+	padding-left: 25px;
+}
+.m-table .w12 {
+	width: 290px;
 }
 </style>
