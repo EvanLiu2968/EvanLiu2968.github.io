@@ -2,7 +2,7 @@
 <div>
 	<div class="song-container">
 		<div class="el-body">
-			<audio :src="cSong.src" id="player"></audio>
+			<audio :src="cSong.src" id="player" autoplay></audio>
 			<el-row :gutter="10">
 				<el-col :span="12">
 					<div class="song-cover-box">
@@ -43,7 +43,7 @@
 					<tbody>
 					<tr class="even" v-for="(song,index) in songList">
 						<td class="left"><div class="hd ">
-							<span class="ply">播放</span>
+							<span class="ply" @click="toggleSong(index)">播放</span>
 							<span class="num">{{'0'+(index+1)}}</span>
 						</div></td>
 						<td class=""><div class="text">{{song.name}}</div></td>
@@ -64,7 +64,7 @@
 		<div class="control-bar">
 			<span class="time-start">{{player.cTime}}</span>
 			<span class="time-end">{{cSong.duration}}</span>
-			<div class="bar-bg">
+			<div class="bar-bg" @click="toggleProgress">
 				<div class="bar-current" v-bind:style="{width:player.cProcess}"></div>
 			</div>
 		</div>
@@ -82,22 +82,92 @@ export default {
 			songList:[
 				{
 					id:'1',
+					name:'莉莉安',
+					singer:'宋冬野',
+					album:'莉莉安',
+					cover:'static/images/mao.jpg',
+					src:'static/images/music/宋冬野 - 莉莉安.mp3',
+					lrc:'static/images/music/宋冬野 - 莉莉安.lrc',
+					duration:'03:59'
+				},
+				{
+					id:'2',
+					name:'山丘',
+					singer:'李宗盛',
+					album:'山丘',
+					cover:'static/images/mao.jpg',
+					src:'static/images/music/李宗盛 - 山丘.mp3',
+					lrc:'static/images/music/李宗盛 - 山丘.lrc',
+					duration:'03:59'
+				},
+				{
+					id:'3',
+					name:'煎熬',
+					singer:'李佳薇',
+					album:'煎熬',
+					cover:'static/images/mao.jpg',
+					src:'static/images/music/李佳薇 - 煎熬.mp3',
+					lrc:'static/images/music/李佳薇 - 煎熬.lrc',
+					duration:'03:59'
+				},
+				{
+					id:'4',
+					name:'漂洋过海来看你(live)',
+					singer:'刘明湘',
+					album:'未知',
+					cover:'static/images/mao.jpg',
+					src:'static/images/music/刘明湘 - 漂洋过海来看你.mp3',
+					lrc:'static/images/music/刘明湘 - 漂洋过海来看你.lrc',
+					duration:'03:59'
+				},
+				{
+					id:'5',
+					name:'把悲伤留给自己',
+					singer:'陈升',
+					album:'把悲伤留给自己',
+					cover:'static/images/mao.jpg',
+					src:'static/images/music/陈升 - 把悲伤留给自己.mp3',
+					lrc:'static/images/music/陈升 - 把悲伤留给自己.lrc',
+					duration:'03:59'
+				},
+				{
+					id:'6',
 					name:'青花瓷',
 					singer:'周杰伦',
 					album:'我很忙',
 					cover:'static/images/music/jay.jpg',
 					src:'static/images/music/青花瓷 - 周杰伦.mp3',
 					lrc:'static/images/music/青花瓷 - 周杰伦.lrc',
-					duration:'03:40'
+					duration:'03:59'
+				},
+				{
+					id:'7',
+					name:'以父之名',
+					singer:'周杰伦',
+					album:'叶惠美',
+					cover:'static/images/music/jay.jpg',
+					src:'static/images/music/周杰伦 - 以父之名.m4a',
+					lrc:'static/images/music/周杰伦 - 以父之名.lrc',
+					duration:'03:59'
+				},
+				{
+					id:'8',
+					name:'半岛铁盒',
+					singer:'周杰伦',
+					album:'半岛铁盒',
+					cover:'static/images/music/jay.jpg',
+					src:'static/images/music/周杰伦 - 半岛铁盒.mp3',
+					lrc:'static/images/music/周杰伦 - 半岛铁盒.lrc',
+					duration:'03:59'
 				}
 			],
 			player:{
-				paused:true,
+				paused:false,
 				cTime:'00:00',
 				cProcess:'0%',
 				cLrc:[]
 			},
-			paused:true,
+			index:0,
 			cSong:{}
 		}
 	},
@@ -131,7 +201,33 @@ export default {
 		},
 		updateState:function(){
 			let _this=this;
-			console.log(!Player.paused);
+			let index=0,lrc=_this.player.cLrc;
+			let $lrcWrap=jQuery('.lrc-wrap'),h=$lrcWrap.height();;
+			function scrollLrc(){
+				let time=_this.player.cTime;
+				for(let i=0,len=lrc.length;i<len;i++){
+					if(time>lrc[i].time&&time<lrc[i+1].time){
+						if(index===i){
+							return;
+						}else{
+							index=i;
+							break;
+						}
+					}
+				}
+				let $lrc=jQuery('.lrc-p').eq(index);
+				$lrc.addClass("active").siblings(".active").removeClass("active");
+				let top=$lrc.height()*index;
+				if(top<(h/2)){
+					$lrcWrap.animate({
+						"scrollTop":0
+					});
+				}else{
+					$lrcWrap.animate({
+						"scrollTop":top-h/2
+					});
+				}
+			}
 			function getTwo(n){
 				return n<10?'0'+n:n;
 			}
@@ -141,54 +237,60 @@ export default {
 				s=s-m*60;
 				return getTwo(m)+':'+getTwo(s)
 			}
+			_this.cSong.duration=timeFormat(Player.duration);
 			let update=function(){
 				if(!Player.paused){
 					_this.player.cTime=timeFormat(Player.currentTime);
-					_this.player.cProcess=parseInt((Player.currentTime/Player.duration)*100)+'%';
-					_this.scrollLrc();
+					_this.player.cProcess=(Player.currentTime/Player.duration).toFixed(4)*100+'%';
+					scrollLrc();
 					setTimeout(update,300);
 				}else{
 					_this.player.cTime=timeFormat(Player.currentTime);
-					_this.player.cProcess=parseInt((Player.currentTime/Player.duration)*100)+'%';
-					_this.scrollLrc();
+					_this.player.cProcess=(Player.currentTime/Player.duration).toFixed(4)*100+'%';
+					scrollLrc();
 				}
 			};
 			update();
 		},
-		scrollLrc:function(){
-			let time=this.player.cTime;
-			let index=0;
-			let lrc=this.player.cLrc;
-			for(let i=0,len=lrc.length;i<len;i++){
-				if(time>lrc[i].time&&time<lrc[i+1].time){
-					index=i;
-					break;
-				}
-				index=i;
-			}
-			let $lrcWrap=jQuery('.lrc-wrap');
-			let $lrc=jQuery('.lrc-p').eq(index);
-			$lrc.addClass("active").siblings(".active").removeClass("active");
-			let top=$lrc.height()*(index+1);
-			let h=$lrcWrap.height();
-			if(top<(h/2)){
-				$lrcWrap.animate({
-					"scrollTop":0
-				});
-			}else{
-				$lrcWrap.animate({
-					"scrollTop":top-h/2
-				});
-			}
+		toggleSong:function(index){
+			this.cSong=this.songList[this.index];
+			this.index=index;
+			Player.src=this.cSong.src;
+			this.initState();
+			//this.togglePlayer();
+		},
+		toggleProgress:function(e){
+			let x=e.offsetX,w=document.querySelector('.bar-bg').offsetWidth;
+			let rate=(x/w).toFixed(4);
+			Player.currentTime=Player.duration*rate;
+			this.player.cProcess=rate*100+'%';
+			//this.updateState();
+		},
+		initState:function(){
+			this.player.paused=false;
+			this.player.cTime='00:00';
+			this.player.cProcess='0%';
+			this.getLrc();
 		}
 	},
 	beforeMount:function(){
 	},
 	mounted:function(){
+		var _this=this;
 		Player=document.getElementById("player");
-		this.cSong=this.songList[0];
-		Player.src=this.cSong.src;
-		this.getLrc();
+		this.toggleSong(this.index);
+		// Player.addEventListener('canplaythrough', function() { 
+		// 	console.log("请欣赏");
+		// 	_this.togglePlayer();
+		// }, false);
+		Player.addEventListener('ended', function() {
+			let index=_this.index+1;
+			if(index<length){
+				_this.toggleSong(index);
+			}else{
+				_this.toggleSong(0);
+			}
+		}, false);
 	}
 }
 </script>
@@ -337,6 +439,7 @@ export default {
 	border-radius:2px;
 	background:#99A9BF;
 	overflow: hidden;
+	cursor:pointer;
 }
 .control-bar .bar-bg>.bar-current{
 	display:block;
