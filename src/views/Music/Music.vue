@@ -2,7 +2,7 @@
 <div>
 	<div class="song-container">
 		<div class="el-body">
-			<audio :src="cSong.src" id="player" autoplay></audio>
+			<audio :src="cSong.src" id="player"></audio>
 			<el-row :gutter="10">
 				<el-col :span="12">
 					<div class="song-cover-box">
@@ -33,7 +33,7 @@
 				<table class="m-table">
 					<thead>
 					<tr>
-						<th class="first w1"><div class="wp">&nbsp;</div></th>
+						<th class="first w1"><div class="wp">#</div></th>
 						<th><div class="wp">歌曲标题</div></th>
 						<th class="w2"><div class="wp">时长</div></th>
 						<th class="w3"><div class="wp">歌手</div></th>
@@ -57,18 +57,33 @@
 		</div>
 	</div>
 	<div class="song-control">
-		<span class="control-play" @click="togglePlayer">
-			<i class="el-icon-caret-right" v-if="player.paused"></i>
-			<i class="el-icon-pause" v-else></i>
-		</span>
-		<div class="control-bar">
+		<div class="control-play">
+			<span class="control-icon" @click="togglePrev">
+				<i class="el-icon-arrow-left"></i>
+			</span>
+			<span class="control-icon" @click="togglePlayer">
+				<i class="el-icon-caret-right" v-if="player.paused"></i>
+				<i class="el-icon-pause" v-else></i>
+			</span>
+			<span class="control-icon" @click="toggleNext">
+				<i class="el-icon-arrow-right"></i>
+			</span>
+		</div>
+		<div class="control-progress">
 			<span class="time-start">{{player.cTime}}</span>
 			<span class="time-end">{{cSong.duration}}</span>
 			<div class="bar-bg" @click="toggleProgress">
 				<div class="bar-current" v-bind:style="{width:player.cProcess}"></div>
 			</div>
 		</div>
-		<div class="control-volumn"></div>
+		<div class="control-volumn">
+			<span class="volumn-icon">
+				<i class="el-icon-setting"></i>
+			</span>
+			<div class="bar-bg" @click="toggleVolumn">
+				<div class="bar-current" v-bind:style="{width:player.cVolumn}"></div>
+			</div>
+		</div>
 	</div>
 </div>
 </template>
@@ -84,11 +99,11 @@ export default {
 					id:'1',
 					name:'莉莉安',
 					singer:'宋冬野',
-					album:'莉莉安',
+					album:'安和桥北',
 					cover:'static/images/mao.jpg',
 					src:'static/images/music/宋冬野 - 莉莉安.mp3',
 					lrc:'static/images/music/宋冬野 - 莉莉安.lrc',
-					duration:'03:59'
+					duration:'04:13'
 				},
 				{
 					id:'2',
@@ -98,37 +113,37 @@ export default {
 					cover:'static/images/mao.jpg',
 					src:'static/images/music/李宗盛 - 山丘.mp3',
 					lrc:'static/images/music/李宗盛 - 山丘.lrc',
-					duration:'03:59'
+					duration:'05:49'
 				},
 				{
 					id:'3',
 					name:'煎熬',
 					singer:'李佳薇',
-					album:'煎熬',
+					album:'感谢爱人',
 					cover:'static/images/mao.jpg',
 					src:'static/images/music/李佳薇 - 煎熬.mp3',
 					lrc:'static/images/music/李佳薇 - 煎熬.lrc',
-					duration:'03:59'
+					duration:'04:22'
 				},
 				{
 					id:'4',
-					name:'漂洋过海来看你(live)',
+					name:'漂洋过海来看你',
 					singer:'刘明湘',
-					album:'未知',
+					album:'我不要再比了',
 					cover:'static/images/mao.jpg',
 					src:'static/images/music/刘明湘 - 漂洋过海来看你.mp3',
 					lrc:'static/images/music/刘明湘 - 漂洋过海来看你.lrc',
-					duration:'03:59'
+					duration:'03:17'
 				},
 				{
 					id:'5',
 					name:'把悲伤留给自己',
 					singer:'陈升',
-					album:'把悲伤留给自己',
+					album:'私奔',
 					cover:'static/images/mao.jpg',
 					src:'static/images/music/陈升 - 把悲伤留给自己.mp3',
 					lrc:'static/images/music/陈升 - 把悲伤留给自己.lrc',
-					duration:'03:59'
+					duration:'04:38'
 				},
 				{
 					id:'6',
@@ -148,23 +163,24 @@ export default {
 					cover:'static/images/music/jay.jpg',
 					src:'static/images/music/周杰伦 - 以父之名.m4a',
 					lrc:'static/images/music/周杰伦 - 以父之名.lrc',
-					duration:'03:59'
+					duration:'05:42'
 				},
 				{
 					id:'8',
 					name:'半岛铁盒',
 					singer:'周杰伦',
-					album:'半岛铁盒',
+					album:'八度空间',
 					cover:'static/images/music/jay.jpg',
 					src:'static/images/music/周杰伦 - 半岛铁盒.mp3',
 					lrc:'static/images/music/周杰伦 - 半岛铁盒.lrc',
-					duration:'03:59'
+					duration:'05:17'
 				}
 			],
 			player:{
-				paused:false,
+				paused:true,
 				cTime:'00:00',
 				cProcess:'0%',
+				cVolumn:'100%',
 				cLrc:[]
 			},
 			index:0,
@@ -199,18 +215,35 @@ export default {
 				this.player.paused=true;
 			}
 		},
+		togglePrev:function(){
+			let index=this.index-1;
+			if(index>-1){
+				this.toggleSong(index);
+			}else{
+				this.toggleSong(this.songList.length-1);
+			}
+		},
+		toggleNext:function(){
+			let index=this.index+1;
+			if(index<this.songList.length){
+				this.toggleSong(index);
+			}else{
+				this.toggleSong(0);
+			}
+		},
 		updateState:function(){
 			let _this=this;
 			let index=0,lrc=_this.player.cLrc;
-			let $lrcWrap=jQuery('.lrc-wrap'),h=$lrcWrap.height();;
+			let $lrcWrap=jQuery('.lrc-wrap'),h=$lrcWrap.height();
+			//歌词滚动
 			function scrollLrc(){
 				let time=_this.player.cTime;
 				for(let i=0,len=lrc.length;i<len;i++){
-					if(time>lrc[i].time&&time<lrc[i+1].time){
-						if(index===i){
+					if(time>lrc[i].time&&(i===(len-1)||time<lrc[i+1].time)){
+						if(index===i){ //不需要滚动则直接return
 							return;
 						}else{
-							index=i;
+							index=i; //获取需要滚动歌词行的index
 							break;
 						}
 					}
@@ -253,21 +286,27 @@ export default {
 			update();
 		},
 		toggleSong:function(index){
-			this.cSong=this.songList[this.index];
 			this.index=index;
+			this.cSong=this.songList[this.index];
 			Player.src=this.cSong.src;
+			Player.load();
 			this.initState();
-			//this.togglePlayer();
 		},
 		toggleProgress:function(e){
-			let x=e.offsetX,w=document.querySelector('.bar-bg').offsetWidth;
+			let x=e.offsetX,w=document.querySelector('.control-progress>.bar-bg').offsetWidth;
 			let rate=(x/w).toFixed(4);
 			Player.currentTime=Player.duration*rate;
 			this.player.cProcess=rate*100+'%';
 			//this.updateState();
 		},
+		toggleVolumn:function(e){
+			let x=e.offsetX,w=document.querySelector('.control-volumn>.bar-bg').offsetWidth;
+			let rate=(x/w).toFixed(4);
+			Player.volume=rate;
+			this.player.cVolumn=rate*100+"%";
+		},
 		initState:function(){
-			this.player.paused=false;
+			this.player.paused=true;
 			this.player.cTime='00:00';
 			this.player.cProcess='0%';
 			this.getLrc();
@@ -279,17 +318,13 @@ export default {
 		var _this=this;
 		Player=document.getElementById("player");
 		this.toggleSong(this.index);
-		// Player.addEventListener('canplaythrough', function() { 
-		// 	console.log("请欣赏");
-		// 	_this.togglePlayer();
-		// }, false);
+		Player.addEventListener('canplaythrough', function() { 
+			Player.play();
+			_this.player.paused=false;
+			_this.updateState();
+		}, false);
 		Player.addEventListener('ended', function() {
-			let index=_this.index+1;
-			if(index<length){
-				_this.toggleSong(index);
-			}else{
-				_this.toggleSong(0);
-			}
+			_this.toggleNext();
 		}, false);
 	}
 }
@@ -357,7 +392,7 @@ export default {
 .song-cover .cover-img{
 	position:absolute;
 	top:53px;
-	left:54px;
+	left:52px;
 	width:195px;
 	height:195px;
 }
@@ -392,17 +427,23 @@ export default {
 	display: flex;
 	bottom:0;
 	left:0;
-	width:100%;
-	padding:6px 30px;
+	right:0;
+	padding:6px 30px 6px 140px;
 	border-top:1px solid #eee;
 	background:#F9FAFC;
 }
 .control-play{
+	position:absolute;
 	display:inline-block;
-	background:#ff4949;
-	color:#fff;
+	left:30px;
+}
+.control-icon{
+	display:inline-block;
+	margin-right:10px;
 	width:24px;
 	height:24px;
+	background:#ff4949;
+	color:#fff;
 	text-align:center;
 	line-height:24px;
 	border-radius:50%;
@@ -415,24 +456,25 @@ export default {
 	border-left:2px solid #fff;
 	border-right:2px solid #fff;
 }
-.control-bar{
+.control-progress{
 	position:relative;
 	flex:4;
+	height:24px;
 	padding:0 60px;
 }
-.control-bar .time-start{
+.control-progress .time-start{
 	position:absolute;
 	left:15px;
 	font-size:12px;
 	line-height:24px;
 }
-.control-bar .time-end{
+.control-progress .time-end{
 	position:absolute;
 	right:15px;
 	font-size:12px;
 	line-height:24px;
 }
-.control-bar .bar-bg{
+.song-control .bar-bg{
 	position:relative;
 	margin-top:10px;
 	height:4px;
@@ -441,7 +483,7 @@ export default {
 	overflow: hidden;
 	cursor:pointer;
 }
-.control-bar .bar-bg>.bar-current{
+.song-control .bar-current{
 	display:block;
 	position:absolute;
 	left:0;
@@ -450,11 +492,19 @@ export default {
 	background:#ff4949;
 }
 .control-volumn{
+	position:relative;
 	flex:1;
+	padding-left:30px;
+}
+.control-volumn .volumn-icon{
+	position:absolute;
+	display:inline-block;
+	left:0;top:4px;
+	width:30px;
 }
 /*歌词*/
 .el-body{
-	padding:10px 0;
+	padding:10px;
 	background: #d6dbdd url('/static/images/bg_uibody.png') repeat-x 0 0;
 }
 .el-tline{
