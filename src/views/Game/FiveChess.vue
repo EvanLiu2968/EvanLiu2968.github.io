@@ -1,18 +1,23 @@
 <template>
 <div class="fivechess-wrap">
+	<canvas id="board" width="1200" height="600"></canvas>
 	<canvas id="chess" width="1200" height="600"></canvas>
 	<canvas id="animate" width="1200" height="600"></canvas>
+	<div style="position:absolute;top:20px;right:0;width:300px">
+		<el-button type="primary" id="resetBtn">重新开始</el-button>
+		<el-button type="primary" id="backPrevBtn">回到上一步</el-button>
+	</div>
 </div>
 </template>
 <style scoped>
 	.fivechess-wrap{
 		position:relative;margin:0 auto;width:1200px;
 	}
-	#chess{
-		position:absolute;top:0;left:0;border-radius:6px;
+	#chess,#animate{
+		position:absolute;top:0;left:0;width:1200px;height:600px;
 	}
-	#animate{
-		position:relative;width:1200px;height:600px;
+	#board{
+		position:relative;width:1200px;height:600px;border-radius:6px;
 	}
 </style>
 <script>
@@ -28,10 +33,9 @@
 		},
 		mounted:function(){
 			const $this=this;
-			let chess=document.getElementById("chess");
-			let c=chess.getContext("2d");             //获取上下文
-			let animate=document.getElementById("animate");
-			let a=animate.getContext("2d");             //获取上下文
+			let board=document.getElementById("board"),b=board.getContext("2d");//获取棋盘层上下文
+			let chess=document.getElementById("chess"),c=chess.getContext("2d");//获取棋子层上下文
+			let animate=document.getElementById("animate"),a=animate.getContext("2d");//获取动画层上下文
 			let clientwidth=document.documentElement.clientWidth;
 			let clientheight=document.documentElement.clientHeight;
 			let chessBoard=[];       //将落子坐标化，创建棋盘二维数组；
@@ -42,8 +46,44 @@
 			let backimage=new Image();               //创建背景
 			backimage.src="static/images/board.jpg";
 			backimage.onload=function(){             //加载背景
+				b.drawImage(backimage,0,0,1200,600);  //绘制背景
+				drawChessBoard();                     //绘制棋盘
+				drawTaiJi(b,200,300,150,"#000000",Math.PI); //绘制太极
+				drawTaiJi(b,1000,300,150,"#ffffff",0);
+				drawChessPiece(b,200,225,false);      //绘制太极棋眼
+				drawChessPiece(b,1000,375,true);
+				b.font="bolder 50px 宋体";
+				b.fillText("Player",950,540);
+				b.fillStyle="#ffffff";
+				b.fillText("AlphaDog",50,540);
 				reset();
 			};
+			let resetBtn=document.getElementById("resetBtn");
+			let backPrevBtn=document.getElementById("backPrevBtn");
+			let memoryList=[],
+				memory={
+					player:[0,0],
+					alphadog:[0,1]
+				};
+			resetBtn.onclick=function(){
+				reset();
+			};
+			backPrevBtn.onclick=function(){
+				console.log(memoryList);
+				if(memoryList.length>0){
+					let cache=memoryList.splice(-1,1);
+					let player=cache[0].player,alphadog=cache[0].alphadog;
+					clearStep(player[0],player[1]);
+					clearStep(alphadog[0],alphadog[1]);
+				}else{
+					$this.$alert('已经是最初状态了','提示');
+				}
+			};
+			function clearStep(i,j){
+				console.log(i,j);
+				chessBoard[i][j]=0;
+				c.clearRect(320+i*40-15,20+j*40-15,30,30);
+			}
 			function reset(){           //重置棋盘；
 				for (let i= 0;i<15;i+=1){
 					chessBoard[i]=[];
@@ -57,16 +97,6 @@
 				}
 				a.clearRect(0,0,1200,600);
 				c.clearRect(0,0,1200,600);
-				c.drawImage(backimage,0,0,1200,600);  //绘制背景
-				drawChessBoard();                     //绘制棋盘
-				drawTaiJi(c,200,300,150,"#000000",Math.PI); //绘制太极
-				drawTaiJi(c,1000,300,150,"#ffffff",0);
-				drawChessPiece(c,200,225,false);      //绘制太极棋眼
-				drawChessPiece(c,1000,375,true);
-				c.font="bolder 50px 宋体";
-				c.fillText("Player",950,540);
-				c.fillStyle="#ffffff";
-				c.fillText("AlphaDog",50,540);
 				me=true;             //设定第一步为me落棋，即黑子
 				over=false;
 			}
@@ -118,19 +148,19 @@
 			}
 			
 			function drawChessBoard() {  //定义绘制棋盘函数
-				c.strokeStyle="#454545";
-				c.lineWidth=1;
+				b.strokeStyle="#454545";
+				b.lineWidth=1;
 				for(let i=0;i<15;i+=1){
-					c.beginPath();
-					c.moveTo(320+i*40,20);
-					c.lineTo(320+i*40,580);
-					c.stroke();
-					c.closePath();
-					c.beginPath();
-					c.moveTo(320,20+i*40);
-					c.lineTo(880,20+i*40);
-					c.stroke();
-					c.closePath();
+					b.beginPath();
+					b.moveTo(320+i*40,20);
+					b.lineTo(320+i*40,580);
+					b.stroke();
+					b.closePath();
+					b.beginPath();
+					b.moveTo(320,20+i*40);
+					b.lineTo(880,20+i*40);
+					b.stroke();
+					b.closePath();
 				}
 			}
 
@@ -168,6 +198,7 @@
 				let y = e.offsetY;
 				let i=Math.floor(x/40-7.5);       //向下取整；完整算法为：（x-边距+棋格宽度/2）/40，此处边距等于320,棋格40；
 				let j=Math.floor(y/40);
+				console.log(chessBoard[i][j]);
 				if(chessBoard[i][j]==0) {     //判断当前位置是否有棋子，无则执行落棋
 					let m=i*40+320;                 //计算计算落子的坐标
 					let n=j*40+20;
@@ -175,6 +206,7 @@
 					flash=true;
 					oneStep(i,j,me);    //落子；
 					chessBoard[i][j]=1; //设定黑子位置为1；
+					memory.player=[i,j];//存储玩家落子位置
 					for(let k=0;k<count;k++){
 						if(wins[i][j][k]){
 							myWin[k]++;
@@ -263,6 +295,8 @@
 				flash=true;
 				oneStep(u,v,me);      //在分数最高的位置落子；
 				chessBoard[u][v]=2;       //设定白子位置为2；
+				memory.alphadog=[u,v];//存储AI落子位置
+				memoryList.push(JSON.parse(JSON.stringify(memory))); //存入每一步的数据
 				for(let k=0;k<count;k++){
 					if(wins[u][v][k]){
 						computerWin[k]++;
@@ -334,6 +368,8 @@
 						drawChessPiece(a, chessEye.x - sx*k, chessEye.y - sy*k, me); //绘制十次棋子
 						k++;
 						setTimeout(timer, 50);
+					}else{
+						a.clearRect(0,0,1200,600);
 					}
 				}
 			}

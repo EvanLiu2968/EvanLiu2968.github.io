@@ -6,7 +6,7 @@
 			<el-row :gutter="10">
 				<el-col :span="12">
 					<div class="song-cover-box">
-						<div class="song-cover" v-bind:class='{rotate:!player.paused}'>
+						<div class="song-cover" data-rotate="0">
 							<img :src="cSong.cover" class="cover-img">
 							<span class="cover-bg"></span>
 						</div>
@@ -33,7 +33,7 @@
 				<table class="m-table">
 					<thead>
 					<tr>
-						<th class="first w1"><div class="wp">#</div></th>
+						<th class="w1"><div class="wp">#</div></th>
 						<th><div class="wp">歌曲标题</div></th>
 						<th class="w2"><div class="wp">时长</div></th>
 						<th class="w3"><div class="wp">歌手</div></th>
@@ -41,7 +41,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr class="even" v-for="(song,index) in songList">
+					<tr class="" v-for="(song,index) in songList">
 						<td class="left"><div class="hd ">
 							<span class="ply" @click="toggleSong(index)">播放</span>
 							<span class="num">{{'0'+(index+1)}}</span>
@@ -59,14 +59,14 @@
 	<div class="song-control">
 		<div class="control-play">
 			<span class="control-icon" @click="togglePrev">
-				<i class="el-icon-arrow-left"></i>
+				<i class="iconfont icon-bofangqishangyiqu"></i>
 			</span>
 			<span class="control-icon" @click="togglePlayer">
-				<i class="el-icon-caret-right" v-if="player.paused"></i>
-				<i class="el-icon-pause" v-else></i>
+				<i class="iconfont icon-bofangqibofang" v-if="player.paused"></i>
+				<i class="iconfont icon-bofangqizanting" v-else></i>
 			</span>
 			<span class="control-icon" @click="toggleNext">
-				<i class="el-icon-arrow-right"></i>
+				<i class="iconfont icon-bofangqishangyiqu1"></i>
 			</span>
 		</div>
 		<div class="control-progress">
@@ -77,8 +77,9 @@
 			</div>
 		</div>
 		<div class="control-volumn">
-			<span class="volumn-icon">
-				<i class="el-icon-setting"></i>
+			<span class="volumn-icon" @click="toggleMuted">
+				<i class="iconfont icon-bofangqi_shengyin" v-if="!player.muted"></i>
+				<i class="iconfont icon-yinliangjingyin" v-else></i>
 			</span>
 			<div class="bar-bg" @click="toggleVolumn">
 				<div class="bar-current" v-bind:style="{width:player.cVolumn}"></div>
@@ -89,7 +90,7 @@
 </template>
 
 <script>
-let Player;
+let Player,progressTimer=0,rotateTimer=0;
 import jQuery from '../../assets/js/jquery-2.2.3.js';
 export default {
 	data: function(){
@@ -178,6 +179,7 @@ export default {
 			],
 			player:{
 				paused:true,
+				muted:false,
 				cTime:'00:00',
 				cProcess:'0%',
 				cVolumn:'100%',
@@ -231,10 +233,14 @@ export default {
 				this.toggleSong(0);
 			}
 		},
+		//歌词滚动，封面旋转，进度条及进度时间更新
 		updateState:function(){
 			let _this=this;
+			clearTimeout(progressTimer);
+			clearTimeout(rotateTimer);
 			let index=0,lrc=_this.player.cLrc;
 			let $lrcWrap=jQuery('.lrc-wrap'),h=$lrcWrap.height();
+			let $cover=jQuery('.song-cover');
 			//歌词滚动
 			function scrollLrc(){
 				let time=_this.player.cTime;
@@ -276,14 +282,24 @@ export default {
 					_this.player.cTime=timeFormat(Player.currentTime);
 					_this.player.cProcess=(Player.currentTime/Player.duration).toFixed(4)*100+'%';
 					scrollLrc();
-					setTimeout(update,300);
-				}else{
-					_this.player.cTime=timeFormat(Player.currentTime);
-					_this.player.cProcess=(Player.currentTime/Player.duration).toFixed(4)*100+'%';
-					scrollLrc();
+					progressTimer=setTimeout(update,300);
 				}
 			};
 			update();
+			//旋转封面
+			let rotateCover=function(){
+				if(!Player.paused){
+					let rotate=$cover.data("rotate");
+					rotate=~~rotate+1;
+					if(rotate===360){rotate=0}
+					$cover.css({
+						'webkitTransform':'rotate3d(0, 0, 1, '+rotate+'deg)',
+						'transform':'rotate3d(0, 0, 1, '+rotate+'deg)'
+					}).data("rotate",rotate);
+					rotateTimer=setTimeout(rotateCover,50);
+				}
+			};
+			rotateCover();
 		},
 		toggleSong:function(index){
 			this.index=index;
@@ -297,13 +313,22 @@ export default {
 			let rate=(x/w).toFixed(4);
 			Player.currentTime=Player.duration*rate;
 			this.player.cProcess=rate*100+'%';
-			//this.updateState();
 		},
 		toggleVolumn:function(e){
 			let x=e.offsetX,w=document.querySelector('.control-volumn>.bar-bg').offsetWidth;
 			let rate=(x/w).toFixed(4);
 			Player.volume=rate;
 			this.player.cVolumn=rate*100+"%";
+			this.player.muted=Player.muted=false;
+		},
+		toggleMuted:function(){
+			if(Player.muted){
+				this.player.muted=Player.muted=false;
+				document.querySelector('.control-volumn>.bar-bg>.bar-current').style.width=Player.volume*100+"%";
+			}else{
+				this.player.muted=Player.muted=true;
+				document.querySelector('.control-volumn>.bar-bg>.bar-current').style.width="0%";
+			}
 		},
 		initState:function(){
 			this.player.paused=true;
@@ -330,6 +355,7 @@ export default {
 }
 </script>
 <style scoped>
+@import '../../assets/fonts/iconfont.css';
 .song-container{
 	display:block;
 	margin:20px auto;
@@ -349,45 +375,11 @@ export default {
 	width:300px;
 	margin:20px auto;
 }
-@-webkit-keyframes rotate {
-	from {
-		-webkit-transform: rotate3d(0, 0, 1, 0deg);
-		transform: rotate3d(0, 0, 1, 0deg);
-	}
-
-	to {
-		-webkit-transform: rotate3d(0, 0, 1, 360deg);
-		transform: rotate3d(0, 0, 1, 360deg);
-	}
-}
-@keyframes rotate {
-	from {
-		-webkit-transform: rotate3d(0, 0, 1, 0deg);
-		transform: rotate3d(0, 0, 1, 0deg);
-	}
-
-	to {
-		-webkit-transform: rotate3d(0, 0, 1, 360deg);
-		transform: rotate3d(0, 0, 1, 360deg);
-	}
-}
 .song-cover{
 	position:relative;
 	display:inline-block;
-	-webkit-animation-duration: 16s;
-	animation-duration: 16s;
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
-	-webkit-animation-iteration-count: infinite;
-	animation-iteration-count: infinite;
-	-webkit-transform-origin: center center;
-	transform-origin: center center;
-	-webkit-animation-timing-function: linear;
-	animation-timing-function: linear;
-}
-.song-cover.rotate{
-	-webkit-animation-name: rotate;
-	animation-name: rotate;
+	width:300px;
+	height:300px;
 }
 .song-cover .cover-img{
 	position:absolute;
@@ -445,9 +437,14 @@ export default {
 	background:#ff4949;
 	color:#fff;
 	text-align:center;
-	line-height:24px;
+	
 	border-radius:50%;
 	cursor:pointer;
+}
+.control-icon>.iconfont{
+	font-size:12px;
+	line-height:24px;
+	margin:0;
 }
 .el-icon-pause{
 	display:inline-block;
@@ -500,7 +497,11 @@ export default {
 	position:absolute;
 	display:inline-block;
 	left:0;top:4px;
-	width:30px;
+	color:#475669;
+	cursor:pointer;
+}
+.control-volumn .volumn-icon>.iconfont{
+	margin:0;
 }
 /*歌词*/
 .el-body{
@@ -586,19 +587,13 @@ export default {
 	padding: 8px 10px;
 	background-position: 0 -56px;
 }
-.m-table th.first .wp {
-	background: none;
-}
 .m-table td {
 	padding: 6px 10px;
 	line-height: 18px;
 	text-align: left;
 }
-.m-table .even td {
+.m-table tbody>tr:nth-child(2n) {
 	background-color: #f7f7f7;
-}
-.m-table .odd td {
-	background-color: #ececec;
 }
 .m-table .hd {
 	height: 18px;
@@ -640,9 +635,6 @@ export default {
 .m-table .w2 {
 	width: 111px;
 }
-.m-table .w2-1 {
-	width: 91px;
-}
 .m-table .w3 {
 	width: 14%;
 }
@@ -651,29 +643,5 @@ export default {
 }
 .m-table .w5 {
 	width: 120px;
-}
-.m-table .w6 {
-	width: 78px;
-}
-.m-table .w7 {
-	width: 50px;
-}
-.m-table .w8 {
-	width: 200px;
-}
-.m-table .w9 {
-	width: 96px;
-}
-.m-table .w10 {
-	width: 50px;
-	padding-right: 20px;
-}
-.m-table .w11 {
-	width: 35px;
-	padding-right: 0;
-	padding-left: 25px;
-}
-.m-table .w12 {
-	width: 290px;
 }
 </style>
