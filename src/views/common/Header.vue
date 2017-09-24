@@ -66,7 +66,7 @@ import tool from '../../assets/js/tool.js';
 				logoText: '这里有个宝藏，它空无一物，它价值千金',
 				name: '游客'
 			}
-		},
+		},     
 		computed:{
 			userInfo(){
 				let userInfo = this.$store.getters.getUserInfo;
@@ -142,14 +142,20 @@ import tool from '../../assets/js/tool.js';
 	.el-menu-blue {
 		background-color: #20A0FF !important;
 	}
-	.user-info:hover,.el-menu-blue>.el-menu-item:hover,.el-menu-blue>.el-submenu>.el-submenu__title:hover{
+	.user-info:hover,
+	.el-menu-blue>.el-menu-item:hover,
+	.el-menu-blue>.el-submenu>.el-submenu__title:hover{
 		background-color: #58B7FF !important;
 	}
-	.el-menu-blue>.el-menu-item,.el-menu-blue>.el-submenu>.el-submenu__title,.el-menu-blue .el-submenu__icon-arrow{
+	.el-menu-blue>.el-menu-item,
+	.el-menu-blue>.el-submenu>.el-submenu__title,
+	.el-menu-blue .el-submenu__icon-arrow{
 		color:#fff !important;
 		border-bottom:none !important;
 	}
-	.el-menu-blue>.el-menu-item.is-active,.el-menu-blue>.el-submenu.is-active>.el-submenu__title,.el-menu-blue>.el-submenu.is-active .el-submenu__icon-arrow{
+	.el-menu-blue>.el-menu-item.is-active,
+	.el-menu-blue>.el-submenu.is-active>.el-submenu__title,
+	.el-menu-blue>.el-submenu.is-active .el-submenu__icon-arrow{
 		color:#04f56f !important;
 	}
 </style>

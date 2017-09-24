@@ -1,10 +1,5 @@
 <template>
 	<div>
-		<div class="lunar">
-			<span>{{lunar.year}}</span>
-			<span>{{lunar.month}}</span>
-			<span>{{lunar.day}}</span>
-		</div>
 		<el-row :gutter="10">
 			<el-col :xs="24" :sm="16">
 				<div class="column">
@@ -19,6 +14,14 @@
 				</div>
 			</el-col>
 			<el-col :xs="24" :sm="8">
+				<div class="lunar" style="background-image:url('static/images/lunar.png')">
+					<div class="lunar-day">24</div>
+					<div class="lunar-detail">
+						<span>{{lunar.year}}</span>
+						<span>{{lunar.month}}</span>
+						<span>{{lunar.day}}</span>
+					</div>
+				</div>
 			</el-col>
 		</el-row>
 		<div class="column">
@@ -54,7 +57,6 @@
 </template>
 
 <script>
-import jsonp from "jsonp";
 import lunar from "../../assets/js/lunar.js";
 	export default {
 		data: function(){
@@ -194,13 +196,9 @@ import lunar from "../../assets/js/lunar.js";
 			photoCardShow:function(index){
 				console.log(index);
 				this.photoCard=true;
-				if(this.$refs["photoCard"]){
+				this.$nextTick(()=>{
 					this.$refs["photoCard"].setActiveItem(index);
-				}else{
-					setTimeout(()=>{
-						this.$refs["photoCard"].setActiveItem(index);//初次渲染需要时间
-					},300);
-				}
+				})
 			}
 		},
 		beforeMount:function(){
@@ -214,10 +212,26 @@ import lunar from "../../assets/js/lunar.js";
 
 <style scoped>
 .lunar{
-	font-family: "宋体";
-	font-size:20px;
-	line-height:1.6;
+	margin-left:auto;
+	margin-right:auto;
 	margin-bottom:10px;
+	width:300px;
+	height:300px;
+	background-size:cover;
+	padding:100px 20px 20px 20px;
+	font-size:20px;
+	color:#63707d;
+}
+.lunar-day{
+	color:#475669;
+	text-align:center;
+	font-size:100px;
+	line-height:1.3;
+	margin-bottom:10px;
+}
+.lunar-detail{
+	font-family: "宋体";
+	line-height:1.6;
 	font-weight:100;
 }
 .column {

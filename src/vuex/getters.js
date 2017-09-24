@@ -32,7 +32,7 @@ let routes=[
 		path: '/',
 		component:Header,
 		meta:{
-			title: '首页',
+			title: '',
 			isMenu:true,   //是否是菜单
 			isParent:false, //是否是父级
 			icon:'el-icon-star-on' //图标样式class

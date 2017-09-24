@@ -351,6 +351,9 @@ export default {
 		Player.addEventListener('ended', function() {
 			_this.toggleNext();
 		}, false);
+	},
+	beforeDestroy:function(){
+		Player.pause();
 	}
 }
 </script>
@@ -568,6 +571,9 @@ export default {
 .m-table {
 	width: 100%;
 	border: 1px solid #d9d9d9;
+}
+.m-table div{
+	box-sizing: content-box;
 }
 .m-table th {
 	vertical-align: top;

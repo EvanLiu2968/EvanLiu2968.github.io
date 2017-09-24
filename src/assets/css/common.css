@@ -5,6 +5,9 @@ html,body,#app,.wrapper{
 	height:100%;
 	overflow: hidden;
 }
+div,p,span,header,footer{
+	box-sizing: border-box;
+}
 body{
 	font-family:"Helvetica Neue",Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
 	color:#1F2D3D;
@@ -23,7 +26,6 @@ a{text-decoration: none}
 	bottom:0;
 	width: auto;
 	padding:25px;
-	box-sizing: border-box;
 	overflow-y: scroll;
 }
 .fix-container{

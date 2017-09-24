@@ -29,7 +29,12 @@ router.beforeEach((to, from, next) => { //切换网页标题
 		let menu=store.getters.getRoute;
 		router.addRoutes(menu);
 		store.commit('toggleRouted');
-		next({ path: sessionStorage.getItem('cache_path') });
+		let cache_path=sessionStorage.getItem('cache_path');
+		if(cache_path){
+			next(cache_path);
+		}else{
+			next('/home');
+		}
 	}else{ //正常路由跳转
 		setTimeout(()=>{
 			if(to.matched.length===0&&from.path!=='/'){
