@@ -15,11 +15,12 @@
 			</el-col>
 			<el-col :xs="24" :sm="8">
 				<div class="lunar" style="background-image:url('static/images/lunar.png')">
-					<div class="lunar-day">24</div>
+					<div class="date-month">{{date.year+' / '+date.month}}</div>
+					<div class="date-day">{{date.day}}</div>
 					<div class="lunar-detail">
-						<span>{{lunar.year}}</span>
-						<span>{{lunar.month}}</span>
-						<span>{{lunar.day}}</span>
+						<span>{{date.lunarYear}}</span>
+						<span>{{date.lunarMonth}}</span>
+						<span>{{date.lunarDay}}</span>
 					</div>
 				</div>
 			</el-col>
@@ -61,7 +62,10 @@ import lunar from "../../assets/js/lunar.js";
 	export default {
 		data: function(){
 			return {
-				lunar:{
+				date:{
+					lunarYear:'',
+					lunarMonth:'',
+					lunarDay:'',
 					year:'',
 					month:'',
 					day:''
@@ -194,7 +198,6 @@ import lunar from "../../assets/js/lunar.js";
 		},
 		methods:{
 			photoCardShow:function(index){
-				console.log(index);
 				this.photoCard=true;
 				this.$nextTick(()=>{
 					this.$refs["photoCard"].setActiveItem(index);
@@ -203,15 +206,19 @@ import lunar from "../../assets/js/lunar.js";
 		},
 		beforeMount:function(){
 			let date=new Date();
-			this.lunar.year=lunar.getYear(date);
-			this.lunar.month=lunar.getMonth(date)
-			this.lunar.day=lunar.getDay(date)
+			this.date.lunarYear=lunar.getYear(date);
+			this.date.lunarMonth=lunar.getMonth(date);
+			this.date.lunarDay=lunar.getDay(date);
+			this.date.year=date.format('yyyy');
+			this.date.month=date.format('MM');
+			this.date.day=date.format('dd');
 		}
 	}
 </script>
 
 <style scoped>
 .lunar{
+	position: relative;
 	margin-left:auto;
 	margin-right:auto;
 	margin-bottom:10px;
@@ -219,10 +226,16 @@ import lunar from "../../assets/js/lunar.js";
 	height:300px;
 	background-size:cover;
 	padding:100px 20px 20px 20px;
-	font-size:20px;
 	color:#63707d;
 }
-.lunar-day{
+.date-month{
+	position: absolute;
+	top:40px;left:0;right:0;
+	color:#fff;
+	text-align:center;
+	font-size:20px;
+}
+.date-day{
 	color:#475669;
 	text-align:center;
 	font-size:100px;

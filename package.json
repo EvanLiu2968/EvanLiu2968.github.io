@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
-    "element-ui": "^1.2.2",
+    "element-ui": "^1.4.4",
     "jsonp": "^0.2.1",
     "vue": "^2.1.10",
     "vue-axios": "^2.0.1",

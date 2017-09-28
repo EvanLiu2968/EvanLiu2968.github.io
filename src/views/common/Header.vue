@@ -5,7 +5,7 @@
 		<div class="user-info">
 			<el-dropdown trigger="hover" @command="handleCommand">
 				<span class="el-dropdown-link">
-					<img class="user-logo" :src="userInfo.head">
+					<img class="user-logo" :src="userInfo.avatar">
 					{{userInfo.username}}
 				</span>
 				<el-dropdown-menu slot="dropdown">
@@ -23,12 +23,12 @@
 			<template v-for="(item,index) in menu">
 				<template v-if="item.meta.isMenu">
 					<el-submenu :index="index+''" v-if="item.meta.isParent">
-						<template slot="title"><i :class="item.meta.icon"></i>{{item.meta.title}}</template>
+						<template slot="title"><i :class="item.meta.icon"></i>{{item.name}}</template>
 						<template v-for="child in item.children">
-							<el-menu-item v-if="child.meta.isMenu" :index="child.path">{{child.meta.title}}</el-menu-item>
+							<el-menu-item v-if="child.meta.isMenu" :index="child.path">{{child.name}}</el-menu-item>
 						</template>
 					</el-submenu>
-					<el-menu-item v-else :index="item.children[0].path"><i :class="item.children[0].meta.icon"></i>{{item.children[0].meta.title}}</el-menu-item>
+					<el-menu-item v-else :index="item.children[0].path"><i :class="item.children[0].meta.icon"></i>{{item.children[0].name}}</el-menu-item>
 				</template>
 			</template>
 			</el-menu>
@@ -57,27 +57,20 @@ import tool from '../../assets/js/tool.js';
 	export default {
 		data() {
 			return {
-				defaultUserInfo:{
-					username:'游客',
-					role:'general',
-					head:'static/images/user.jpg'
-				},
 				wechatBox:false,
 				logoText: '这里有个宝藏，它空无一物，它价值千金',
 				name: '游客'
 			}
-		},     
+		},
 		computed:{
 			userInfo(){
-				let userInfo = this.$store.getters.getUserInfo;
-				userInfo=tool.extend(true,this.defaultUserInfo,userInfo);
-				return userInfo;
+				return this.$store.getters.getUserInfo;
 			},
 			login(){
 				return this.$store.state.login;
 			},
 			menu(){
-				return this.$store.getters.getMenu;
+				return this.$router.options.routes;
 			}
 		},
 		methods:{

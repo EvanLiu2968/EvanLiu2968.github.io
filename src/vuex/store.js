@@ -7,13 +7,13 @@ Vue.use(Vuex)
 
 let defaultUserInfo={
 	username:'游客',
-	role:'general'
+	avatar:'static/images/mao.jpg',
+	routemap:['/login']
 };
 // 应用初始状态
 const state = {
 	userInfo:defaultUserInfo,
-	login:false,
-	routed:false
+	login:false
 }
 
 // 定义所需的 mutations
@@ -28,9 +28,6 @@ const mutations = {
 		state.userInfo=defaultUserInfo;
 		state.login=false;
 		sessionStorage.removeItem('userInfo');
-	},
-	toggleRouted(state) {
-		state.routed=!state.routed;
 	},
 	addAttr(state,obj) {
 		state={...state,obj};

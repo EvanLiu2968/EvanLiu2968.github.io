@@ -41,7 +41,7 @@
 						</div>
 						<div class="movie-row">
 							评分：<span style="color:#F7BA2A">{{subject.rating.average}}</span><span class="movie-tag">/{{subject.rating.max}}</span>
-							<router-link class="movie-tag" :to="{ name: 'movie/detail', params: { id: subject.id }}">查看详情 <i class="el-icon-d-arrow-right text-small"></i></router-link>
+							<router-link class="movie-tag" :to="{ name: '电影详情', params: { id: subject.id }}">查看详情 <i class="el-icon-d-arrow-right text-small"></i></router-link>
 						</div>
 					</div>
 				</div>
