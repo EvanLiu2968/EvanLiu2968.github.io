@@ -91,7 +91,7 @@
 
 <script>
 let Player,progressTimer=0,rotateTimer=0;
-import jQuery from '../../assets/js/jquery-2.2.3.js';
+import jQuery from '@/assets/lib/jquery/jquery-2.2.3.js';
 export default {
 	data: function(){
 		return {

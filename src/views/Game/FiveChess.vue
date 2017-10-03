@@ -76,7 +76,7 @@
 					clearStep(player[0],player[1]);
 					clearStep(alphadog[0],alphadog[1]);
 				}else{
-					$this.$alert('已经是最初状态了','提示');
+					$this.$alert('人生如棋，落子无悔。','提示');
 				}
 			};
 			function clearStep(i,j){
