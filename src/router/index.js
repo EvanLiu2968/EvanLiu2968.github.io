@@ -60,7 +60,7 @@ let routes=[
 		meta:{
 			isMenu:true,
 			isParent:true,
-			icon:'el-icon-information'
+			icon:'el-icon-menu'
 		},
 		children: [
 			{

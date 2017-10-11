@@ -10,8 +10,8 @@
 				</span>
 				<el-dropdown-menu slot="dropdown">
 					<el-dropdown-item command="github">github</el-dropdown-item>
-					<el-dropdown-item command="weibo">weibo</el-dropdown-item>
 					<el-dropdown-item command="wechat">wechat</el-dropdown-item>
+					<el-dropdown-item command="zhihu">zhihu</el-dropdown-item>
 					<el-dropdown-item command="facebook">facebook</el-dropdown-item>
 					<el-dropdown-item v-if="login" divided command="loginout">注销</el-dropdown-item>
 					<el-dropdown-item v-else divided command="login">登录</el-dropdown-item>
@@ -77,17 +77,17 @@ import tool from '../../assets/js/tool.js';
 			handleCommand(command) {
 				if(command == 'loginout'){
 					this.$store.commit('loginOut');
-				}else if (command == 'login'){
+				} else if (command == 'login'){
 					this.$router.push({
 						path:'/login'
 					});
-				}else if (command == 'github'){
+				} else if (command == 'github'){
 					window.open("https://github.com/EvanLiu2968");
-				}else if (command == 'weibo'){
-					window.open("http://weibo.com/rockmist");
-				}else if (command == 'wechat'){
+				} else if (command == 'zhihu'){
+					window.open("https://www.zhihu.com/people/evanliu-20");
+				} else if (command == 'wechat'){
 					this.wechatBox=true;
-				}else if (command == 'facebook'){
+				} else if (command == 'facebook'){
 					window.open("https://www.facebook.com/evanliu2968");
 				}
 			}

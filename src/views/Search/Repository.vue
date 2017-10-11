@@ -16,10 +16,12 @@
 				<el-table-column prop="description" label="详情描述"></el-table-column>
 				<el-table-column label="管理" width="160">
 					<template scope="scope">
+					<el-button-group>
 						<el-button size="small"
 							@click="handleEdit(scope.$index, scope.row)">编辑</el-button>
 						<el-button size="small" type="danger"
 							@click="handleDelete(scope.$index, scope.row)">删除</el-button>
+					</el-button-group>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -52,14 +54,13 @@
 					{name:"el-checkbox",view:"1",description:"一套checkbox、radio、switch UI库"},
 					{name:"vue-component",view:"0",description:"\"603\"开源计划之vue组件库"},
 					{name:"react-component",view:"0",description:"\"603\"开源计划之react组件库"},
-					{name:"Angular1.3-admin",view:"1",description:"gulp，Angular1.x & bootstrap3的后台管理系统"},
 					{name:"fis3-seed",view:"0",description:"fis3构建工具启动种子"},
 					{name:"clover",view:"0",description:"三叶草，【love，health，glory】"},
 					{name:"manifast",view:"0",description:"记录我的清单"},
 					{name:"ionic-weixin",view:"1",description:"ionic,仿微信Hybrid App"},
 					{name:"animateDemo",view:"1",description:"animate.css demo"},
 					{name:"gulp-webapp",view:"1",description:"gulp构建流的webAPP"},
-					{name:"hosts",view:"0",description:"科学上网，freestyle"},
+					{name:"InjectJS",view:"0",description:"Chrome extension"}
 				],
 				dialogFormVisible: false,
 				editForm: {}

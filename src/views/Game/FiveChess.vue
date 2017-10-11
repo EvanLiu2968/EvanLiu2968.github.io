@@ -3,7 +3,7 @@
 	<canvas id="board" width="1200" height="600"></canvas>
 	<canvas id="chess" width="1200" height="600"></canvas>
 	<canvas id="animate" width="1200" height="600"></canvas>
-	<div style="position:absolute;top:20px;right:0;width:300px">
+	<div style="position:absolute;top:20px;right:0;width:300px" v-bind:style="{display:didMount?'block':'none'}">
 		<el-button type="primary" id="resetBtn">重新开始</el-button>
 		<el-button type="primary" id="backPrevBtn">回到上一步</el-button>
 	</div>
@@ -24,6 +24,7 @@
 	export default {
 		data: function(){
 			return {
+				didMount:false
 			}
 		},
 		methods: {
@@ -57,6 +58,7 @@
 				b.fillStyle="#ffffff";
 				b.fillText("AlphaDog",50,540);
 				reset();
+				$this.didMount=true;
 			};
 			let resetBtn=document.getElementById("resetBtn");
 			let backPrevBtn=document.getElementById("backPrevBtn");

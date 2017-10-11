@@ -101,7 +101,7 @@ export default {
 					name:'莉莉安',
 					singer:'宋冬野',
 					album:'安和桥北',
-					cover:'static/images/mao.jpg',
+					cover:'static/images/music/lilian.jpg',
 					src:'static/images/music/宋冬野 - 莉莉安.mp3',
 					lrc:'static/images/music/宋冬野 - 莉莉安.lrc',
 					duration:'04:13'
@@ -121,7 +121,7 @@ export default {
 					name:'煎熬',
 					singer:'李佳薇',
 					album:'感谢爱人',
-					cover:'static/images/mao.jpg',
+					cover:'static/images/music/jianao.jpg',
 					src:'static/images/music/李佳薇 - 煎熬.mp3',
 					lrc:'static/images/music/李佳薇 - 煎熬.lrc',
 					duration:'04:22'
@@ -131,7 +131,7 @@ export default {
 					name:'漂洋过海来看你',
 					singer:'刘明湘',
 					album:'我不要再比了',
-					cover:'static/images/mao.jpg',
+					cover:'static/images/music/piao.jpg',
 					src:'static/images/music/刘明湘 - 漂洋过海来看你.mp3',
 					lrc:'static/images/music/刘明湘 - 漂洋过海来看你.lrc',
 					duration:'03:17'
@@ -141,7 +141,7 @@ export default {
 					name:'把悲伤留给自己',
 					singer:'陈升',
 					album:'私奔',
-					cover:'static/images/mao.jpg',
+					cover:'static/images/music/lonely.jpg',
 					src:'static/images/music/陈升 - 把悲伤留给自己.mp3',
 					lrc:'static/images/music/陈升 - 把悲伤留给自己.lrc',
 					duration:'04:38'
