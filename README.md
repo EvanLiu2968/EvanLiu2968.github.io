@@ -11,22 +11,22 @@ github主页
 
 ## 目录结构 ##
 ```
-	|-- build                            // webpack配置文件
-	|-- config                           // 项目打包路径
-	|-- src                              // 源码目录
-	|   |-- assets                       // 资源
-	|   |-- router                       // 路由
-	|   |-- views                        // .vue组件
-	|   |-- vuex                         // 状态管理
-	|   |-- App.vue                      // app入口文件
-	|   |-- main.js                      // 程序入口文件，加载各种公共组件
-	|   |-- index.html                   // 开发入口html文件
-	|-- .babelrc                         // ES6语法编译配置
-	|-- .editorconfig                    // 代码编写规格
-	|-- .gitignore                       // 忽略的文件
-	|-- index.html                       // 编译后的入口html文件,同步github page
-	|-- package.json                     // 项目及工具的依赖配置文件
-	|-- README.md                        // 说明
+  |-- build                            // webpack配置文件
+  |-- config                           // 项目打包路径
+  |-- src                              // 源码目录
+  |   |-- assets                       // 资源
+  |   |-- router                       // 路由
+  |   |-- views                        // .vue组件
+  |   |-- vuex                         // 状态管理
+  |   |-- App.vue                      // app入口文件
+  |   |-- main.js                      // 程序入口文件，加载各种公共组件
+  |   |-- index.html                   // 开发入口html文件
+  |-- .babelrc                         // ES6语法编译配置
+  |-- .editorconfig                    // 代码编写规格
+  |-- .gitignore                       // 忽略的文件
+  |-- index.html                       // 编译后的入口html文件,同步github page
+  |-- package.json                     // 项目及工具的依赖配置文件
+  |-- README.md                        // 说明
 ```
 
 ## 开始 ##

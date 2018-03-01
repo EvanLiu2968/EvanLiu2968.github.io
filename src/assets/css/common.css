@@ -1,173 +1,173 @@
 /* 自定义全局通用css */
 *{margin:0;padding:0;}
 html,body,#app,.wrapper{
-	width:100%;
-	height:100%;
-	overflow: hidden;
+  width:100%;
+  height:100%;
+  overflow: hidden;
 }
 div,p,span,header,footer{
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 body{
-	font-family:"Helvetica Neue",Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
-	color:#1F2D3D;
+  font-family:"Helvetica Neue",Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
+  color:#1F2D3D;
 }
 a{text-decoration: none}
 [role="button"] {
-	text-decoration: none;
-	cursor:pointer;
+  text-decoration: none;
+  cursor:pointer;
 }
 .content{
-	background: none repeat scroll 0 0 #fff;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 60px;
-	bottom:0;
-	width: auto;
-	padding:25px;
-	overflow-y: scroll;
+  /* background: none repeat scroll 0 0 #fff; */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  bottom:0;
+  width: auto;
+  padding:25px;
+  overflow-y: scroll;
 }
 .fix-container{
-	position:relative;
-	display:block;
-	max-width:950px;
-	margin-left:auto;
-	margin-right:auto;
+  position:relative;
+  display:block;
+  max-width:950px;
+  margin-left:auto;
+  margin-right:auto;
 }
 .move-enter-active,.move-leave-active{
-	transition: opacity .5s;
+  transition: opacity .5s;
 }
 .move-enter,.move-leave{
-	opacity: 0;
+  opacity: 0;
 }
 .crumbs{
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .pagination{
-	margin: 20px 0;
-	text-align: right;
+  margin: 20px 0;
+  text-align: right;
 }
 .iconfont{
-	vertical-align: baseline;
-	margin-right: 10px;
+  vertical-align: baseline;
+  margin-right: 10px;
 }
 .crumbs .iconfont,.crumbs [class^="el-icon"]{
-	margin-right: 4px;
+  margin-right: 4px;
 }
 .box-tips{
-	padding:20px 10px;
-	margin-bottom: 20px;
-	border-left: 5px solid #d2d6de;
-	background-color: #f0f0f0;
+  padding:20px 10px;
+  margin-bottom: 20px;
+  border-left: 5px solid #d2d6de;
+  background-color: #f0f0f0;
 }
 .el-button+.el-tooltip {
-	margin-left: 10px;
+  margin-left: 10px;
 }
 .el-table td,.el-table th{
-	padding:4px 8px;
+  padding:4px 8px;
 }
 .el-table .cell,
 .el-table th>div{
-	padding-left:8px;
-	padding-right:8px;
+  padding-left:8px;
+  padding-right:8px;
 }
 .el-table tr:hover{
-	background: #f6faff;
+  background: #f6faff;
 }
 .center-block{
-	display:block;
-	margin-left:auto;
-	margin-right:auto;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
 }
 .clearfix:before, .clearfix:after {
-	content: " ";
-	display: table;
+  content: " ";
+  display: table;
 }
 .clearfix:after {
-	clear: both;
+  clear: both;
 }
 .pull-right{
-	float:right;
+  float:right;
 }
 .pull-left{
-	float:left;
+  float:left;
 }
 .text-right{
-	text-align:right;
+  text-align:right;
 }
 .text-left{
-	text-align:left;
+  text-align:left;
 }
 .text-center{
-	text-align:center;
+  text-align:center;
 }
 .text-small{
-	font-size:80%;
+  font-size:80%;
 }
 .text-blue{
-	color:#20A0FF;
+  color:#20A0FF;
 }
 .text-success{
-	color:#13CE66;
+  color:#13CE66;
 }
 .text-warning{
-	color:#F7BA2A;
+  color:#F7BA2A;
 }
 .text-danger{
-	color:#FF4949;
+  color:#FF4949;
 }
 .text-gray{
-	color:#8492A6;
+  color:#8492A6;
 }
 /* 电影条目 */
 .movie-list-title{
-	padding-left:20px;
-	color:#8492A6;
-	font-size:16px;
+  padding-left:20px;
+  color:#8492A6;
+  font-size:16px;
 }
 .movie-list-title>i{
-	margin-right:5px;
+  margin-right:5px;
 }
 .movie-list{
-	padding:20px;
+  padding:20px;
 }
 .movie-item{
-	display:block;
-	position:relative;
-	color:#99A9BF;
-	padding-left: 70px;
-	height:90px;
-	margin-bottom:15px;
+  display:block;
+  position:relative;
+  color:#99A9BF;
+  padding-left: 70px;
+  height:90px;
+  margin-bottom:15px;
 }
 .movie-cover{
-	position:absolute;
-	top:0;
-	left:0;
-	width:60px;
-	height:90px;
+  position:absolute;
+  top:0;
+  left:0;
+  width:60px;
+  height:90px;
 }
 .movie-cover>img{
-	display:block;
-	height:100%;
-	width:100%;
+  display:block;
+  height:100%;
+  width:100%;
 }
 .movie-content{
-	position:relative;
-	padding:5px;
+  position:relative;
+  padding:5px;
 }
 .movie-row{
-	position:relative;
-	font-size:14px;
-	line-height:20px;
+  position:relative;
+  font-size:14px;
+  line-height:20px;
 }
 .movie-tag{
-	display:inline-block;
-	margin-right:15px;
+  display:inline-block;
+  margin-right:15px;
 }
 .movie-genre{
-	margin-left:10px;
-	height:20px;
-	line-height:18px;
+  margin-left:10px;
+  height:20px;
+  line-height:18px;
 }
 

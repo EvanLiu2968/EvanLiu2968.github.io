@@ -19,20 +19,20 @@ Vue.use(ElementUI);
 
 //路由钩子
 router.beforeEach((to, from, next) => {
-	NProgress.start(); // 开启Progress
-	if(to.matched.length===0){
-		next({ path: '/404' });
-	} else if(true){
-		document.title = to.name?(to.name+' | 捕风捉影'):'捕风捉影';
-		next();
-	}
+  NProgress.start(); // 开启Progress
+  if(to.matched.length===0){
+    next({ path: '/404' });
+  } else if(true){
+    document.title = to.name?(to.name+' | 捕风捉影'):'捕风捉影';
+    next();
+  }
 });
 router.afterEach(() => {
-	NProgress.done(); // 结束Progress
+  NProgress.done(); // 结束Progress
 });
 
 new Vue({
-	router,
-	store,
-	render: h => h(App)
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app');

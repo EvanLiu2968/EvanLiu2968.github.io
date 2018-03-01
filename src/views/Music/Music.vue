@@ -1,91 +1,91 @@
 <template>
 <div>
-	<div class="song-container">
-		<div class="el-body">
-			<audio :src="cSong.src" id="player"></audio>
-			<el-row :gutter="10">
-				<el-col :span="12">
-					<div class="song-cover-box">
-						<div class="song-cover" data-rotate="0">
-							<img :src="cSong.cover" class="cover-img">
-							<span class="cover-bg"></span>
-						</div>
-						<div class="round-top" v-bind:class='{paused:player.paused}'></div>
-					</div>
-				</el-col>
-				<el-col :span="12">
-					<div>
-						<h3 class="song-title">{{cSong.name}}</h3>
-						<div class="song-info">歌手：{{cSong.singer}}&emsp;&emsp;专辑：{{cSong.album}}</div>
-						<div class="lrc-wrap">
-							<p class="lrc-p" v-for="lrc in player.cLrc" :data-lrc="lrc.time">{{lrc.word}}</p>
-						</div>
-					</div>
-				</el-col>
-			</el-row>
-		</div>
-		<div class="n-songtb">
-			<div class="u-title">
-				<h3><span class="f-ff2">歌曲列表</span></h3>
-				<span class="sub">{{songList.length}}首歌</span>
-			</div>
-			<div class="j-flag">
-				<table class="m-table">
-					<thead>
-					<tr>
-						<th class="w1"><div class="wp">#</div></th>
-						<th><div class="wp">歌曲标题</div></th>
-						<th class="w2"><div class="wp">时长</div></th>
-						<th class="w3"><div class="wp">歌手</div></th>
-						<th class="w4"><div class="wp">专辑</div></th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr class="" v-for="(song,index) in songList">
-						<td class="left"><div class="hd ">
-							<span class="ply" @click="toggleSong(index)">播放</span>
-							<span class="num">{{'0'+(index+1)}}</span>
-						</div></td>
-						<td class=""><div class="text">{{song.name}}</div></td>
-						<td class=""><div class="text">{{song.duration}}</div></td>
-						<td class=""><div class="text">{{song.singer}}</div></td>
-						<td class=""><div class="text">{{song.album}}</div></td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	<div class="song-control">
-		<div class="control-play">
-			<span class="control-icon" @click="togglePrev">
-				<i class="iconfont icon-bofangqishangyiqu"></i>
-			</span>
-			<span class="control-icon" @click="togglePlayer">
-				<i class="iconfont icon-bofangqibofang" v-if="player.paused"></i>
-				<i class="iconfont icon-bofangqizanting" v-else></i>
-			</span>
-			<span class="control-icon" @click="toggleNext">
-				<i class="iconfont icon-bofangqishangyiqu1"></i>
-			</span>
-		</div>
-		<div class="control-progress">
-			<span class="time-start">{{player.cTime}}</span>
-			<span class="time-end">{{cSong.duration}}</span>
-			<div class="bar-bg" @click="toggleProgress">
-				<div class="bar-current" v-bind:style="{width:player.cProcess}"></div>
-			</div>
-		</div>
-		<div class="control-volumn">
-			<span class="volumn-icon" @click="toggleMuted">
-				<i class="iconfont icon-bofangqi_shengyin" v-if="!player.muted"></i>
-				<i class="iconfont icon-yinliangjingyin" v-else></i>
-			</span>
-			<div class="bar-bg" @click="toggleVolumn">
-				<div class="bar-current" v-bind:style="{width:player.cVolumn}"></div>
-			</div>
-		</div>
-	</div>
+  <div class="song-container">
+    <div class="el-body">
+      <audio :src="cSong.src" id="player"></audio>
+      <el-row :gutter="10">
+        <el-col :span="12">
+          <div class="song-cover-box">
+            <div class="song-cover" data-rotate="0">
+              <img :src="cSong.cover" class="cover-img">
+              <span class="cover-bg"></span>
+            </div>
+            <div class="round-top" v-bind:class='{paused:player.paused}'></div>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div>
+            <h3 class="song-title">{{cSong.name}}</h3>
+            <div class="song-info">歌手：{{cSong.singer}}&emsp;&emsp;专辑：{{cSong.album}}</div>
+            <div class="lrc-wrap">
+              <p class="lrc-p" v-for="lrc in player.cLrc" :data-lrc="lrc.time">{{lrc.word}}</p>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+    <div class="n-songtb">
+      <div class="u-title">
+        <h3><span class="f-ff2">歌曲列表</span></h3>
+        <span class="sub">{{songList.length}}首歌</span>
+      </div>
+      <div class="j-flag">
+        <table class="m-table">
+          <thead>
+          <tr>
+            <th class="w1"><div class="wp">#</div></th>
+            <th><div class="wp">歌曲标题</div></th>
+            <th class="w2"><div class="wp">时长</div></th>
+            <th class="w3"><div class="wp">歌手</div></th>
+            <th class="w4"><div class="wp">专辑</div></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="" v-for="(song,index) in songList">
+            <td class="left"><div class="hd ">
+              <span class="ply" @click="toggleSong(index)">播放</span>
+              <span class="num">{{'0'+(index+1)}}</span>
+            </div></td>
+            <td class=""><div class="text">{{song.name}}</div></td>
+            <td class=""><div class="text">{{song.duration}}</div></td>
+            <td class=""><div class="text">{{song.singer}}</div></td>
+            <td class=""><div class="text">{{song.album}}</div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="song-control">
+    <div class="control-play">
+      <span class="control-icon" @click="togglePrev">
+        <i class="iconfont icon-bofangqishangyiqu"></i>
+      </span>
+      <span class="control-icon" @click="togglePlayer">
+        <i class="iconfont icon-bofangqibofang" v-if="player.paused"></i>
+        <i class="iconfont icon-bofangqizanting" v-else></i>
+      </span>
+      <span class="control-icon" @click="toggleNext">
+        <i class="iconfont icon-bofangqishangyiqu1"></i>
+      </span>
+    </div>
+    <div class="control-progress">
+      <span class="time-start">{{player.cTime}}</span>
+      <span class="time-end">{{cSong.duration}}</span>
+      <div class="bar-bg" @click="toggleProgress">
+        <div class="bar-current" v-bind:style="{width:player.cProcess}"></div>
+      </div>
+    </div>
+    <div class="control-volumn">
+      <span class="volumn-icon" @click="toggleMuted">
+        <i class="iconfont icon-bofangqi_shengyin" v-if="!player.muted"></i>
+        <i class="iconfont icon-yinliangjingyin" v-else></i>
+      </span>
+      <div class="bar-bg" @click="toggleVolumn">
+        <div class="bar-current" v-bind:style="{width:player.cVolumn}"></div>
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -93,21 +93,21 @@
 let Player,progressTimer=0,rotateTimer=0;
 import jQuery from '@/assets/lib/jquery/jquery-2.2.3.js';
 export default {
-	data: function(){
-		return {
-			songList:[
-				{
-					id:'1',
-					name:'莉莉安',
-					singer:'宋冬野',
-					album:'安和桥北',
-					cover:'static/images/music/lilian.jpg',
-					src:'static/images/music/宋冬野 - 莉莉安.mp3',
-					lrc:'static/images/music/宋冬野 - 莉莉安.lrc',
-					duration:'04:13'
-				},
-				{
-					id:'2',
+  data: function(){
+    return {
+      songList:[
+        {
+          id:'1',
+          name:'莉莉安',
+          singer:'宋冬野',
+          album:'安和桥北',
+          cover:'static/images/music/lilian.jpg',
+          src:'static/images/music/宋冬野 - 莉莉安.mp3',
+          lrc:'static/images/music/宋冬野 - 莉莉安.lrc',
+          duration:'04:13'
+        },
+        {
+        	id:'2',
 					name:'山丘',
 					singer:'李宗盛',
 					album:'山丘',
