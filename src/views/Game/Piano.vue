@@ -1,34 +1,40 @@
 <template>
 <div>
-  <div></div>
+  <p class="tips-text">给我一杯咖啡的时间</p>
+  <p class="tips-text">Talk is cheap, show me the code.</p>
 </div>
 </template>
 <style scoped>
 </style>
 <script>
   export default {
-    components:{
-      Butterfly
-    },
     data: function(){
       return {
+        musicNote:[
+          {
+            src:'',
+            name:'duo',
+          }
+        ]
       }
     },
     methods: {
-      onSubmit() {
-        this.$message.success('提交成功！');
+      playMusicNote(i) {
+        let audio = this.getMusicAudio(this.musicNote[i].src)
+        audio.play()
+      },
+      getMusicAudio(src){
+        let audio = document.createElement('audio')
+        return audio
       }
     },
     mounted:function(){
-      canvas = document.getElementById('tearCloth');
-      ctx = canvas.getContext('2d');
-
-      canvas.width = 800;//560
-      canvas.height = 800;//350
-
-      start();
     }
   }
 </script>
 <style scoped>
+.tips-text{
+  margin:30px;
+  color:#606266;
+}
 </style>

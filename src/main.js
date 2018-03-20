@@ -4,7 +4,6 @@ import router from './router';
 import Vuex from 'vuex';
 import store from './vuex/store'; //状态管理
 import axios from 'axios';
-import VueAxios from 'vue-axios';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';    // 默认主题
 //import '../static/css/theme/index-#41d2de.css';       //自定义主题
@@ -13,7 +12,6 @@ import './assets/lib/nprogress/nprogress.css';// 不从moduel引入是为方便�
 import './assets/css/common.css';
 import './assets/js/util.js';
 axios.defaults.headers.common['Accept'] = "application/json;charset=utf-8";
-Vue.use(VueAxios,axios);
 Vue.use(Vuex);
 Vue.use(ElementUI);
 

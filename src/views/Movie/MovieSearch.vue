@@ -47,6 +47,7 @@
 
 <script>
 import jsonp from "jsonp";
+import jQuery from '@/assets/lib/jquery/jquery-2.2.3.js';
 export default {
   name:'movieSearch',
   data: function(){
@@ -100,6 +101,16 @@ export default {
       this.searchPagination.currentPage=currentPage;
       this.searchMovie();
     }
+  },
+  mounted(){
+    jQuery(".el-input__inner").on('keyup',(e)=>{
+      if(e.keyCode ==13){
+        this.searchMovie()
+      }
+    })
+  },
+  beforeDestroy(){
+    jQuery(".el-input__inner").off('keyup')
   }
 }
 </script>

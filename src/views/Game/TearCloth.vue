@@ -1,7 +1,6 @@
 <template>
 <div>
   <div class="canvas-container"></div>
-  <Butterfly root="scoped" />
   <canvas id="tearCloth"></canvas>
 </div>
 </template>
@@ -27,7 +26,6 @@
   }
 </style>
 <script>
-import Butterfly from 'src/component/Butterfly'
 var physics_accuracy = 3,
   mouse_influence = 20,
   mouse_cut = 5,
@@ -297,9 +295,6 @@ function start() {
   update();
 }
   export default {
-    components:{
-      Butterfly
-    },
     data: function(){
       return {
       }
