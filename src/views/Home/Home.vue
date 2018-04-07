@@ -11,6 +11,7 @@
             <p>但是总不能流血就喊痛，怕黑就开灯，想念就联系，我们最多也就是个有故事的人。</p>
             <p>所以，人生就像蒲公英，看似自由，却身不由己。</p>
             <p>得不到的永远在骚动。</p>
+            <p class="text-right"><a class="link-site" href="http://www.evanliu2968.com.cn" target="_blank">个人云网站：www.evanliu2968.com.cn</a></p>
           </div>
         </div>
       </el-col>
@@ -217,6 +218,10 @@ import lunar from "../../assets/js/lunar.js";
 </script>
 
 <style scoped>
+.link-site{
+  font-size: 16px;
+  text-decoration: underline;
+}
 .lunar{
   position: relative;
   margin-left:auto;

@@ -11,7 +11,7 @@
       </h1>
       <div class="movie-detail-item" >
         <div class="movie-detail-cover">
-          <img :src="subject.images.large">
+          <img v-if="subject.images" :src="subject.images.large">
         </div>
         <div class="movie-detail-content">
           <div class="movie-row">
@@ -28,12 +28,12 @@
           </div>
           <div class="movie-row">
             制片国家/地区：
-            <span class="movie-tag">{{subject.countries.join('/')}}</span>
+            <span class="movie-tag" v-if="subject.countries">{{subject.countries.join('/')}}</span>
           </div>
           <div class="movie-row">
-            又名：<span class="movie-tag">{{subject.aka.join('/')}}</span>
+            又名：<span class="movie-tag" v-if="subject.aka">{{subject.aka.join('/')}}</span>
           </div>
-          <div class="movie-row">
+          <div class="movie-row" v-if="subject.rating">
             评分：<span style="color:#F7BA2A">{{subject.rating.average}}</span><span class="movie-tag">/{{subject.rating.max}}</span><span class="movie-tag">({{subject.ratings_count}}人评分)</span>
           </div>
           
@@ -112,6 +112,7 @@ export default {
   .movie-summary{
     text-indent: 2em;
     font-size:14px;
+    line-height:1.8;
     color:#475669;
   }
   .movie-detail-item{

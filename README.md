@@ -7,9 +7,10 @@ github主页
 
 > 访问地址：[https://evanliu2968.github.io](https://evanliu2968.github.io)
 > 项目地址：[https://github.com/EvanLiu2968](https://github.com/EvanLiu2968)
-> 邮箱：[evanLiu2968@gmail.com](mailto:evanLiu2968@gmail.com?subject=%E8%81%8A%E4%BA%BA%E7%94%9F%E3%80%81%E8%81%8A%E7%90%86%E6%83%B3)
+> 个人站点: [http://www.evanliu2968.com.cn](http://www.evanliu2968.com.cn)
 
 ## 目录结构 ##
+
 ```
   |-- build                            // webpack配置文件
   |-- config                           // 项目打包路径
@@ -30,15 +31,17 @@ github主页
 ```
 
 ## 开始 ##
+
 ```
 npm install   // 安装项目依赖
 npm run dev   //构建开发环境，浏览器访问 => http://localhost:2968
 npm run build //构建生产环境，同步github
 ```
+
 ## 参考 ##
+
  - [vue2](https://cn.vuejs.org/v2/guide/)
  - [vue-router](https://router.vuejs.org/zh-cn/)
  - [vuex](https://vuex.vuejs.org/zh-cn/)
  - [axios](https://github.com/mzab)
  - [element-UI](http://element.eleme.io/#/zh-CN/component/layout)
-

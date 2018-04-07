@@ -5,13 +5,13 @@
     <div style="position:absolute;top:0;left:0;width:250px;background:#f6f6f6">
       <h2 class="movie-title">电影榜单</h2>
       <div class="movie-billboard clearfix">
-        <div class="rotateBox" v-for="list in lists">
+        <div class="rotateBox" v-for="list in lists" @click="toggleList(list)">
           <div class="transBox">
             <div class="movie-list-box front" v-bind:style="{background:list.color}">
               <div class="movie-list-name"><span>{{list.name}}</span></div>
             </div>
             <div class="movie-list-box back" v-bind:style="{background:list.color}">
-              <div class="movie-list-cover" @click="toggleList(list)">
+              <div class="movie-list-cover">
                 <img v-bind:src="list.cover">
               </div>
             </div>
@@ -198,6 +198,7 @@ export default {
 }
 .transBox .movie-list-box{
   position: absolute; height: 500px;
+  cursor: pointer;
 }
 .transBox .front{
   left: 0; top:0;

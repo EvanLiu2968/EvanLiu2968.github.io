@@ -9,7 +9,7 @@
               <el-tag type="primary">源地址</el-tag>
             </a>
             <a :href="viewBase+scope.row.name" v-if="scope.row.view==='1'" target="_blank">
-              <el-tag type="success">演示地址</el-tag>
+              <el-tag type="success">首页/文档</el-tag>
             </a>
           </template>
         </el-table-column>
@@ -50,18 +50,18 @@
         sourceBase:'https://github.com/EvanLiu2968/',
         viewBase:'https://evanliu2968.github.io/',
         dataList:[
-          {name:"EvanLiu2968.github.io",view:"1",description:"github pages"},
-          {name:"evanLiu2968",view:"0",description:"Git reposity for www.evanliu2968.com.cn"},
-          {name:"node-mpa",view:"0",description:"node frame ,for react MPA"},
+          {name:"EvanLiu2968.github.io",view:"1",description:"Github pages, vue single page APP"},
+          {name:"evanliu2968",view:"1",description:"Git reposity for www.evanliu2968.com.cn, egg-react-ssr"},
           {name:"Athena",view:"0",description:"This is a AI called Athena"},
           {name:"Cupid",view:"0",description:"ლ(╹◡╹ლ) じò ぴé"},
           {name:"Memento",view:"0",description:"Memento code"},
-          {name:"InjectJS",view:"0",description:"Chrome extension"},
+          {name:"InjectJS",view:"1",description:"Chrome extension, for injecting js to broswer"},
+          {name:"vue-component",view:"1",description:"Vue组件库"},
+          {name:"react-component",view:"1",description:"React组件库"},
           {name:"el-checkbox",view:"1",description:"一套checkbox、radio、switch UI库"},
-          {name:"vue-component",view:"0",description:"vue组件库"},
-          {name:"react-component",view:"0",description:"react组件库"},
-          {name:"fis3-seed",view:"0",description:"fis3构建工具启动种子"},
-          {name:"gulp-webapp",view:"1",description:"gulp构建流的webAPP"},
+          {name:"gulp-react-ssr-mpa",view:"0",description:"React server side render MPA"},
+          {name:"fis3-seed",view:"0",description:"Fis3构建工具启动种子"},
+          {name:"gulp-webapp",view:"1",description:"Gulp构建流的webAPP"},
           {name:"clover",view:"0",description:"三叶草，【love，health，glory】"},
           {name:"manifast",view:"0",description:"清单"},
           {name:"ionic-weixin",view:"1",description:"ionic,仿微信Hybrid App"},
