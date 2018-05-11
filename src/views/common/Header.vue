@@ -1,39 +1,41 @@
 <template>
 <div class="wrapper">
   <div class="header">
-    <div class="logo">{{logoText}}</div>
-    <div class="user-info">
-      <el-dropdown trigger="hover" @command="handleCommand">
-        <span class="el-dropdown-link">
-          <img class="user-logo" :src="userInfo.avatar">
-          {{userInfo.username}}
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="github">github</el-dropdown-item>
-          <el-dropdown-item command="wechat">wechat</el-dropdown-item>
-          <el-dropdown-item command="zhihu">zhihu</el-dropdown-item>
-          <el-dropdown-item command="facebook">facebook</el-dropdown-item>
-          <el-dropdown-item v-if="login" divided command="loginout">注销</el-dropdown-item>
-          <el-dropdown-item v-else divided command="login">登录</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+    <div class="header-left">
+      <div class="logo">{{logoText}}</div>
     </div>
-    <div class="pull-right">
-      <el-menu :default-active="$route.path" class="el-menu-blue" unique-opened router mode="horizontal">
-      <template v-for="(item,index) in menu">
-        <template v-if="item.meta.isMenu">
-          <el-submenu :index="index+''" v-if="item.meta.isParent">
-            <template slot="title"><i :class="item.meta.icon"></i>{{item.name}}</template>
-            <template v-for="child in item.children">
-              <el-menu-item v-if="child.meta.isMenu" :index="child.path">{{child.name}}</el-menu-item>
-            </template>
-          </el-submenu>
-          <el-menu-item v-else :index="item.children[0].path"><i :class="item.children[0].meta.icon"></i>{{item.children[0].name}}</el-menu-item>
+    <div class="header-right">
+      <div class="user-info">
+        <el-dropdown trigger="hover" @command="handleCommand">
+          <span class="el-dropdown-link">
+            <img class="user-logo" :src="userInfo.avatar">
+            {{userInfo.username}}
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="github">github</el-dropdown-item>
+            <el-dropdown-item command="wechat">wechat</el-dropdown-item>
+            <el-dropdown-item command="zhihu">zhihu</el-dropdown-item>
+            <el-dropdown-item command="facebook">facebook</el-dropdown-item>
+            <el-dropdown-item v-if="login" divided command="loginout">注销</el-dropdown-item>
+            <el-dropdown-item v-else divided command="login">登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+      <el-menu :default-active="$route.path" class="el-menu-blue pull-right" unique-opened router mode="horizontal">
+        <template v-for="(item,index) in menu">
+          <template v-if="item.meta.isMenu">
+            <el-submenu :index="index+''" v-if="item.meta.isParent">
+              <template slot="title"><i :class="item.meta.icon"></i>{{item.name}}</template>
+              <template v-for="child in item.children">
+                <el-menu-item v-if="child.meta.isMenu" :index="child.path">{{child.name}}</el-menu-item>
+              </template>
+            </el-submenu>
+            <el-menu-item v-else :index="item.children[0].path"><i :class="item.children[0].meta.icon"></i>{{item.children[0].name}}</el-menu-item>
+          </template>
         </template>
-      </template>
       </el-menu>
     </div>
-    <el-dialog v-model="wechatBox" size="tiny">
+    <el-dialog v-model="wechatBox" size="tiny" class="wechat-dialog">
       <img src="static/images/weixin.jpg" style="display:block;margin:0 auto;width:80%;">
       <p style="text-align:center">微信扫描二维码</p>
     </el-dialog>
@@ -75,7 +77,7 @@ import tool from '../../assets/js/tool.js';
         } else if (command == 'github'){
           window.open("https://github.com/EvanLiu2968");
         } else if (command == 'zhihu'){
-          window.open("https://www.zhihu.com/people/evanliu-20");
+          window.open("https://www.zhihu.com/people/evanliu2968");
         } else if (command == 'wechat'){
           this.wechatBox=true;
         } else if (command == 'facebook'){
@@ -88,19 +90,22 @@ import tool from '../../assets/js/tool.js';
 <style >
   .header {
     position: relative;
+    display: flex;
     box-sizing: border-box;
     width: 100%;
-    height: 60px;
-    padding:0 30px;
+    min-height: 60px;
+    padding:0 20px;
     line-height: 60px;
     color: #fff;
     background-color: #20A0FF;
-    z-index:999;
+  }
+  .header .header-left, .header .header-right{
+    flex: 1;
   }
   .header .logo{
-    float: left;
+    display: inline-block;
     font-size:18px;
-    text-align: center;
+    text-align: left;
   }
   .user-info {
     float: right;
@@ -123,6 +128,28 @@ import tool from '../../assets/js/tool.js';
     color: #fff;
     cursor: pointer;
   }
+  @media (max-width: 900px){
+    .header .header-left{
+      display: none;
+    }
+    .wechat-dialog .el-dialog--tiny {
+      width: 60%;
+    }
+  }
+  @media (max-width: 375px){
+    .user-info{
+      display: none;
+    }
+    .wechat-dialog .el-dialog--tiny {
+      width: 90%;
+    }
+  }
+  
+  .el-menu-blue>.el-menu-item,
+  .el-menu-blue>.el-submenu>.el-submenu__title {
+    padding: 0 10px;
+  }
+
   /*菜单栏主题色*/
   .el-menu-blue {
     background-color: #20A0FF !important;
