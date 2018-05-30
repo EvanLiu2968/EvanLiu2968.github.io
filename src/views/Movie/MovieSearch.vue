@@ -10,8 +10,8 @@
       :on-icon-click="searchMovie">
     </el-input>
     <ul v-if="searchListShow" v-loading="searchLoading" class="search-list">
-      <li v-for='subject in searchList'>
-        <router-link :to="{ name: 'movie/detail', params: { id: subject.id }}">
+      <li v-for='(subject, index) in searchList' :key="index">
+        <router-link :to="{ name: '电影详情', params: { id: subject.id }}">
           <span class="">{{subject.title}}</span>
           <span class="original-title">{{subject.original_title}}</span>
           <span class="year">{{subject.year}}</span>

@@ -5,7 +5,7 @@
     <div style="position:absolute;top:0;left:0;width:250px;background:#f6f6f6">
       <h2 class="movie-title">电影榜单</h2>
       <div class="movie-billboard clearfix">
-        <div class="rotateBox" v-for="list in lists" @click="toggleList(list)">
+        <div class="rotateBox" v-for="(list, k) in lists" :key="k" @click="toggleList(list)">
           <div class="transBox">
             <div class="movie-list-box front" v-bind:style="{background:list.color}">
               <div class="movie-list-name"><span>{{list.name}}</span></div>
@@ -22,25 +22,26 @@
     <div>
       <h1 class="movie-list-title"><i class="el-icon-menu"></i>{{activeList.name}}</h1>
       <div class="movie-list">
-        <div v-for="subject in subjects" class="movie-item" >
+        <div class="movie-item" v-for="(subject, index) in subjects" :key="index">
           <div class="movie-cover">
             <img :src="subject.images.small">
           </div>
           <div class="movie-content">
             <div class="movie-row">
               {{subject.title}} ( {{subject.original_title}} )
-              <el-tag class="movie-genre" type="success" v-for="genre in subject.genres">{{genre}}</el-tag>
+              <el-tag class="movie-genre" type="success" v-for="(genre, i) in subject.genres" :key="i">{{genre}}</el-tag>
             </div>
             <div class="movie-row">
               年份：<span class="movie-tag">{{subject.year}}</span>导演：
-              <a class="movie-tag" :href="director.alt" v-for="director in subject.directors" target="_blank">{{director.name}}</a>
+              <a class="movie-tag" :href="director.alt" v-for="(director, i) in subject.directors" :key="i" target="_blank">{{director.name}}</a>
             </div>
             <div class="movie-row">
               主演：
-              <a class="movie-tag" :href="cast.alt" v-for="cast in subject.casts" target="_blank">{{cast.name}}</a>
+              <a class="movie-tag" :href="cast.alt" v-for="(cast, i) in subject.casts" :key="i" target="_blank">{{cast.name}}</a>
             </div>
             <div class="movie-row">
-              评分：<span style="color:#F7BA2A">{{subject.rating.average}}</span><span class="movie-tag">/{{subject.rating.max}}</span>
+              评分：<span style="color:#F7BA2A">{{subject.rating.average}}</span>
+              <span class="movie-tag">/{{subject.rating.max}}</span>
               <router-link class="movie-tag" :to="{ name: '电影详情', params: { id: subject.id }}">查看详情 <i class="el-icon-d-arrow-right text-small"></i></router-link>
             </div>
           </div>
