@@ -47,7 +47,7 @@
 
 <script>
 import jsonp from "jsonp";
-import jQuery from '@/assets/lib/jquery/jquery-2.2.3.js';
+import jQuery from 'libs/jquery/jquery-2.2.3.js';
 export default {
   name:'movieSearch',
   data: function(){

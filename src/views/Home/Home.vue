@@ -31,7 +31,7 @@
       <h3 class="column-title">相册</h3>
       <el-row :gutter="20">
       <template v-for="(item, index) in photoList">
-        <el-col :xs="12" :sm="8" :md="6" class="ratio1_1 photo-box">
+        <el-col :xs="12" :sm="8" :md="6" :key="index" class="ratio1_1 photo-box">
           <img :src="item.img" class="photo" @click="photoCardShow(index)">
           <div class="photo-mask">
             <p>{{item.desc}}</p>
@@ -44,7 +44,7 @@
     <el-dialog v-model="photoCard" size="full">
       <template>
         <el-carousel :interval="4000" type="card" :autoplay="false" height="500px" indicator-position="none" ref="photoCard" style="max-width:1000px;margin:0 auto">
-          <el-carousel-item v-for="item in photoList">
+          <el-carousel-item v-for="(item, k) in photoList" :key="k">
             <div class="ratio1_1 photo-box" style="max-width:500px">
               <img :src="item.img" class="photo">
               <div class="photo-mask">
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import lunar from "../../assets/js/lunar.js";
+import lunar from "libs/lunar.js";
   export default {
     data: function(){
       return {

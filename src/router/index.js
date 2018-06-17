@@ -150,7 +150,7 @@ let routes=[
     ]
   },
   {
-    path: '/404',
+    path: '*',
     name:'404',
     component: NotFound,
     meta:{

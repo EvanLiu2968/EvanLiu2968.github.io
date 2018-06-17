@@ -19,48 +19,50 @@
 </template>
 
 <script>
-import particlesJS from '../../assets/js/particles.js'
-  export default {
-    data: function(){
-      return {
-        scaleIn:false,
-        loginForm: {
-          username: '',
-          password: ''
-        },
-        loginFormRules: {
-          username: [
-            { required: true, message: '请输入用户名', trigger: 'blur' }
-          ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'blur' }
-          ]
-        }
-      }
-    },
-    methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            let userInfo=JSON.parse(JSON.stringify(this.loginForm));
-            if(userInfo.username==="admin"&&userInfo.password==="123456"){
-              userInfo.role='admin';
-              this.$store.commit('loginIn',userInfo);
-              this.$router.push('/home');
-            } else{
-              this.$message.error("用户名或密码错误！")
-            }
-          } else {
-            return false;
-          }
-        });
+import injector from 'web-inject'
+
+export default {
+  data: function(){
+    return {
+      scaleIn:false,
+      loginForm: {
+        username: '',
+        password: ''
       },
-      cancelLogin(){
-        this.$router.push('/home');
+      loginFormRules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
       }
+    }
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let userInfo=JSON.parse(JSON.stringify(this.loginForm));
+          if(userInfo.username==="admin"&&userInfo.password==="123456"){
+            userInfo.role='admin';
+            this.$store.commit('loginIn',userInfo);
+            this.$router.push('/home');
+          } else{
+            this.$message.error("用户名或密码错误！")
+          }
+        } else {
+          return false;
+        }
+      });
     },
-    mounted:function(){
-      //https://github.com/VincentGarreau/particles.js
+    cancelLogin(){
+      this.$router.push('/home');
+    }
+  },
+  mounted:function(){
+    //https://github.com/VincentGarreau/particles.js
+    injector.js('https://cdn.bootcss.com/particles.js/2.0.0/particles.min.js', ()=>{
       particlesJS("particlesJS",{
         "particles": {
           "number": {
@@ -171,9 +173,11 @@ import particlesJS from '../../assets/js/particles.js'
         },
         "retina_detect": true
       });
-      this.scaleIn=true;
-    }
+    })
+    
+    this.scaleIn=true;
   }
+}
 </script>
 
 <style scoped>

@@ -18,7 +18,7 @@
             <h3 class="song-title">{{cSong.name}}</h3>
             <div class="song-info">歌手：{{cSong.singer}}&emsp;&emsp;专辑：{{cSong.album}}</div>
             <div class="lrc-wrap">
-              <p class="lrc-p" v-for="lrc in player.cLrc" :data-lrc="lrc.time">{{lrc.word}}</p>
+              <p class="lrc-p" v-for="(lrc, k) in player.cLrc" :data-lrc="lrc.time" :key="k">{{lrc.word}}</p>
             </div>
           </div>
         </el-col>
@@ -41,7 +41,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="" v-for="(song,index) in songList">
+          <tr class="" v-for="(song, index) in songList" :key="index">
             <td class="left"><div class="hd ">
               <span class="ply" @click="toggleSong(index)">播放</span>
               <span class="num">{{'0'+(index+1)}}</span>
@@ -91,7 +91,7 @@
 
 <script>
 let Player,progressTimer=0,rotateTimer=0;
-import jQuery from '@/assets/lib/jquery/jquery-2.2.3.js';
+import jQuery from 'libs/jquery/jquery-2.2.3.js';
 export default {
   data: function(){
     return {
