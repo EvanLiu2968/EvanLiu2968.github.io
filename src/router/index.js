@@ -104,7 +104,7 @@ let routes=[
     },
     children: [
       {
-        path: '/movie',
+        path: '/movie/:id',
         component: Movie,
         name: '电影',
         meta:{
@@ -113,7 +113,7 @@ let routes=[
         }
       },
       {
-        path: '/movie/detail/:id',
+        path: '/movieDetail/:id',
         component:MovieDetail,
         name: '电影详情',
         meta:{

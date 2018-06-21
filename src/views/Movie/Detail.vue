@@ -16,15 +16,15 @@
         <div class="movie-detail-content">
           <div class="movie-row">
             导演：
-            <a class="movie-tag" :href="director.alt" v-for="director in subject.directors" target="_blank">{{director.name}}</a>
+            <a class="movie-tag" :href="director.alt" v-for="(director, k) in subject.directors" :key="k" target="_blank">{{director.name}}</a>
           </div>
           <div class="movie-row">
             主演：
-            <a class="movie-tag" :href="cast.alt" v-for="cast in subject.casts" target="_blank">{{cast.name}}</a>
+            <a class="movie-tag" :href="cast.alt" v-for="(cast, k) in subject.casts" :key="k" target="_blank">{{cast.name}}</a>
           </div>
           <div class="movie-row">
             类型：
-            <el-tag class="movie-genre" type="success" v-for="genre in subject.genres">{{genre}}</el-tag>
+            <el-tag class="movie-genre" type="success" v-for="(genre, k) in subject.genres" :key="k">{{genre}}</el-tag>
           </div>
           <div class="movie-row">
             制片国家/地区：

@@ -72,11 +72,13 @@ export default {
         {
           name:'TOP250',
           api:'top250',
+          route:'top250',
           cover:'',
           color:'#20A0FF'
         },
         {
           name:'正在热映',
+          route:'theaters',
           api:'in_theaters',
           cover:'',
           color:'#13CE66'
@@ -84,6 +86,7 @@ export default {
         {
           name:'即将上映',
           api:'coming_soon',
+          route:'coming',
           cover:'',
           color:'#F7BA2A'
         }
@@ -118,6 +121,7 @@ export default {
   },
   methods: {
     toggleList(list) {
+      this.$router.push({ name: '电影', params: { id: list.route }});
       this.activeList=list;
       this.paginate();
     },
@@ -143,7 +147,13 @@ export default {
     }
   },
   beforeMount:function(){
-    this.toggleList(this.lists[0]);
+    let id=this.$route.params.id;
+    if(!id) id='top250', this.$router.push({ name: '电影', params: { id: 'top250' }});
+    let index = this.lists.findIndex(item => {
+      return item.route == id
+    })
+    if(index < 0) index=0, this.$router.push({ name: '电影', params: { id: 'top250' }});
+    this.toggleList(this.lists[index]);
   },
   mounted:function(){
     this.lists.forEach((list,index) => {
@@ -188,7 +198,8 @@ export default {
   text-align: center;
 }
 /*动画*/
-.rotateBox{ 
+.rotateBox{
+  display: block;
   overflow:hidden; height: 300px; width: 200px; float: left; position: relative;
   -webkit-perspective: 2000px; perspective:600px;-moz-perspective: 600px;-o-perspective: 600px; -ms-perspective: 600px;
 }
