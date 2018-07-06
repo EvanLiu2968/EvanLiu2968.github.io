@@ -5,25 +5,25 @@
 </div>
 </template>
 <style scoped>
-  .canvas-container{
-    position:absolute;
-    left:50%;
-    margin-left:-400px;
-    width:800px;
-    height:800px;
-    background-image: url('/static/images/hope/jump.jpg');
-    background-size:cover;
-    z-index:-1
-  }
-  #tearCloth{
-    position:relative;
-    margin:0 auto;
-    width:800px;
-    height:800px;
-    display:block;
-    cursor:crosshair;
-    z-index:1
-  }
+.canvas-container{
+  position:absolute;
+  left:50%;
+  margin-left:-400px;
+  width:800px;
+  height:800px;
+  background-image: url('/static/images/hope/jump.jpg');
+  background-size:cover;
+  z-index:-1
+}
+#tearCloth{
+  position:relative;
+  margin:0 auto;
+  width:800px;
+  height:800px;
+  display:block;
+  cursor:crosshair;
+  z-index:1
+}
 </style>
 <script>
 var physics_accuracy = 3,
@@ -294,26 +294,27 @@ function start() {
   cloth = new Cloth();
   update();
 }
-  export default {
-    data: function(){
-      return {
-      }
-    },
-    methods: {
-      onSubmit() {
-        this.$message.success('提交成功！');
-      }
-    },
-    mounted:function(){
-      canvas = document.getElementById('tearCloth');
-      ctx = canvas.getContext('2d');
 
-      canvas.width = 800;//560
-      canvas.height = 800;//350
-
-      start();
+export default {
+  data: function(){
+    return {
     }
+  },
+  methods: {
+    onSubmit() {
+      this.$message.success('提交成功！');
+    }
+  },
+  mounted:function(){
+    canvas = document.getElementById('tearCloth');
+    ctx = canvas.getContext('2d');
+
+    canvas.width = 800;//560
+    canvas.height = 800;//350
+
+    start();
   }
+}
 </script>
 <style scoped>
 </style>

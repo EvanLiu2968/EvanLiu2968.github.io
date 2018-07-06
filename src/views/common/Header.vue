@@ -47,127 +47,127 @@
 </template>
 <script>
 import tool from 'libs/tool.js';
-  export default {
-    data() {
-      return {
-        wechatBox:false,
-        logoText: '这里有个宝藏，它空无一物，它价值千金',
-        name: '游客'
-      }
+export default {
+  data() {
+    return {
+      wechatBox:false,
+      logoText: '这里有个宝藏，它空无一物，它价值千金',
+      name: '游客'
+    }
+  },
+  computed:{
+    userInfo(){
+      return this.$store.getters.getUserInfo;
     },
-    computed:{
-      userInfo(){
-        return this.$store.getters.getUserInfo;
-      },
-      login(){
-        return this.$store.state.login;
-      },
-      menu(){
-        return this.$router.options.routes;
-      }
+    login(){
+      return this.$store.state.login;
     },
-    methods:{
-      handleCommand(command) {
-        if(command == 'loginout'){
-          this.$store.commit('loginOut');
-        } else if (command == 'login'){
-          this.$router.push({
-            path:'/login'
-          });
-        } else if (command == 'github'){
-          window.open("https://github.com/EvanLiu2968");
-        } else if (command == 'zhihu'){
-          window.open("https://www.zhihu.com/people/evanliu2968");
-        } else if (command == 'wechat'){
-          this.wechatBox=true;
-        } else if (command == 'facebook'){
-          window.open("https://www.facebook.com/evanliu2968");
-        }
+    menu(){
+      return this.$router.options.routes;
+    }
+  },
+  methods:{
+    handleCommand(command) {
+      if(command == 'loginout'){
+        this.$store.commit('loginOut');
+      } else if (command == 'login'){
+        this.$router.push({
+          path:'/login'
+        });
+      } else if (command == 'github'){
+        window.open("https://github.com/EvanLiu2968");
+      } else if (command == 'zhihu'){
+        window.open("https://www.zhihu.com/people/evanliu2968");
+      } else if (command == 'wechat'){
+        this.wechatBox=true;
+      } else if (command == 'facebook'){
+        window.open("https://www.facebook.com/evanliu2968");
       }
     }
   }
+}
 </script>
 <style >
-  .header {
-    position: relative;
-    display: flex;
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 60px;
-    padding:0 20px;
-    line-height: 60px;
-    color: #fff;
-    background-color: #20A0FF;
+.header {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 60px;
+  padding:0 20px;
+  line-height: 60px;
+  color: #fff;
+  background-color: #20A0FF;
+}
+.header .header-left, .header .header-right{
+  flex: 1;
+}
+.header .logo{
+  display: inline-block;
+  font-size:18px;
+  text-align: left;
+}
+.user-info {
+  float: right;
+  color: #fff;
+  padding:0 10px;
+}
+.user-info .user-logo{
+  position: absolute;
+  left:0;
+  top:10px;
+  width:40px;
+  height:40px;
+  border-radius: 50%;
+  text-align: center;
+}
+.user-info .el-dropdown-link{
+  position: relative;
+  display: inline-block;
+  padding-left: 50px;
+  color: #fff;
+  cursor: pointer;
+}
+@media (max-width: 900px){
+  .header .header-left{
+    display: none;
   }
-  .header .header-left, .header .header-right{
-    flex: 1;
+  .wechat-dialog .el-dialog--tiny {
+    width: 60%;
   }
-  .header .logo{
-    display: inline-block;
-    font-size:18px;
-    text-align: left;
+}
+@media (max-width: 375px){
+  .user-info{
+    display: none;
   }
-  .user-info {
-    float: right;
-    color: #fff;
-    padding:0 10px;
+  .wechat-dialog .el-dialog--tiny {
+    width: 90%;
   }
-  .user-info .user-logo{
-    position: absolute;
-    left:0;
-    top:10px;
-    width:40px;
-    height:40px;
-    border-radius: 50%;
-    text-align: center;
-  }
-  .user-info .el-dropdown-link{
-    position: relative;
-    display: inline-block;
-    padding-left: 50px;
-    color: #fff;
-    cursor: pointer;
-  }
-  @media (max-width: 900px){
-    .header .header-left{
-      display: none;
-    }
-    .wechat-dialog .el-dialog--tiny {
-      width: 60%;
-    }
-  }
-  @media (max-width: 375px){
-    .user-info{
-      display: none;
-    }
-    .wechat-dialog .el-dialog--tiny {
-      width: 90%;
-    }
-  }
-  
-  .el-menu-blue>.el-menu-item,
-  .el-menu-blue>.el-submenu>.el-submenu__title {
-    padding: 0 10px;
-  }
+}
 
-  /*菜单栏主题色*/
-  .el-menu-blue {
-    background-color: #20A0FF !important;
-  }
-  .user-info:hover,
-  .el-menu-blue>.el-menu-item:hover,
-  .el-menu-blue>.el-submenu>.el-submenu__title:hover{
-    background-color: #58B7FF !important;
-  }
-  .el-menu-blue>.el-menu-item,
-  .el-menu-blue>.el-submenu>.el-submenu__title,
-  .el-menu-blue .el-submenu__icon-arrow{
-    color:#fff !important;
-    border-bottom:none !important;
-  }
-  .el-menu-blue>.el-menu-item.is-active,
-  .el-menu-blue>.el-submenu.is-active>.el-submenu__title,
-  .el-menu-blue>.el-submenu.is-active .el-submenu__icon-arrow{
-    color:#04f56f !important;
-  }
+.el-menu-blue>.el-menu-item,
+.el-menu-blue>.el-submenu>.el-submenu__title {
+  padding: 0 10px;
+}
+
+/*菜单栏主题色*/
+.el-menu-blue {
+  background-color: #20A0FF !important;
+}
+.user-info:hover,
+.el-menu-blue>.el-menu-item:hover,
+.el-menu-blue>.el-submenu>.el-submenu__title:hover{
+  background-color: #58B7FF !important;
+}
+.el-menu-blue>.el-menu-item,
+.el-menu-blue>.el-submenu>.el-submenu__title,
+.el-menu-blue .el-submenu__icon-arrow{
+  color:#fff !important;
+  border-bottom:none !important;
+}
+.el-menu-blue>.el-menu-item.is-active,
+.el-menu-blue>.el-submenu.is-active>.el-submenu__title,
+.el-menu-blue>.el-submenu.is-active .el-submenu__icon-arrow{
+  color:#04f56f !important;
+}
 </style>

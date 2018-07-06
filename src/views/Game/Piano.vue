@@ -7,30 +7,30 @@
 <style scoped>
 </style>
 <script>
-  export default {
-    data: function(){
-      return {
-        musicNote:[
-          {
-            src:'',
-            name:'duo',
-          }
-        ]
-      }
-    },
-    methods: {
-      playMusicNote(i) {
-        let audio = this.getMusicAudio(this.musicNote[i].src)
-        audio.play()
-      },
-      getMusicAudio(src){
-        let audio = document.createElement('audio')
-        return audio
-      }
-    },
-    mounted:function(){
+export default {
+  data: function(){
+    return {
+      musicNote:[
+        {
+          src:'',
+          name:'duo',
+        }
+      ]
     }
+  },
+  methods: {
+    playMusicNote(i) {
+      let audio = this.getMusicAudio(this.musicNote[i].src)
+      audio.play()
+    },
+    getMusicAudio(src){
+      let audio = document.createElement('audio')
+      return audio
+    }
+  },
+  mounted:function(){
   }
+}
 </script>
 <style scoped>
 .tips-text{

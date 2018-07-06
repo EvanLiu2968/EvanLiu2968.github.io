@@ -62,87 +62,87 @@
 
 <script>
 import jsonp from "jsonp";
-  export default {
-    data() {
-      return {
-        queryForm:{
-          date:new Date().format('yyyy-MM-dd')
-        },
-        tableData: [],
-        resData:[],
-        pagination:{
-          currentPage:1,
-          pageSize:10,
-          total:0
-        },
-        detailVisible:false,
-        detailContent:"",
-        currentPicVisible:false,
-        currentPic:''
-      }
-    },
-    watch: {
-      tableData: {
-        handler: function (value) {},
-        deep: true
-      }
-    },
-    methods: {
-      dateFormat(row, column) {
-        return (row.year+"年");
+export default {
+  data() {
+    return {
+      queryForm:{
+        date:new Date().format('yyyy-MM-dd')
       },
-      handleDetail(index,row){
-        jsonp('https://bird.ioliu.cn/v1?url=http://api.juheapi.com/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id='+row._id, null, (err, res) => {
-          if (err) {
-            console.error(err.message);
-          } else {
-            console.log(res);
-            this.detailContent=res.result[0].content;
-            this.detailVisible=true;
-          }
-        });
-        /*this.axios.get('http://api.juheapi.com/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id='+row._id).then( (res) => {
-          this.detailContent=res.data.result[0].content;
-          console.log(res);
-          this.detailVisible=true;
-        });*/
+      tableData: [],
+      resData:[],
+      pagination:{
+        currentPage:1,
+        pageSize:10,
+        total:0
       },
-      dateChange(e){
-        //e;
-      },
-      showPic(url){
-        this.currentPic=url;
-        this.currentPicVisible=true;
-      },
-      search(){
-        var queryDay=new Date(this.queryForm.date);
-        jsonp('https://bird.ioliu.cn/v1?url=http://api.juheapi.com/japi/toh?key=e676ca1db545a88c1a22c7da35253776&v=1.0&month='+(queryDay.getMonth()+1)+'&day='+queryDay.getDate(), null, (err, res) => {
-          if (err) {
-            console.error(err.message);
-          } else {
-            this.resData = res.result;
-            this.pagination.currentPage=1;
-            this.pagination.total=this.resData.length;
-            this.paginate();
-          }
-        });
-      },
-      paginate(){
-        let pageSize=this.pagination.pageSize;
-        let currentPage=this.pagination.currentPage;
-        this.tableData=this.resData.slice((currentPage-1)*pageSize,currentPage*pageSize);
-      },
-      handleSizeChange(size){
-        this.pagination.pageSize=size;
-        this.paginate();
-      },
-      handleCurrentChange(current){
-        this.pagination.currentPage=current;
-        this.paginate();
-      }
-    },
-    beforeMount(){
-      this.search();
+      detailVisible:false,
+      detailContent:"",
+      currentPicVisible:false,
+      currentPic:''
     }
+  },
+  watch: {
+    tableData: {
+      handler: function (value) {},
+      deep: true
+    }
+  },
+  methods: {
+    dateFormat(row, column) {
+      return (row.year+"年");
+    },
+    handleDetail(index,row){
+      jsonp('https://bird.ioliu.cn/v1?url=http://api.juheapi.com/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id='+row._id, null, (err, res) => {
+        if (err) {
+          console.error(err.message);
+        } else {
+          console.log(res);
+          this.detailContent=res.result[0].content;
+          this.detailVisible=true;
+        }
+      });
+      /*this.axios.get('http://api.juheapi.com/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id='+row._id).then( (res) => {
+        this.detailContent=res.data.result[0].content;
+        console.log(res);
+        this.detailVisible=true;
+      });*/
+    },
+    dateChange(e){
+      //e;
+    },
+    showPic(url){
+      this.currentPic=url;
+      this.currentPicVisible=true;
+    },
+    search(){
+      var queryDay=new Date(this.queryForm.date);
+      jsonp('https://bird.ioliu.cn/v1?url=http://api.juheapi.com/japi/toh?key=e676ca1db545a88c1a22c7da35253776&v=1.0&month='+(queryDay.getMonth()+1)+'&day='+queryDay.getDate(), null, (err, res) => {
+        if (err) {
+          console.error(err.message);
+        } else {
+          this.resData = res.result;
+          this.pagination.currentPage=1;
+          this.pagination.total=this.resData.length;
+          this.paginate();
+        }
+      });
+    },
+    paginate(){
+      let pageSize=this.pagination.pageSize;
+      let currentPage=this.pagination.currentPage;
+      this.tableData=this.resData.slice((currentPage-1)*pageSize,currentPage*pageSize);
+    },
+    handleSizeChange(size){
+      this.pagination.pageSize=size;
+      this.paginate();
+    },
+    handleCurrentChange(current){
+      this.pagination.currentPage=current;
+      this.paginate();
+    }
+  },
+  beforeMount(){
+    this.search();
   }
+}
 </script>
