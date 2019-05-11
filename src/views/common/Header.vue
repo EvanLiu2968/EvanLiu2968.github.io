@@ -1,5 +1,4 @@
 <template>
-<div class="wrapper">
   <div class="header">
     <div class="header-left">
       <div class="logo">{{logoText}}</div>
@@ -22,15 +21,15 @@
         </el-dropdown>
       </div>
       <el-menu :default-active="$route.path" class="el-menu-blue pull-right" unique-opened router mode="horizontal">
-        <template v-for="(item, index) in menu">
+        <template v-for="(item, i) in BlogRoutes">
           <template v-if="item.meta.isMenu">
-            <el-submenu :index="index+''" :key="index" v-if="item.meta.isParent">
-              <template slot="title"><i :class="item.meta.icon"></i>{{item.name}}</template>
-              <template v-for="(child, k) in item.children">
-                <el-menu-item v-if="child.meta.isMenu" :index="child.path" :key="k">{{child.name}}</el-menu-item>
+            <el-submenu :key="i" :index="i+''" v-if="item.meta.isParent">
+              <template slot="title"><i :class="item.meta.icon"></i>{{ item.meta.title }}</template>
+              <template v-for="(subItem, k) in item.children">
+                <el-menu-item v-if="subItem.meta.isMenu" :index="subItem.path" :key="k">{{ subItem.meta.title }}</el-menu-item>
               </template>
             </el-submenu>
-            <el-menu-item v-else :index="item.children[0].path" :key="index"><i :class="item.children[0].meta.icon"></i>{{item.children[0].name}}</el-menu-item>
+            <el-menu-item v-else :key="i" :index="item.path"><i :class="item.meta.icon"></i>{{ item.meta.title }}</el-menu-item>
           </template>
         </template>
       </el-menu>
@@ -40,31 +39,29 @@
       <p style="text-align:center">微信扫描二维码</p>
     </el-dialog>
   </div>
-  <transition name="move" mode="out-in">
-    <router-view></router-view>
-  </transition>
-</div>
 </template>
 <script>
-import tool from 'libs/tool.js';
+import tool from '@/libs/tool.js';
+import BlogRoutes from '@/router/blog'
 export default {
   data() {
     return {
+      BlogRoutes,
       wechatBox:false,
       logoText: '这里有个宝藏，它空无一物，它价值千金',
       name: '游客'
     }
   },
-  computed:{
+  computed: {
     userInfo(){
       return this.$store.getters.getUserInfo;
     },
     login(){
       return this.$store.state.login;
-    },
-    menu(){
-      return this.$router.options.routes;
     }
+  },
+  mounted() {
+    console.log(BlogRoutes)
   },
   methods:{
     handleCommand(command) {
