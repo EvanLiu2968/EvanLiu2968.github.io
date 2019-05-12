@@ -35,7 +35,7 @@
       </el-menu>
     </div>
     <el-dialog v-model="wechatBox" size="tiny" class="wechat-dialog">
-      <img src="static/images/weixin.jpg" style="display:block;margin:0 auto;width:80%;">
+      <img src="/public/images/weixin.jpg" style="display:block;margin:0 auto;width:80%;">
       <p style="text-align:center">微信扫描二维码</p>
     </el-dialog>
   </div>

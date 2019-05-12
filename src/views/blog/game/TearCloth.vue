@@ -11,7 +11,7 @@
   margin-left:-400px;
   width:800px;
   height:800px;
-  background-image: url('/static/images/hope/jump.jpg');
+  background-image: url('/public/images/hope/jump.jpg');
   background-size:cover;
   z-index:-1
 }

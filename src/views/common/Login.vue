@@ -85,7 +85,7 @@ export default {
               "nb_sides": 5
             },
             "image": {
-              "src": "static/images/star.png",
+              "src": "/public/images/star.png",
               "width": 100,
               "height": 100
             }

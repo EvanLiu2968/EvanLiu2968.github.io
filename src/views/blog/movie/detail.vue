@@ -39,8 +39,8 @@
           
           <el-tooltip class="movie-player" effect="dark" content="前往 Bilibili 观看" placement="bottom">
             <a :href="bilibiliURL" target="_blank">
-              <img src="static/images/bench.gif" style="height:44px;">
-              <img src="static/images/player.jpg" style="height:44px;">
+              <img src="/public/images/bench.gif" style="height:44px;">
+              <img src="/public/images/player.jpg" style="height:44px;">
             </a>
           </el-tooltip>
         </div>

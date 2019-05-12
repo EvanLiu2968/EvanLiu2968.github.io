@@ -16,7 +16,7 @@
         </div>
       </el-col>
       <el-col :xs="24" :sm="8">
-        <div class="lunar" style="background-image:url('static/images/lunar.png')">
+        <div class="lunar" style="background-image:url('/public/images/lunar.png')">
           <div class="date-month">{{date.year+' / '+date.month}}</div>
           <div class="date-day">{{date.day}}</div>
           <div class="lunar-detail">

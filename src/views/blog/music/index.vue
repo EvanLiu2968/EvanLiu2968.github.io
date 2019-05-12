@@ -101,9 +101,9 @@ export default {
           name:'莉莉安',
           singer:'宋冬野',
           album:'安和桥北',
-          cover:'static/images/music/lilian.jpg',
-          src:'static/images/music/宋冬野 - 莉莉安.mp3',
-          lrc:'static/images/music/宋冬野 - 莉莉安.lrc',
+          cover:'/public/music/lilian.jpg',
+          src:'/public/music/宋冬野 - 莉莉安.mp3',
+          lrc:'/public/music/宋冬野 - 莉莉安.lrc',
           duration:'04:13'
         },
         {
@@ -111,9 +111,9 @@ export default {
           name:'山丘',
           singer:'李宗盛',
           album:'山丘',
-          cover:'static/images/mao.jpg',
-          src:'static/images/music/李宗盛 - 山丘.mp3',
-          lrc:'static/images/music/李宗盛 - 山丘.lrc',
+          cover:'/public/images/mao.jpg',
+          src:'/public/music/李宗盛 - 山丘.mp3',
+          lrc:'/public/music/李宗盛 - 山丘.lrc',
           duration:'05:49'
         },
         {
@@ -121,9 +121,9 @@ export default {
           name:'煎熬',
           singer:'李佳薇',
           album:'感谢爱人',
-          cover:'static/images/music/jianao.jpg',
-          src:'static/images/music/李佳薇 - 煎熬.mp3',
-          lrc:'static/images/music/李佳薇 - 煎熬.lrc',
+          cover:'/public/music/jianao.jpg',
+          src:'/public/music/李佳薇 - 煎熬.mp3',
+          lrc:'/public/music/李佳薇 - 煎熬.lrc',
           duration:'04:22'
         },
         {
@@ -131,9 +131,9 @@ export default {
           name:'漂洋过海来看你',
           singer:'刘明湘',
           album:'我不要再比了',
-          cover:'static/images/music/piao.jpg',
-          src:'static/images/music/刘明湘 - 漂洋过海来看你.mp3',
-          lrc:'static/images/music/刘明湘 - 漂洋过海来看你.lrc',
+          cover:'/public/music/piao.jpg',
+          src:'/public/music/刘明湘 - 漂洋过海来看你.mp3',
+          lrc:'/public/music/刘明湘 - 漂洋过海来看你.lrc',
           duration:'03:17'
         },
         {
@@ -141,9 +141,9 @@ export default {
           name:'把悲伤留给自己',
           singer:'陈升',
           album:'私奔',
-          cover:'static/images/music/lonely.jpg',
-          src:'static/images/music/陈升 - 把悲伤留给自己.mp3',
-          lrc:'static/images/music/陈升 - 把悲伤留给自己.lrc',
+          cover:'/public/music/lonely.jpg',
+          src:'/public/music/陈升 - 把悲伤留给自己.mp3',
+          lrc:'/public/music/陈升 - 把悲伤留给自己.lrc',
           duration:'04:38'
         },
         {
@@ -151,9 +151,9 @@ export default {
           name:'青花瓷',
           singer:'周杰伦',
           album:'我很忙',
-          cover:'static/images/music/jay.jpg',
-          src:'static/images/music/青花瓷 - 周杰伦.mp3',
-          lrc:'static/images/music/青花瓷 - 周杰伦.lrc',
+          cover:'/public/music/jay.jpg',
+          src:'/public/music/青花瓷 - 周杰伦.mp3',
+          lrc:'/public/music/青花瓷 - 周杰伦.lrc',
           duration:'03:59'
         },
         {
@@ -161,9 +161,9 @@ export default {
           name:'以父之名',
           singer:'周杰伦',
           album:'叶惠美',
-          cover:'static/images/music/jay.jpg',
-          src:'static/images/music/周杰伦 - 以父之名.m4a',
-          lrc:'static/images/music/周杰伦 - 以父之名.lrc',
+          cover:'/public/music/jay.jpg',
+          src:'/public/music/周杰伦 - 以父之名.m4a',
+          lrc:'/public/music/周杰伦 - 以父之名.lrc',
           duration:'05:42'
         },
         {
@@ -171,9 +171,9 @@ export default {
           name:'半岛铁盒',
           singer:'周杰伦',
           album:'八度空间',
-          cover:'static/images/music/jay.jpg',
-          src:'static/images/music/周杰伦 - 半岛铁盒.mp3',
-          lrc:'static/images/music/周杰伦 - 半岛铁盒.lrc',
+          cover:'/public/music/jay.jpg',
+          src:'/public/music/周杰伦 - 半岛铁盒.mp3',
+          lrc:'/public/music/周杰伦 - 半岛铁盒.lrc',
           duration:'05:17'
         }
       ],
@@ -396,7 +396,7 @@ export default {
   position:relative;
   width:300px;
   height:300px;
-  background-image: url('/static/images/music/coverall.png');
+  background-image: url('/public/music/coverall.png');
   background-size: cover;
 }
 .round-top{
@@ -406,7 +406,7 @@ export default {
   left:140px;
   width:60px;
   height:90px;
-  background-image: url('/static/images/music/round-top.png');
+  background-image: url('/public/music/round-top.png');
   background-repeat: no-repeat;
   background-size: 100%;
 }
@@ -509,11 +509,11 @@ export default {
 /*歌词*/
 .el-body{
   padding:10px;
-  background: #d6dbdd url('/static/images/bg_uibody.png') repeat-x 0 0;
+  background: #d6dbdd url('/public/images/bg_uibody.png') repeat-x 0 0;
 }
 .el-tline{
   padding-top:14px;
-  background: url('/static/images/ui-tline.png') center 0 no-repeat;
+  background: url('/public/images/ui-tline.png') center 0 no-repeat;
 }
 .lrc-wrap{
   height:300px;
@@ -566,7 +566,7 @@ export default {
   margin: 9px 0 0 20px;
 }
 .m-table th, .m-table th .wp, .m-table td, .m-table .ply, .m-table .mv, .m-table .icn, .m-info .edit {
-  background: #d6dbdd url('/static/images/bg_uibody.png') repeat-x 0 0;
+  background: #d6dbdd url('/public/images/bg_uibody.png') repeat-x 0 0;
 }
 .m-table {
   width: 100%;

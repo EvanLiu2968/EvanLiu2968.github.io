@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper-full">
     <div class="box-image">
-      <img src="/static/images/horse.png"/>
+      <img src="/public/images/horse.png"/>
     </div>
     <div class="box-intro">
       <h1 class="title">Evan Liu</h1>

@@ -45,7 +45,7 @@ export default {
     let myWin=[],computerWin=[];
     let WinData=getWinData(),wins=WinData.wins,count=WinData.count;
     let backimage=new Image();               //创建背景
-    backimage.src="static/images/board.jpg";
+    backimage.src="/public/images/board.jpg";
     backimage.onload=function(){             //加载背景
       b.drawImage(backimage,0,0,1200,600);  //绘制背景
       drawChessBoard();                     //绘制棋盘

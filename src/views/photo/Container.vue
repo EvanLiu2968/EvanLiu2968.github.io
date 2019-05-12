@@ -3,7 +3,7 @@
     <header class="header">
       <div class="container">
         <div class="header-left">
-          <a href="/"><img class="logo" src="/static/images/logo-text.png" /></a>
+          <a href="/"><img class="logo" src="/public/images/logo-text.png" /></a>
         </div>
         <div class="header-right">
           <slot name="header"></slot>
