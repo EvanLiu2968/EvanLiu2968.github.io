@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 let defaultUserInfo={
   username:'游客',
-  avatar:'static/images/mao.jpg',
+  avatar:'/public/images/mao.jpg',
   routemap:['/login']
 };
 // 应用初始状态

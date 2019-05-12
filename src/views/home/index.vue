@@ -1,5 +1,10 @@
 <template>
   <div class="wrapper-full">
+    <el-alert
+      :center="true"
+      type="warning">
+      <p slot="title">原网站已关闭，此站点为 <a href="https://EvanLiu2968.github.io">https://EvanLiu2968.github.io</a> CNAME镜像站点</p>
+    </el-alert>
     <div class="box-image">
       <img src="/public/images/horse.png"/>
     </div>
