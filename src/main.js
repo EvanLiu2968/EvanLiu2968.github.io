@@ -9,7 +9,7 @@ import store from './store';
 
 import NProgress from '@/libs/nprogress/nprogress'; // Progress 进度条
 import '@/libs/nprogress/nprogress.css';// 不从moduel引入是为方便修改样式
-import '@/assets/css/common.css';
+import '@/assets/scss/common.css';
 import '@/libs/util';
 
 // this.author = 'evanliu2968'
