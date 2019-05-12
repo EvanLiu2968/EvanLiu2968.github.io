@@ -7,10 +7,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 import router from './router';
 import store from './store';
 
-import NProgress from '@/libs/nprogress/nprogress'; // Progress 进度条
 import '@/libs/nprogress/nprogress.css';// 不从moduel引入是为方便修改样式
-import '@/assets/scss/common.css';
+import '@/assets/css/index.less';
 import '@/libs/util';
+import NProgress from '@/libs/nprogress/nprogress'; // Progress 进度条
 
 // this.author = 'evanliu2968'
 Object.defineProperties(Vue.prototype, {
@@ -19,7 +19,9 @@ Object.defineProperties(Vue.prototype, {
   }
 });
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, {
+  size: 'small'
+});
 
 //路由钩子
 router.beforeEach((to, from, next) => {

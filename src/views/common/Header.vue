@@ -34,8 +34,8 @@
         </template>
       </el-menu>
     </div>
-    <el-dialog v-model="wechatBox" size="tiny" class="wechat-dialog">
-      <img src="/public/images/weixin.jpg" style="display:block;margin:0 auto;width:80%;">
+    <el-dialog :visible.sync="wechatBox" title="微信二维码" width="400px">
+      <img src="/public/images/weixin.jpg" style="display:block;margin:0 auto;width:200px;height: auto;">
       <p style="text-align:center">微信扫描二维码</p>
     </el-dialog>
   </div>
@@ -61,7 +61,7 @@ export default {
     }
   },
   mounted() {
-    console.log(BlogRoutes)
+    // console.log(BlogRoutes)
   },
   methods:{
     handleCommand(command) {
@@ -129,16 +129,10 @@ export default {
   .header .header-left{
     display: none;
   }
-  .wechat-dialog .el-dialog--tiny {
-    width: 60%;
-  }
 }
 @media (max-width: 375px){
   .user-info{
     display: none;
-  }
-  .wechat-dialog .el-dialog--tiny {
-    width: 90%;
   }
 }
 
@@ -148,6 +142,9 @@ export default {
 }
 
 /*菜单栏主题色*/
+.el-menu-item i, .el-submenu__title i {
+  color: #fff;
+}
 .el-menu-blue {
   background-color: #20A0FF !important;
 }

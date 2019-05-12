@@ -2,7 +2,7 @@
 <div class="content">
   <div class="song-container">
     <div class="el-body">
-      <audio :src="cSong.src" id="player"></audio>
+      <audio ref="player" :src="cSong.src"></audio>
       <el-row :gutter="10">
         <el-col :span="12">
           <div class="song-cover-box">
@@ -61,7 +61,7 @@
       <span class="control-icon" @click="togglePrev">
         <i class="iconfont icon-bofangqishangyiqu"></i>
       </span>
-      <span class="control-icon" @click="togglePlayer">
+      <span class="control-icon" @click="toggleMusicPlayer">
         <i class="iconfont icon-bofangqibofang" v-if="player.paused"></i>
         <i class="iconfont icon-bofangqizanting" v-else></i>
       </span>
@@ -90,8 +90,11 @@
 </template>
 
 <script>
-let Player,progressTimer=0,rotateTimer=0;
 import jQuery from 'libs/jquery/jquery-2.2.3.js';
+import axios from '@/libs/request';
+
+let MusicPlayer = null, progressTimer = 0, rotateTimer = 0;
+
 export default {
   data: function(){
     return {
@@ -191,11 +194,27 @@ export default {
   },
   computed:{
   },
+  mounted:function(){
+    MusicPlayer = this.$refs.player;
+    this.toggleSong(this.index);
+    MusicPlayer.addEventListener('canplaythrough', () => { 
+      // MusicPlayer.play();
+      // this.player.paused=false;
+      this.updateState();
+    }, false);
+    MusicPlayer.addEventListener('ended', () => {
+      this.toggleNext();
+    }, false);
+  },
+  beforeDestroy:function(){
+    MusicPlayer.pause();
+    MusicPlayer = null
+  },
   methods: {
     getLrc:function(){
-      this.axios.get(this.cSong.lrc).then( (res) => {
+      axios.get(this.cSong.lrc).then( (res) => {
         let lrcArr=[];
-        let arr=res.data.split('[');
+        let arr=res.split('[');
         arr.splice(0,1);
         arr.forEach(function(v){
           let s=v.split(']');
@@ -207,13 +226,13 @@ export default {
         this.player.cLrc=lrcArr;
       });
     },
-    togglePlayer:function(){
-      if(Player.paused){
-        Player.play();
+    toggleMusicPlayer:function(){
+      if(MusicPlayer.paused){
+        MusicPlayer.play();
         this.player.paused=false;
         this.updateState();
       }else{
-        Player.pause();
+        MusicPlayer.pause();
         this.player.paused=true;
       }
     },
@@ -276,11 +295,11 @@ export default {
         s=s-m*60;
         return getTwo(m)+':'+getTwo(s)
       }
-      _this.cSong.duration=timeFormat(Player.duration);
+      _this.cSong.duration=timeFormat(MusicPlayer.duration);
       let update=function(){
-        if(!Player.paused){
-          _this.player.cTime=timeFormat(Player.currentTime);
-          _this.player.cProcess=(Player.currentTime/Player.duration).toFixed(4)*100+'%';
+        if(!MusicPlayer.paused){
+          _this.player.cTime=timeFormat(MusicPlayer.currentTime);
+          _this.player.cProcess=(MusicPlayer.currentTime/MusicPlayer.duration).toFixed(4)*100+'%';
           scrollLrc();
           progressTimer=setTimeout(update,300);
         }
@@ -288,7 +307,7 @@ export default {
       update();
       //旋转封面
       let rotateCover=function(){
-        if(!Player.paused){
+        if(!MusicPlayer.paused){
           let rotate=$cover.data("rotate");
           rotate=~~rotate+1;
           if(rotate===360){rotate=0}
@@ -304,29 +323,29 @@ export default {
     toggleSong:function(index){
       this.index=index;
       this.cSong=this.songList[this.index];
-      Player.src=this.cSong.src;
-      Player.load();
+      MusicPlayer.src=this.cSong.src;
+      MusicPlayer.load();
       this.initState();
     },
     toggleProgress:function(e){
       let x=e.offsetX,w=document.querySelector('.control-progress>.bar-bg').offsetWidth;
       let rate=(x/w).toFixed(4);
-      Player.currentTime=Player.duration*rate;
+      MusicPlayer.currentTime=MusicPlayer.duration*rate;
       this.player.cProcess=rate*100+'%';
     },
     toggleVolumn:function(e){
       let x=e.offsetX,w=document.querySelector('.control-volumn>.bar-bg').offsetWidth;
       let rate=(x/w).toFixed(4);
-      Player.volume=rate;
+      MusicPlayer.volume=rate;
       this.player.cVolumn=rate*100+"%";
-      this.player.muted=Player.muted=false;
+      this.player.muted=MusicPlayer.muted=false;
     },
     toggleMuted:function(){
-      if(Player.muted){
-        this.player.muted=Player.muted=false;
-        document.querySelector('.control-volumn>.bar-bg>.bar-current').style.width=Player.volume*100+"%";
+      if(MusicPlayer.muted){
+        this.player.muted=MusicPlayer.muted=false;
+        document.querySelector('.control-volumn>.bar-bg>.bar-current').style.width=MusicPlayer.volume*100+"%";
       }else{
-        this.player.muted=Player.muted=true;
+        this.player.muted=MusicPlayer.muted=true;
         document.querySelector('.control-volumn>.bar-bg>.bar-current').style.width="0%";
       }
     },
@@ -336,24 +355,6 @@ export default {
       this.player.cProcess='0%';
       this.getLrc();
     }
-  },
-  beforeMount:function(){
-  },
-  mounted:function(){
-    var _this=this;
-    Player=document.getElementById("player");
-    this.toggleSong(this.index);
-    Player.addEventListener('canplaythrough', function() { 
-      Player.play();
-      _this.player.paused=false;
-      _this.updateState();
-    }, false);
-    Player.addEventListener('ended', function() {
-      _this.toggleNext();
-    }, false);
-  },
-  beforeDestroy:function(){
-    Player.pause();
   }
 }
 </script>

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import blogRoutes from './blog';
+import RouterView from '@/App.vue'
 
 Vue.use(Router);
 
@@ -32,6 +33,7 @@ let routes = [
   {
     path: '/blog',
     name: 'blog',
+    component: RouterView,
     redirect: '/blog/home',
     children: blogRoutes
   },

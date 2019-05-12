@@ -75,7 +75,6 @@ export default {
       return 'http://search.bilibili.com/all?keyword='+keyword+'&page=1&duration=4&tids_1=23';
     }
   },
-  methods: {},
   beforeMount:function(){
     let id=this.$route.params.id;
     if(!id){

@@ -1,14 +1,23 @@
 <template>
 <div class="wrapper">
   <main-header></main-header>
-  <transition name="move" mode="out-in">
-    <router-view></router-view>
-  </transition>
+  <div class="blog-container">
+    <transition name="move" mode="out-in">
+      <slot v-if="isContainer"></slot>
+      <router-view v-else></router-view>
+    </transition>
+  </div>
 </div>
 </template>
 <script>
 import MainHeader from './header';
 export default {
+  props: {
+    isContainer: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     MainHeader
   },
@@ -26,31 +35,8 @@ export default {
 .wrapper{
   overflow: hidden;
 }
-.move-enter-active,.move-leave-active{
-  transition: opacity .5s;
-}
-.move-enter,.move-leave{
-  opacity: 0;
-}
-.crumbs{
-  margin-bottom: 10px;
-}
-.pagination{
-  margin: 20px 0;
-  text-align: right;
-}
-.iconfont{
-  vertical-align: baseline;
-  margin-right: 10px;
-}
-.crumbs .iconfont,.crumbs [class^="el-icon"]{
-  margin-right: 4px;
-}
-.box-tips{
-  padding:20px 10px;
-  margin-bottom: 20px;
-  border-left: 5px solid #d2d6de;
-  background-color: #f0f0f0;
+.blog-container {
+  padding: 25px;
 }
 
 /* 电影条目 */

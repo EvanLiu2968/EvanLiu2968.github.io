@@ -10,17 +10,17 @@
     </div>
     <div class="box-intro">
       <h1 class="title">Evan Liu</h1>
-      <h2 class="subtitle">慎行，独思</h2>
+      <h2 class="subtitle">Fake it till you make it</h2>
       <ul class="column-list">
         <li><a href="https://github.com/EvanLiu2968" target="_blank">Github</a></li>
         <li><a href="https://evanliu2968.github.io/react-component" target="_blank">Components</a></li>
-        <li><a href="/public/images/weixin.jpg" target="_blank">微信</a></li>
-        <li><a href="https://www.zhihu.com/people/evanliu2968" target="_blank">知乎</a></li>
+        <li><a href="/public/images/weixin.jpg" target="_blank">Wechat</a></li>
+        <li><a href="https://www.zhihu.com/people/evanliu2968" target="_blank">Zhihu</a></li>
       </ul>
       <ul class="column-list">
-        <li><router-link to="/photo">照片</router-link></li>
-        <li><router-link to="/article">文章</router-link></li>
-        <li><router-link to="/blog">博客</router-link></li>
+        <li><router-link to="/photo">Photo</router-link></li>
+        <li><router-link to="/article">Article</router-link></li>
+        <li><router-link to="/blog">Blog</router-link></li>
       </ul>
     </div>
     <p class="copyright">

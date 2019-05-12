@@ -15,15 +15,44 @@ export default [
   {
     path: '/blog/game',
     component: Layout,
-    redirect: '/blog/game/fivechess',
+    redirect: '/blog/game/music',
     name:'game',
     meta:{
-      title: '娱乐',
+      title: '小程序',
       isMenu:true,
       isParent:true,
       icon:'el-icon-menu'
     },
     children: [
+      {
+        path: '/blog/game/music',
+        component: () => import('@/views/blog/music/index.vue'),
+        name: 'music',
+        meta:{
+          title: '云音乐',
+          isMenu:true,
+          isParent:false
+        }
+      },
+      {
+        path: '/blog/game/movie',
+        component: () => import('@/views/blog/movie/index.vue'),
+        name: 'movie',
+        meta:{
+          title: '电影',
+          isMenu:true,
+          isParent:false
+        }
+      },
+      {
+        path: '/blog/game/movie/:id',
+        component: () => import('@/views/blog/movie/detail.vue'),
+        name: 'movie-detail',
+        meta:{
+          title: '电影详情',
+          isMenu:false
+        }
+      },
       {
         path: '/blog/game/fivechess',
         component: () => import('@/views/blog/game/FiveChess.vue'),
@@ -35,21 +64,11 @@ export default [
         }
       },
       {
-        path: '/blog/game/piano',
-        component: () => import('@/views/blog/game/Piano.vue'),
-        name: '钢琴',
-        meta:{
-          title: '钢琴',
-          isMenu:true,
-          isParent:false
-        }
-      },
-      {
-        path: 'tearcloth',
+        path: '/blog/game/tearcloth',
         component: () => import('@/views/blog/game/TearCloth.vue'),
-        name: '信仰之跃',
+        name: 'TearCloth',
         meta:{
-          title: '娱乐',
+          title: '信仰之跃',
           isMenu:true,
           isParent:false
         }
@@ -57,7 +76,8 @@ export default [
     ]
   },
   {
-    path: 'search',
+    path: '/blog/search',
+    redirect: '/blog/search/repository',
     component: Layout,
     name: 'search',
     meta:{
@@ -68,50 +88,21 @@ export default [
     },
     children: [
       {
-        path: 'movie/:id',
-        component: () => import('@/views/blog/movie/index.vue'),
-        name: 'movie',
-        meta:{
-          title: '电影',
-          isMenu:true,
-          isParent:false
-        }
-      },
-      {
-        path: 'movie/:id/detail',
-        component: () => import('@/views/blog/movie/detail.vue'),
-        name: 'movie-detail',
-        meta:{
-          title: '电影详情',
-          isMenu:false
-        }
-      },
-      {
-        path: 'music',
-        component: () => import('@/views/blog/music/index.vue'),
-        name: 'music',
-        meta:{
-          title: '云音乐',
-          isMenu:true,
-          isParent:false
-        }
-      },
-      {
-        path: 'historytoday',
-        component: () => import('@/views/blog/search/HistoryToday.vue'),
-        name: 'HistoryToday',
-        meta:{
-          title: '历史今天',
-          isMenu:true,
-          isParent:false
-        }
-      },
-      {
-        path: 'repository',
+        path: '/blog/search/repository',
         component: () => import('@/views/blog/search/Repository.vue'),
         name: 'Repository',
         meta:{
           title: 'Git仓库',
+          isMenu:true,
+          isParent:false
+        }
+      },
+      {
+        path: '/blog/search/historytoday',
+        component: () => import('@/views/blog/search/HistoryToday.vue'),
+        name: 'HistoryToday',
+        meta:{
+          title: '历史今天',
           isMenu:true,
           isParent:false
         }

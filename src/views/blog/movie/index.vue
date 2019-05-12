@@ -42,7 +42,7 @@
             <div class="movie-row">
               评分：<span style="color:#F7BA2A">{{subject.rating.average}}</span>
               <span class="movie-tag">/{{subject.rating.max}}</span>
-              <router-link class="movie-tag" :to="{ name: '电影详情', params: { id: subject.id }}">查看详情 <i class="el-icon-d-arrow-right text-small"></i></router-link>
+              <router-link class="movie-tag" :to="{ name: 'movie-detail', params: { id: subject.id }}">查看详情 <i class="el-icon-d-arrow-right text-small"></i></router-link>
             </div>
           </div>
         </div>
@@ -120,9 +120,29 @@ export default {
       loading:false
     }
   },
+  beforeMount:function(){
+    let listType = this.$route.query.list;
+    listType = listType || 'top250'
+    let index = this.lists.findIndex(item => {
+      return item.route == listType
+    })
+    index = index < 0 ? 0 : index
+    this.toggleList(this.lists[index])
+  },
+  mounted:function(){
+    this.lists.forEach((list,index) => {
+      jsonp('https://api.douban.com/v2/movie/'+list.api+'?start=0&count=1', null, (err, data)=> {
+        if (err) {
+          console.error(err.message);
+        } else {
+          this.lists[index].cover=data.subjects[0].images.large;
+        }
+      });
+    });
+  },
   methods: {
     toggleList(list) {
-      this.$router.push({ name: '电影', params: { id: list.route }});
+      this.$router.push({ name: 'movie', query: { list: list.route }});
       this.activeList=list;
       this.paginate();
     },
@@ -146,27 +166,7 @@ export default {
       this.pagination.currentPage=current;
       this.paginate();
     }
-  },
-  beforeMount:function(){
-    let id=this.$route.params.id;
-    if(!id) id='top250', this.$router.push({ name: '电影', params: { id: 'top250' }});
-    let index = this.lists.findIndex(item => {
-      return item.route == id
-    })
-    if(index < 0) index=0, this.$router.push({ name: '电影', params: { id: 'top250' }});
-    this.toggleList(this.lists[index]);
-  },
-  mounted:function(){
-    this.lists.forEach((list,index) => {
-      jsonp('https://api.douban.com/v2/movie/'+list.api+'?start=0&count=1', null, (err, data)=> {
-        if (err) {
-          console.error(err.message);
-        } else {
-          this.lists[index].cover=data.subjects[0].images.large;
-        }
-      });
-    });
-  }
+  } 
 }
 </script>
 <style scoped>

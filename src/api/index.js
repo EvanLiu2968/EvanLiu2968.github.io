@@ -24,3 +24,15 @@ export function getCloverArticles(data = {}) {
     params: data
   })
 }
+// getHistoryTodayList
+export function getHistoryTodayList(month, day) {
+  if (CORS) {
+    return jsonp(`http://api.juheapi.com/japi/toh?key=e676ca1db545a88c1a22c7da35253776&v=1.0&month=${month}&day=${day}`)
+  }
+}
+// getHistoryTodayDetail
+export function getHistoryTodayDetail(id) {
+  if (CORS) {
+    return jsonp(`http://api.juheapi.com/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id=${id}`)
+  }
+}

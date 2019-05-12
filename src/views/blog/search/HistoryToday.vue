@@ -32,7 +32,7 @@
         </el-table-column>
         <el-table-column label="操作" width="100">
           <template scope="scope">
-            <el-button size="small" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
+            <el-button @click="handleDetail(scope.$index, scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -48,20 +48,21 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog title="内容详情" v-model="detailVisible">
+    <el-dialog title="内容详情" :visible.sync="detailVisible">
       <p style="text-indent:2em">{{detailContent}}</p>
       <div slot="footer" class="dialog-footer">
         <el-button @click="detailVisible = false">关闭</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="图片详情" v-model="currentPicVisible">
+    <el-dialog title="图片详情" :visible.sync="currentPicVisible">
       <img :src="currentPic" class="center-block" style="max-width:100%">
     </el-dialog>
   </div>
 </template>
 
 <script>
-import jsonp from "jsonp";
+import { getHistoryTodayList, getHistoryTodayDetail} from "@/api";
+
 export default {
   data() {
     return {
@@ -92,20 +93,10 @@ export default {
       return (row.year+"年");
     },
     handleDetail(index,row){
-      jsonp('https://bird.ioliu.cn/v1?url=http://api.juheapi.com/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id='+row._id, null, (err, res) => {
-        if (err) {
-          console.error(err.message);
-        } else {
-          console.log(res);
-          this.detailContent=res.result[0].content;
-          this.detailVisible=true;
-        }
-      });
-      /*this.axios.get('http://api.juheapi.com/japi/tohdet?key=e676ca1db545a88c1a22c7da35253776&v=1.0&id='+row._id).then( (res) => {
-        this.detailContent=res.data.result[0].content;
-        console.log(res);
+      getHistoryTodayDetail(row._id).then(res => {
+        this.detailContent=res.result[0].content;
         this.detailVisible=true;
-      });*/
+      })
     },
     dateChange(e){
       //e;
@@ -115,17 +106,13 @@ export default {
       this.currentPicVisible=true;
     },
     search(){
-      var queryDay=new Date(this.queryForm.date);
-      jsonp('https://bird.ioliu.cn/v1?url=http://api.juheapi.com/japi/toh?key=e676ca1db545a88c1a22c7da35253776&v=1.0&month='+(queryDay.getMonth()+1)+'&day='+queryDay.getDate(), null, (err, res) => {
-        if (err) {
-          console.error(err.message);
-        } else {
-          this.resData = res.result;
-          this.pagination.currentPage=1;
-          this.pagination.total=this.resData.length;
-          this.paginate();
-        }
-      });
+      const queryDay=new Date(this.queryForm.date);
+      getHistoryTodayList(queryDay.getMonth()+1, queryDay.getDate()).then(res => {
+        this.resData = res.result;
+        this.pagination.currentPage=1;
+        this.pagination.total=this.resData.length;
+        this.paginate();
+      })
     },
     paginate(){
       let pageSize=this.pagination.pageSize;
