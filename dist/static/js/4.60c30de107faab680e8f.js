@@ -1,4 +1,4 @@
-webpackJsonp([5],{
+webpackJsonp([4],{
 
 /***/ 534:
 /***/ (function(module, exports, __webpack_require__) {
@@ -9,9 +9,9 @@ __webpack_require__(648)
 
 var Component = __webpack_require__(93)(
   /* script */
-  __webpack_require__(611),
+  __webpack_require__(607),
   /* template */
-  __webpack_require__(635),
+  __webpack_require__(634),
   /* scopeId */
   "data-v-3a870c70",
   /* cssModules */
@@ -23,7 +23,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 594:
+/***/ 590:
 /***/ (function(module, exports) {
 
 /**
@@ -111,7 +111,7 @@ module.exports = class Loader {
 
 /***/ }),
 
-/***/ 611:
+/***/ 607:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -146,16 +146,16 @@ exports.default = {
     };
   },
   methods: {
-    submitForm: function submitForm(formName) {
+    adminLogin: function adminLogin() {
       var _this = this;
 
-      this.$refs[formName].validate(function (valid) {
+      this.$refs['loginForm'].validate(function (valid) {
         if (valid) {
           var userInfo = JSON.parse((0, _stringify2.default)(_this.loginForm));
           if (userInfo.username === "admin" && userInfo.password === "123456") {
             userInfo.role = 'admin';
             _this.$store.commit('loginIn', userInfo);
-            _this.$router.push('/home');
+            _this.$router.push('/blog/home');
           } else {
             _this.$message.error("用户名或密码错误！");
           }
@@ -164,8 +164,8 @@ exports.default = {
         }
       });
     },
-    cancelLogin: function cancelLogin() {
-      this.$router.push('/home');
+    visitorLogin: function visitorLogin() {
+      this.$router.push('/blog/home');
     }
   },
   mounted: function mounted() {
@@ -288,7 +288,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 621:
+/***/ 618:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(92)();
@@ -303,7 +303,7 @@ exports.push([module.i, ".login-wrap[data-v-3a870c70]{position:relative;width:10
 
 /***/ }),
 
-/***/ 635:
+/***/ 634:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -351,7 +351,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     nativeOn: {
       "keyup": function($event) {
         if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
-        return _vm.submitForm('loginForm')
+        return _vm.adminLogin('loginForm')
       }
     },
     model: {
@@ -369,17 +369,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "primary"
     },
     on: {
-      "click": function($event) {
-        return _vm.submitForm('loginForm')
-      }
+      "click": _vm.adminLogin
     }
   }, [_vm._v("登录")]), _vm._v(" "), _c('el-button', {
-    staticClass: "login-btn",
+    staticClass: "pull-right",
     attrs: {
-      "type": "default"
+      "type": "text"
     },
     on: {
-      "click": _vm.cancelLogin
+      "click": _vm.visitorLogin
     }
   }, [_vm._v("我是游客")])], 1), _vm._v(" "), _c('p', {
     staticStyle: {
@@ -398,7 +396,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(621);
+var content = __webpack_require__(618);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -409,7 +407,7 @@ var update = __webpack_require__(94)("79fb4ea4", content, true);
 /***/ 653:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(594)
+const Loader = __webpack_require__(590)
 
 class AudioLoader extends Loader {
   constructor(){
@@ -437,7 +435,7 @@ module.exports = new AudioLoader()
 /***/ 654:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(594)
+const Loader = __webpack_require__(590)
 
 class CSSLoader extends Loader {
   constructor(){
@@ -498,7 +496,7 @@ module.exports = new CSSLoader()
 /***/ 655:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(594)
+const Loader = __webpack_require__(590)
 
 class ImageLoader extends Loader {
   constructor(){
@@ -523,7 +521,7 @@ module.exports = new ImageLoader()
 /***/ 656:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(594)
+const Loader = __webpack_require__(590)
 
 class JSLoader extends Loader {
   constructor(){
@@ -573,7 +571,7 @@ module.exports = new JSLoader()
 /***/ 657:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(594)
+const Loader = __webpack_require__(590)
 
 class VideoLoader extends Loader {
   constructor(){
