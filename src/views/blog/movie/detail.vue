@@ -56,12 +56,8 @@
 
 <script>
 import jsonp from "jsonp";
-import MovieSearch from "./search.vue";
 
 export default {
-  components:{
-    MovieSearch
-  },
   data: function(){
     return {
       subject:{},

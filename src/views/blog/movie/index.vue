@@ -1,6 +1,6 @@
 <template>
 <div class="content" v-loading.fullscreen.lock="loading">
-  <movie-search></movie-search>
+  <!-- <movie-search></movie-search> -->
   <div style="position:relative;padding-left:250px;">
     <div style="position:absolute;top:0;left:0;width:250px;background:#f6f6f6">
       <h2 class="movie-title">电影榜单</h2>

@@ -6,11 +6,11 @@
           <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" placeholder="密码" v-model="loginForm.password" @keyup.enter.native="submitForm('loginForm')"></el-input>
+          <el-input type="password" placeholder="密码" v-model="loginForm.password" @keyup.enter.native="adminLogin('loginForm')"></el-input>
         </el-form-item>
         <div class="text-center">
-          <el-button type="primary" @click="submitForm('loginForm')" class="login-btn">登录</el-button>
-          <el-button type="default" @click="cancelLogin" class="login-btn">我是游客</el-button>
+          <el-button type="primary" @click="adminLogin" class="login-btn">登录</el-button>
+          <el-button type="text" @click="visitorLogin" class="pull-right">我是游客</el-button>
         </div>
         <p style="font-size:12px;line-height:30px;color:#999;">Tips : 管理员帐号登录。</p>
       </el-form>
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import injector from 'web-inject'
+import webInject from 'web-inject'
 
 export default {
   data: function(){
     return {
-      scaleIn:false,
+      scaleIn: false,
       loginForm: {
         username: '',
         password: ''
@@ -40,15 +40,15 @@ export default {
     }
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+    adminLogin() {
+      this.$refs['loginForm'].validate((valid) => {
         if (valid) {
-          let userInfo=JSON.parse(JSON.stringify(this.loginForm));
+          let userInfo = JSON.parse(JSON.stringify(this.loginForm));
           if(userInfo.username==="admin"&&userInfo.password==="123456"){
             userInfo.role='admin';
             this.$store.commit('loginIn',userInfo);
-            this.$router.push('/home');
-          } else{
+            this.$router.push('/blog/home');
+          } else {
             this.$message.error("用户名或密码错误！")
           }
         } else {
@@ -56,13 +56,13 @@ export default {
         }
       });
     },
-    cancelLogin(){
-      this.$router.push('/home');
+    visitorLogin() {
+      this.$router.push('/blog/home');
     }
   },
   mounted:function(){
     //https://github.com/VincentGarreau/particles.js
-    injector.js('https://cdn.bootcss.com/particles.js/2.0.0/particles.min.js', ()=>{
+    webInject.js('https://cdn.bootcss.com/particles.js/2.0.0/particles.min.js', ()=>{
       particlesJS("particlesJS",{
         "particles": {
           "number": {
