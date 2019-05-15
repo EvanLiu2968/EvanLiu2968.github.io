@@ -5,32 +5,32 @@ import * as getters from './getters'
 
 Vue.use(Vuex)
 
-let defaultUserInfo={
-  username:'游客',
-  avatar:'/public/images/mao.jpg',
-  routemap:['/login']
-};
+const defaultUserInfo = {
+  username: '游客',
+  avatar: '/public/images/mao.jpg',
+  routemap: ['/login']
+}
 // 应用初始状态
 const state = {
-  userInfo:defaultUserInfo,
-  login:false
+  userInfo: defaultUserInfo,
+  login: false
 }
 
 // 定义所需的 mutations
-//改变store的唯一方法：$store.commit('loginIn', {name: 'admin'});
+// 改变store的唯一方法：$store.commit('loginIn', {name: 'admin'});
 const mutations = {
-  loginIn(state,userInfo) {
-    state.userInfo=userInfo;
-    state.login=true;
-    sessionStorage.setItem('userInfo',JSON.stringify(state.userInfo));
+  loginIn(state, userInfo) {
+    state.userInfo = userInfo
+    state.login = true
+    sessionStorage.setItem('userInfo', JSON.stringify(state.userInfo))
   },
   loginOut(state) {
-    state.userInfo=defaultUserInfo;
-    state.login=false;
-    sessionStorage.removeItem('userInfo');
+    state.userInfo = defaultUserInfo
+    state.login = false
+    sessionStorage.removeItem('userInfo')
   },
-  addAttr(state,obj) {
-    state={...state,obj};
+  addAttr(state, obj) {
+    state = { ...state, obj }
   }
 }
 

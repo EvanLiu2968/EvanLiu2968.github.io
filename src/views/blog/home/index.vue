@@ -1,64 +1,70 @@
 <template>
-<layout :is-container="true">
-  <div class="column">
-    <h3 class="column-title">时光若刻</h3>
-    <el-row :gutter="10">
-    <el-col :xs="24" :sm="8">
-      <div class="lunar" style="background-image:url('/public/images/lunar.png')">
-        <div class="date-month">{{date.year+' / '+date.month}}</div>
-        <div class="date-day">{{date.day}}</div>
-        <div class="lunar-detail">
-          <span>{{date.lunarYear}}</span>
-          <span>{{date.lunarMonth}}</span>
-          <span>{{date.lunarDay}}</span>
-        </div>
-      </div>
-    </el-col>
-    <el-col :xs="24" :sm="16">
-      <div class="article">
-      <p>猫喜欢吃鱼，可猫不会游泳。</p>
-      <p>鱼喜欢吃蚯蚓，可鱼又不能上岸。</p>
-      <p>上帝给了你很多诱惑，却不让你轻易得到。</p>
-      <p>但是总不能流血就喊痛，怕黑就开灯，想念就联系，我们最多也就是个有故事的人。</p>
-      <p>所以，人生就像蒲公英，看似自由，却身不由己。</p>
-      <p>得不到的永远在骚动。</p>
+  <layout :is-container="true">
+    <div class="column">
+      <h3 class="column-title">
+        时光若刻
+      </h3>
+      <el-row :gutter="10">
+        <el-col :xs="24" :sm="8">
+          <div class="lunar" style="background-image:url('/public/images/lunar.png')">
+            <div class="date-month">
+              {{ date.year+' / '+date.month }}
+            </div>
+            <div class="date-day">
+              {{ date.day }}
+            </div>
+            <div class="lunar-detail">
+              <span>{{ date.lunarYear }}</span>
+              <span>{{ date.lunarMonth }}</span>
+              <span>{{ date.lunarDay }}</span>
+            </div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="16">
+          <div class="article">
+            <p>猫喜欢吃鱼，可猫不会游泳。</p>
+            <p>鱼喜欢吃蚯蚓，可鱼又不能上岸。</p>
+            <p>上帝给了你很多诱惑，却不让你轻易得到。</p>
+            <p>但是总不能流血就喊痛，怕黑就开灯，想念就联系，我们最多也就是个有故事的人。</p>
+            <p>所以，人生就像蒲公英，看似自由，却身不由己。</p>
+            <p>得不到的永远在骚动。</p>
+          </div>
+        </el-col>
+      </el-row>
     </div>
-    </el-col>
-  </el-row>
-  </div>
-</layout>
+  </layout>
 </template>
 
 <script>
-import lunar from "@/libs/lunar.js";
+import lunar from '@/libs/lunar.js'
 import Layout from '@/views/common/Layout.vue'
 
 export default {
   components: {
     Layout
   },
-  data: function(){
+  data: function() {
     return {
-      date:{
-        lunarYear:'',
-        lunarMonth:'',
-        lunarDay:'',
-        year:'',
-        month:'',
-        day:''
+      date: {
+        lunarYear: '',
+        lunarMonth: '',
+        lunarDay: '',
+        year: '',
+        month: '',
+        day: ''
       }
     }
   },
-  methods:{},
-  beforeMount:function(){
-    let date=new Date();
-    this.date.lunarYear=lunar.getYear(date);
-    this.date.lunarMonth=lunar.getMonth(date);
-    this.date.lunarDay=lunar.getDay(date);
-    this.date.year=date.format('yyyy');
-    this.date.month=date.format('MM');
-    this.date.day=date.format('dd');
-  }
+  beforeMount: function() {
+    const date = new Date()
+    this.date.lunarYear = lunar.getYear(date)
+    this.date.lunarMonth = lunar.getMonth(date)
+    this.date.lunarDay = lunar.getDay(date)
+    this.date.year = date.format('yyyy')
+    this.date.month = date.format('MM')
+    this.date.day = date.format('dd')
+  },
+  methods: {}
 }
 </script>
 

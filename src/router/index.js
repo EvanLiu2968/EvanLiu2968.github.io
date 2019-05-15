@@ -1,32 +1,32 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import blogRoutes from './blog';
+import Vue from 'vue'
+import Router from 'vue-router'
+import blogRoutes from './blog'
 import RouterView from '@/App.vue'
 
-Vue.use(Router);
+Vue.use(Router)
 
-let routes = [
+const routes = [
   {
     path: '/',
     name: 'index',
     component: () => import('../views/home/index.vue'),
-    meta:{
+    meta: {
       title: '首页'
     }
   },
   {
     path: '/login',
-    name:'login',
+    name: 'login',
     component: () => import('../views/common/Login.vue'),
-    meta:{
+    meta: {
       title: '登录'
     }
   },
   {
     path: '/photo',
-    name:'photo',
+    name: 'photo',
     component: () => import('../views/photo/index.vue'),
-    meta:{
+    meta: {
       title: '照片'
     }
   },
@@ -39,13 +39,13 @@ let routes = [
   },
   {
     path: '*',
-    name:'404',
+    name: '404',
     component: () => import('../views/common/404.vue'),
-    meta:{
+    meta: {
       title: '404'
     }
   }
-];
+]
 export default new Router({
   routes
 })

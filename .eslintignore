@@ -1,11 +1,6 @@
-src/utils/popper.js
-src/utils/date.js
-examples/play
-*.sh
-node_modules
-lib
-coverage
-*.md
-*.scss
-*.woff
-*.ttf
+build/*.js
+config/*.js
+src/assets
+src/libs/jquery
+src/libs/nprogress
+*.html

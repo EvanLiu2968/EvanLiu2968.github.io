@@ -1,97 +1,108 @@
 <template>
-<div class="content" v-loading.fullscreen.lock="loading">
-  <!-- <movie-search></movie-search> -->
-  <div style="position:relative;padding-left:250px;">
-    <div style="position:absolute;top:0;left:0;width:250px;background:#f6f6f6">
-      <h2 class="movie-title">电影榜单</h2>
-      <div class="movie-billboard clearfix">
-        <div class="rotateBox" v-for="(list, k) in lists" :key="k" @click="toggleList(list)">
-          <div class="transBox">
-            <div class="movie-list-box front" v-bind:style="{background:list.color}">
-              <div class="movie-list-name"><span>{{list.name}}</span></div>
-            </div>
-            <div class="movie-list-box back" v-bind:style="{background:list.color}">
-              <div class="movie-list-cover">
-                <img v-bind:src="list.cover">
+  <div class="content" v-loading.fullscreen.lock="loading">
+    <!-- <movie-search></movie-search> -->
+    <div style="position:relative;padding-left:250px;">
+      <div style="position:absolute;top:0;left:0;width:250px;background:#f6f6f6">
+        <h2 class="movie-title">
+          电影榜单
+        </h2>
+        <div class="movie-billboard clearfix">
+          <div class="rotateBox" v-for="(list, k) in lists" :key="k" @click="toggleList(list)">
+            <div class="transBox">
+              <div class="movie-list-box front" :style="{background:list.color}">
+                <div class="movie-list-name">
+                  <span>{{ list.name }}</span>
+                </div>
+              </div>
+              <div class="movie-list-box back" :style="{background:list.color}">
+                <div class="movie-list-cover">
+                  <img :src="list.cover">
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div>
-      <h1 class="movie-list-title"><i class="el-icon-menu"></i>{{activeList.name}}</h1>
-      <div class="movie-list">
-        <div class="movie-item" v-for="(subject, index) in subjects" :key="index">
-          <div class="movie-cover">
-            <img :src="subject.images.small">
-          </div>
-          <div class="movie-content">
-            <div class="movie-row">
-              {{subject.title}} ( {{subject.original_title}} )
-              <el-tag class="movie-genre" type="success" v-for="(genre, i) in subject.genres" :key="i">{{genre}}</el-tag>
+      <div>
+        <h1 class="movie-list-title">
+          <i class="el-icon-menu"></i>{{ activeList.name }}
+        </h1>
+        <div class="movie-list">
+          <div class="movie-item" v-for="(subject, index) in subjects" :key="index">
+            <div class="movie-cover">
+              <img :src="subject.images.small">
             </div>
-            <div class="movie-row">
-              年份：<span class="movie-tag">{{subject.year}}</span>导演：
-              <a class="movie-tag" :href="director.alt" v-for="(director, i) in subject.directors" :key="i" target="_blank">{{director.name}}</a>
-            </div>
-            <div class="movie-row">
-              主演：
-              <a class="movie-tag" :href="cast.alt" v-for="(cast, i) in subject.casts" :key="i" target="_blank">{{cast.name}}</a>
-            </div>
-            <div class="movie-row">
-              评分：<span style="color:#F7BA2A">{{subject.rating.average}}</span>
-              <span class="movie-tag">/{{subject.rating.max}}</span>
-              <router-link class="movie-tag" :to="{ name: 'movie-detail', params: { id: subject.id }}">查看详情 <i class="el-icon-d-arrow-right text-small"></i></router-link>
+            <div class="movie-content">
+              <div class="movie-row">
+                {{ subject.title }} ( {{ subject.original_title }} )
+                <el-tag class="movie-genre" type="success" v-for="(genre, i) in subject.genres" :key="i">
+                  {{ genre }}
+                </el-tag>
+              </div>
+              <div class="movie-row">
+                年份：<span class="movie-tag">{{ subject.year }}</span>导演：
+                <a class="movie-tag" :href="director.alt" v-for="(director, i) in subject.directors" :key="i" target="_blank">{{ director.name }}</a>
+              </div>
+              <div class="movie-row">
+                主演：
+                <a class="movie-tag" :href="cast.alt" v-for="(cast, i) in subject.casts" :key="i" target="_blank">{{ cast.name }}</a>
+              </div>
+              <div class="movie-row">
+                评分：<span style="color:#F7BA2A">{{ subject.rating.average }}</span>
+                <span class="movie-tag">/{{ subject.rating.max }}</span>
+                <router-link class="movie-tag" :to="{ name: 'movie-detail', params: { id: subject.id }}">
+                  查看详情 <i class="el-icon-d-arrow-right text-small"></i>
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="pagination.currentPage"
+          :page-size="pagination.pageSize"
+          layout="prev, pager, next, jumper"
+          :total="pagination.total"
+        >
+        </el-pagination>
       </div>
-      <el-pagination
-        @current-change="handleCurrentChange"
-        :current-page="pagination.currentPage"
-        :page-size="pagination.pageSize"
-        layout="prev, pager, next, jumper"
-        :total="pagination.total">
-      </el-pagination>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-import jsonp from "jsonp";
-import MovieSearch from "./search.vue";
+import jsonp from 'jsonp'
+// import MovieSearch from './search.vue'
 
 export default {
-  components:{
-    MovieSearch
-  },
-  data: function(){
+  // components: {
+  //   MovieSearch
+  // },
+  data: function() {
     return {
-      lists:[
+      lists: [
         {
-          name:'TOP250',
-          api:'top250',
-          route:'top250',
-          cover:'',
-          color:'#20A0FF'
+          name: 'TOP250',
+          api: 'top250',
+          route: 'top250',
+          cover: '',
+          color: '#20A0FF'
         },
         {
-          name:'正在热映',
-          route:'theaters',
-          api:'in_theaters',
-          cover:'',
-          color:'#13CE66'
+          name: '正在热映',
+          route: 'theaters',
+          api: 'in_theaters',
+          cover: '',
+          color: '#13CE66'
         },
         {
-          name:'即将上映',
-          api:'coming_soon',
-          route:'coming',
-          cover:'',
-          color:'#F7BA2A'
+          name: '即将上映',
+          api: 'coming_soon',
+          route: 'coming',
+          cover: '',
+          color: '#F7BA2A'
         }
-        /*{
+        /* {
           name:'口碑榜',
           api:'weekly',
           cover:'',
@@ -110,18 +121,18 @@ export default {
           color:'#CC3399'
         }*/
       ],
-      activeList:{},
-      subjects:[],
-      pagination:{
-        currentPage:1,
-        pageSize:10,
-        total:0
+      activeList: {},
+      subjects: [],
+      pagination: {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
       },
-      loading:false
+      loading: false
     }
   },
-  beforeMount:function(){
-    let listType = this.$route.query.list;
+  beforeMount: function() {
+    let listType = this.$route.query.list
     listType = listType || 'top250'
     let index = this.lists.findIndex(item => {
       return item.route == listType
@@ -129,44 +140,44 @@ export default {
     index = index < 0 ? 0 : index
     this.toggleList(this.lists[index])
   },
-  mounted:function(){
-    this.lists.forEach((list,index) => {
-      jsonp('https://api.douban.com/v2/movie/'+list.api+'?start=0&count=1', null, (err, data)=> {
+  mounted: function() {
+    this.lists.forEach((list, index) => {
+      jsonp('https://api.douban.com/v2/movie/' + list.api + '?start=0&count=1', null, (err, data) => {
         if (err) {
-          console.error(err.message);
+          console.error(err.message)
         } else {
-          this.lists[index].cover=data.subjects[0].images.large;
+          this.lists[index].cover = data.subjects[0].images.large
         }
-      });
-    });
+      })
+    })
   },
   methods: {
     toggleList(list) {
-      this.$router.push({ name: 'movie', query: { list: list.route }});
-      this.activeList=list;
-      this.paginate();
+      this.$router.push({ name: 'movie', query: { list: list.route }})
+      this.activeList = list
+      this.paginate()
     },
     paginate() {
-      let count=this.pagination.pageSize;
-      let start=(this.pagination.currentPage-1)*count;
-      let api=this.activeList.api;
-      this.loading=true;
-      jsonp('https://api.douban.com/v2/movie/'+api+'?start='+start+'&count='+count, null, (err, data)=> {
+      const count = this.pagination.pageSize
+      const start = (this.pagination.currentPage - 1) * count
+      const api = this.activeList.api
+      this.loading = true
+      jsonp('https://api.douban.com/v2/movie/' + api + '?start=' + start + '&count=' + count, null, (err, data) => {
         if (err) {
-          this.loading=false;
-          console.error(err.message);
+          this.loading = false
+          console.error(err.message)
         } else {
-          this.loading=false;
-          this.pagination.total=data.total;
-          this.subjects=data.subjects;
+          this.loading = false
+          this.pagination.total = data.total
+          this.subjects = data.subjects
         }
-      });
+      })
     },
-    handleCurrentChange(current){
-      this.pagination.currentPage=current;
-      this.paginate();
+    handleCurrentChange(current) {
+      this.pagination.currentPage = current
+      this.paginate()
     }
-  } 
+  }
 }
 </script>
 <style scoped>
@@ -205,9 +216,9 @@ export default {
   -webkit-perspective: 2000px; perspective:600px;-moz-perspective: 600px;-o-perspective: 600px; -ms-perspective: 600px;
 }
 .transBox{
-  -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d;-o-transform-style: preserve-3d; 
+  -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d;-o-transform-style: preserve-3d;
   position:absolute; top: 0; left: 0;height: 300px; width: 200px; transform-origin: center center -100px;
-  -webkit-transition:.4s;-moz-transition:.4s;-o-transition:.5s; 
+  -webkit-transition:.4s;-moz-transition:.4s;-o-transition:.5s;
 }
 .transBox .movie-list-box{
   position: absolute; height: 500px;

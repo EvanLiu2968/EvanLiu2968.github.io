@@ -1,359 +1,403 @@
 <template>
-<div class="content">
-  <div class="song-container">
-    <div class="el-body">
-      <audio ref="player" :src="cSong.src"></audio>
-      <el-row :gutter="10">
-        <el-col :span="12">
-          <div class="song-cover-box">
-            <div class="song-cover" data-rotate="0">
-              <img :src="cSong.cover" class="cover-img">
-              <span class="cover-bg"></span>
+  <div class="content">
+    <div class="song-container">
+      <div class="el-body">
+        <audio ref="player" :src="cSong.src"></audio>
+        <el-row :gutter="10">
+          <el-col :span="12">
+            <div class="song-cover-box">
+              <div class="song-cover" data-rotate="0">
+                <img :src="cSong.cover" class="cover-img">
+                <span class="cover-bg"></span>
+              </div>
+              <div class="round-top" :class="{paused:player.paused}"></div>
             </div>
-            <div class="round-top" v-bind:class='{paused:player.paused}'></div>
-          </div>
-        </el-col>
-        <el-col :span="12">
-          <div>
-            <h3 class="song-title">{{cSong.name}}</h3>
-            <div class="song-info">歌手：{{cSong.singer}}&emsp;&emsp;专辑：{{cSong.album}}</div>
-            <div class="lrc-wrap">
-              <p class="lrc-p" v-for="(lrc, k) in player.cLrc" :data-lrc="lrc.time" :key="k">{{lrc.word}}</p>
+          </el-col>
+          <el-col :span="12">
+            <div>
+              <h3 class="song-title">
+                {{ cSong.name }}
+              </h3>
+              <div class="song-info">
+                歌手：{{ cSong.singer }}&emsp;&emsp;专辑：{{ cSong.album }}
+              </div>
+              <div class="lrc-wrap">
+                <p class="lrc-p" v-for="(lrc, k) in player.cLrc" :data-lrc="lrc.time" :key="k">
+                  {{ lrc.word }}
+                </p>
+              </div>
             </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="n-songtb">
-      <div class="u-title">
-        <h3><span class="f-ff2">歌曲列表</span></h3>
-        <span class="sub">{{songList.length}}首歌</span>
+          </el-col>
+        </el-row>
       </div>
-      <div class="j-flag">
-        <table class="m-table">
-          <thead>
-          <tr>
-            <th class="w1"><div class="wp">#</div></th>
-            <th><div class="wp">歌曲标题</div></th>
-            <th class="w2"><div class="wp">时长</div></th>
-            <th class="w3"><div class="wp">歌手</div></th>
-            <th class="w4"><div class="wp">专辑</div></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="" v-for="(song, index) in songList" :key="index">
-            <td class="left"><div class="hd ">
-              <span class="ply" @click="toggleSong(index)">播放</span>
-              <span class="num">{{'0'+(index+1)}}</span>
-            </div></td>
-            <td class=""><div class="text">{{song.name}}</div></td>
-            <td class=""><div class="text">{{song.duration}}</div></td>
-            <td class=""><div class="text">{{song.singer}}</div></td>
-            <td class=""><div class="text">{{song.album}}</div></td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="n-songtb">
+        <div class="u-title">
+          <h3><span class="f-ff2">歌曲列表</span></h3>
+          <span class="sub">{{ songList.length }}首歌</span>
+        </div>
+        <div class="j-flag">
+          <table class="m-table">
+            <thead>
+              <tr>
+                <th class="w1">
+                  <div class="wp">
+                    #
+                  </div>
+                </th>
+                <th>
+                  <div class="wp">
+                    歌曲标题
+                  </div>
+                </th>
+                <th class="w2">
+                  <div class="wp">
+                    时长
+                  </div>
+                </th>
+                <th class="w3">
+                  <div class="wp">
+                    歌手
+                  </div>
+                </th>
+                <th class="w4">
+                  <div class="wp">
+                    专辑
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="" v-for="(song, index) in songList" :key="index">
+                <td class="left">
+                  <div class="hd ">
+                    <span class="ply" @click="toggleSong(index)">播放</span>
+                    <span class="num">{{ '0'+(index+1) }}</span>
+                  </div>
+                </td>
+                <td class="">
+                  <div class="text">
+                    {{ song.name }}
+                  </div>
+                </td>
+                <td class="">
+                  <div class="text">
+                    {{ song.duration }}
+                  </div>
+                </td>
+                <td class="">
+                  <div class="text">
+                    {{ song.singer }}
+                  </div>
+                </td>
+                <td class="">
+                  <div class="text">
+                    {{ song.album }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="song-control">
+      <div class="control-play">
+        <span class="control-icon" @click="togglePrev">
+          <i class="iconfont icon-bofangqishangyiqu"></i>
+        </span>
+        <span class="control-icon" @click="toggleMusicPlayer">
+          <i class="iconfont icon-bofangqibofang" v-if="player.paused"></i>
+          <i class="iconfont icon-bofangqizanting" v-else></i>
+        </span>
+        <span class="control-icon" @click="toggleNext">
+          <i class="iconfont icon-bofangqishangyiqu1"></i>
+        </span>
+      </div>
+      <div class="control-progress">
+        <span class="time-start">{{ player.cTime }}</span>
+        <span class="time-end">{{ cSong.duration }}</span>
+        <div class="bar-bg" @click="toggleProgress">
+          <div class="bar-current" :style="{width:player.cProcess}"></div>
+        </div>
+      </div>
+      <div class="control-volumn">
+        <span class="volumn-icon" @click="toggleMuted">
+          <i class="iconfont icon-bofangqi_shengyin" v-if="!player.muted"></i>
+          <i class="iconfont icon-yinliangjingyin" v-else></i>
+        </span>
+        <div class="bar-bg" @click="toggleVolumn">
+          <div class="bar-current" :style="{width:player.cVolumn}"></div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="song-control">
-    <div class="control-play">
-      <span class="control-icon" @click="togglePrev">
-        <i class="iconfont icon-bofangqishangyiqu"></i>
-      </span>
-      <span class="control-icon" @click="toggleMusicPlayer">
-        <i class="iconfont icon-bofangqibofang" v-if="player.paused"></i>
-        <i class="iconfont icon-bofangqizanting" v-else></i>
-      </span>
-      <span class="control-icon" @click="toggleNext">
-        <i class="iconfont icon-bofangqishangyiqu1"></i>
-      </span>
-    </div>
-    <div class="control-progress">
-      <span class="time-start">{{player.cTime}}</span>
-      <span class="time-end">{{cSong.duration}}</span>
-      <div class="bar-bg" @click="toggleProgress">
-        <div class="bar-current" v-bind:style="{width:player.cProcess}"></div>
-      </div>
-    </div>
-    <div class="control-volumn">
-      <span class="volumn-icon" @click="toggleMuted">
-        <i class="iconfont icon-bofangqi_shengyin" v-if="!player.muted"></i>
-        <i class="iconfont icon-yinliangjingyin" v-else></i>
-      </span>
-      <div class="bar-bg" @click="toggleVolumn">
-        <div class="bar-current" v-bind:style="{width:player.cVolumn}"></div>
-      </div>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>
-import jQuery from 'libs/jquery/jquery-2.2.3.js';
-import axios from '@/libs/request';
+import jQuery from 'libs/jquery/jquery-2.2.3.js'
+import axios from '@/libs/request'
 
-let MusicPlayer = null, progressTimer = 0, rotateTimer = 0;
+let MusicPlayer = null; let progressTimer = 0; let rotateTimer = 0
 
 export default {
-  data: function(){
+  data: function() {
     return {
-      songList:[
+      songList: [
         {
-          id:'1',
-          name:'莉莉安',
-          singer:'宋冬野',
-          album:'安和桥北',
-          cover:'/public/music/lilian.jpg',
-          src:'/public/music/宋冬野 - 莉莉安.mp3',
-          lrc:'/public/music/宋冬野 - 莉莉安.lrc',
-          duration:'04:13'
+          id: '1',
+          name: '莉莉安',
+          singer: '宋冬野',
+          album: '安和桥北',
+          cover: '/public/music/lilian.jpg',
+          src: '/public/music/宋冬野 - 莉莉安.mp3',
+          lrc: '/public/music/宋冬野 - 莉莉安.lrc',
+          duration: '04:13'
         },
         {
-          id:'2',
-          name:'山丘',
-          singer:'李宗盛',
-          album:'山丘',
-          cover:'/public/images/mao.jpg',
-          src:'/public/music/李宗盛 - 山丘.mp3',
-          lrc:'/public/music/李宗盛 - 山丘.lrc',
-          duration:'05:49'
+          id: '2',
+          name: '山丘',
+          singer: '李宗盛',
+          album: '山丘',
+          cover: '/public/images/mao.jpg',
+          src: '/public/music/李宗盛 - 山丘.mp3',
+          lrc: '/public/music/李宗盛 - 山丘.lrc',
+          duration: '05:49'
         },
         {
-          id:'3',
-          name:'煎熬',
-          singer:'李佳薇',
-          album:'感谢爱人',
-          cover:'/public/music/jianao.jpg',
-          src:'/public/music/李佳薇 - 煎熬.mp3',
-          lrc:'/public/music/李佳薇 - 煎熬.lrc',
-          duration:'04:22'
+          id: '3',
+          name: '煎熬',
+          singer: '李佳薇',
+          album: '感谢爱人',
+          cover: '/public/music/jianao.jpg',
+          src: '/public/music/李佳薇 - 煎熬.mp3',
+          lrc: '/public/music/李佳薇 - 煎熬.lrc',
+          duration: '04:22'
         },
         {
-          id:'4',
-          name:'漂洋过海来看你',
-          singer:'刘明湘',
-          album:'我不要再比了',
-          cover:'/public/music/piao.jpg',
-          src:'/public/music/刘明湘 - 漂洋过海来看你.mp3',
-          lrc:'/public/music/刘明湘 - 漂洋过海来看你.lrc',
-          duration:'03:17'
+          id: '4',
+          name: '漂洋过海来看你',
+          singer: '刘明湘',
+          album: '我不要再比了',
+          cover: '/public/music/piao.jpg',
+          src: '/public/music/刘明湘 - 漂洋过海来看你.mp3',
+          lrc: '/public/music/刘明湘 - 漂洋过海来看你.lrc',
+          duration: '03:17'
         },
         {
-          id:'5',
-          name:'把悲伤留给自己',
-          singer:'陈升',
-          album:'私奔',
-          cover:'/public/music/lonely.jpg',
-          src:'/public/music/陈升 - 把悲伤留给自己.mp3',
-          lrc:'/public/music/陈升 - 把悲伤留给自己.lrc',
-          duration:'04:38'
+          id: '5',
+          name: '把悲伤留给自己',
+          singer: '陈升',
+          album: '私奔',
+          cover: '/public/music/lonely.jpg',
+          src: '/public/music/陈升 - 把悲伤留给自己.mp3',
+          lrc: '/public/music/陈升 - 把悲伤留给自己.lrc',
+          duration: '04:38'
         },
         {
-          id:'6',
-          name:'青花瓷',
-          singer:'周杰伦',
-          album:'我很忙',
-          cover:'/public/music/jay.jpg',
-          src:'/public/music/青花瓷 - 周杰伦.mp3',
-          lrc:'/public/music/青花瓷 - 周杰伦.lrc',
-          duration:'03:59'
+          id: '6',
+          name: '青花瓷',
+          singer: '周杰伦',
+          album: '我很忙',
+          cover: '/public/music/jay.jpg',
+          src: '/public/music/青花瓷 - 周杰伦.mp3',
+          lrc: '/public/music/青花瓷 - 周杰伦.lrc',
+          duration: '03:59'
         },
         {
-          id:'7',
-          name:'以父之名',
-          singer:'周杰伦',
-          album:'叶惠美',
-          cover:'/public/music/jay.jpg',
-          src:'/public/music/周杰伦 - 以父之名.m4a',
-          lrc:'/public/music/周杰伦 - 以父之名.lrc',
-          duration:'05:42'
+          id: '7',
+          name: '以父之名',
+          singer: '周杰伦',
+          album: '叶惠美',
+          cover: '/public/music/jay.jpg',
+          src: '/public/music/周杰伦 - 以父之名.m4a',
+          lrc: '/public/music/周杰伦 - 以父之名.lrc',
+          duration: '05:42'
         },
         {
-          id:'8',
-          name:'半岛铁盒',
-          singer:'周杰伦',
-          album:'八度空间',
-          cover:'/public/music/jay.jpg',
-          src:'/public/music/周杰伦 - 半岛铁盒.mp3',
-          lrc:'/public/music/周杰伦 - 半岛铁盒.lrc',
-          duration:'05:17'
+          id: '8',
+          name: '半岛铁盒',
+          singer: '周杰伦',
+          album: '八度空间',
+          cover: '/public/music/jay.jpg',
+          src: '/public/music/周杰伦 - 半岛铁盒.mp3',
+          lrc: '/public/music/周杰伦 - 半岛铁盒.lrc',
+          duration: '05:17'
         }
       ],
-      player:{
-        paused:true,
-        muted:false,
-        cTime:'00:00',
-        cProcess:'0%',
-        cVolumn:'100%',
-        cLrc:[]
+      player: {
+        paused: true,
+        muted: false,
+        cTime: '00:00',
+        cProcess: '0%',
+        cVolumn: '100%',
+        cLrc: []
       },
-      index:0,
-      cSong:{}
+      index: 0,
+      cSong: {}
     }
   },
-  computed:{
+  computed: {
   },
-  mounted:function(){
-    MusicPlayer = this.$refs.player;
-    this.toggleSong(this.index);
-    MusicPlayer.addEventListener('canplaythrough', () => { 
+  mounted: function() {
+    MusicPlayer = this.$refs.player
+    this.toggleSong(this.index)
+    MusicPlayer.addEventListener('canplaythrough', () => {
       // MusicPlayer.play();
       // this.player.paused=false;
-      this.updateState();
-    }, false);
+      this.updateState()
+    }, false)
     MusicPlayer.addEventListener('ended', () => {
-      this.toggleNext();
-    }, false);
+      this.toggleNext()
+    }, false)
   },
-  beforeDestroy:function(){
-    MusicPlayer.pause();
+  beforeDestroy: function() {
+    MusicPlayer.pause()
     MusicPlayer = null
   },
   methods: {
-    getLrc:function(){
-      axios.get(this.cSong.lrc).then( (res) => {
-        let lrcArr=[];
-        let arr=res.split('[');
-        arr.splice(0,1);
-        arr.forEach(function(v){
-          let s=v.split(']');
+    getLrc: function() {
+      axios.get(this.cSong.lrc).then((res) => {
+        const lrcArr = []
+        const arr = res.split('[')
+        arr.splice(0, 1)
+        arr.forEach(function(v) {
+          const s = v.split(']')
           lrcArr.push({
-            time:s[0],
-            word:s[1]
-          });
-        });
-        this.player.cLrc=lrcArr;
-      });
+            time: s[0],
+            word: s[1]
+          })
+        })
+        this.player.cLrc = lrcArr
+      })
     },
-    toggleMusicPlayer:function(){
-      if(MusicPlayer.paused){
-        MusicPlayer.play();
-        this.player.paused=false;
-        this.updateState();
-      }else{
-        MusicPlayer.pause();
-        this.player.paused=true;
+    toggleMusicPlayer: function() {
+      if (MusicPlayer.paused) {
+        MusicPlayer.play()
+        this.player.paused = false
+        this.updateState()
+      } else {
+        MusicPlayer.pause()
+        this.player.paused = true
       }
     },
-    togglePrev:function(){
-      let index=this.index-1;
-      if(index>-1){
-        this.toggleSong(index);
-      }else{
-        this.toggleSong(this.songList.length-1);
+    togglePrev: function() {
+      const index = this.index - 1
+      if (index > -1) {
+        this.toggleSong(index)
+      } else {
+        this.toggleSong(this.songList.length - 1)
       }
     },
-    toggleNext:function(){
-      let index=this.index+1;
-      if(index<this.songList.length){
-        this.toggleSong(index);
-      }else{
-        this.toggleSong(0);
+    toggleNext: function() {
+      const index = this.index + 1
+      if (index < this.songList.length) {
+        this.toggleSong(index)
+      } else {
+        this.toggleSong(0)
       }
     },
-    //歌词滚动，封面旋转，进度条及进度时间更新
-    updateState:function(){
-      let _this=this;
-      clearTimeout(progressTimer);
-      clearTimeout(rotateTimer);
-      let index=0,lrc=_this.player.cLrc;
-      let $lrcWrap=jQuery('.lrc-wrap'),h=$lrcWrap.height();
-      let $cover=jQuery('.song-cover');
-      //歌词滚动
-      function scrollLrc(){
-        let time=_this.player.cTime;
-        for(let i=0,len=lrc.length;i<len;i++){
-          if(time>lrc[i].time&&(i===(len-1)||time<lrc[i+1].time)){
-            if(index===i){ //不需要滚动则直接return
-              return;
-            }else{
-              index=i; //获取需要滚动歌词行的index
-              break;
+    // 歌词滚动，封面旋转，进度条及进度时间更新
+    updateState: function() {
+      const _this = this
+      clearTimeout(progressTimer)
+      clearTimeout(rotateTimer)
+      let index = 0; const lrc = _this.player.cLrc
+      const $lrcWrap = jQuery('.lrc-wrap'); const h = $lrcWrap.height()
+      const $cover = jQuery('.song-cover')
+      // 歌词滚动
+      function scrollLrc() {
+        const time = _this.player.cTime
+        for (let i = 0, len = lrc.length; i < len; i++) {
+          if (time > lrc[i].time && (i === (len - 1) || time < lrc[i + 1].time)) {
+            if (index === i) { // 不需要滚动则直接return
+              return
+            } else {
+              index = i // 获取需要滚动歌词行的index
+              break
             }
           }
         }
-        let $lrc=jQuery('.lrc-p').eq(index);
-        $lrc.addClass("active").siblings(".active").removeClass("active");
-        let top=$lrc.height()*index;
-        if(top<(h/2)){
+        const $lrc = jQuery('.lrc-p').eq(index)
+        $lrc.addClass('active').siblings('.active').removeClass('active')
+        const top = $lrc.height() * index
+        if (top < (h / 2)) {
           $lrcWrap.animate({
-            "scrollTop":0
-          });
-        }else{
+            'scrollTop': 0
+          })
+        } else {
           $lrcWrap.animate({
-            "scrollTop":top-h/2
-          });
+            'scrollTop': top - h / 2
+          })
         }
       }
-      function getTwo(n){
-        return n<10?'0'+n:n;
+      function getTwo(n) {
+        return n < 10 ? '0' + n : n
       }
-      function timeFormat(t){
-        let s=~~t;
-        let m=~~(s/60);
-        s=s-m*60;
-        return getTwo(m)+':'+getTwo(s)
+      function timeFormat(t) {
+        let s = ~~t
+        const m = ~~(s / 60)
+        s = s - m * 60
+        return getTwo(m) + ':' + getTwo(s)
       }
-      _this.cSong.duration=timeFormat(MusicPlayer.duration);
-      let update=function(){
-        if(!MusicPlayer.paused){
-          _this.player.cTime=timeFormat(MusicPlayer.currentTime);
-          _this.player.cProcess=(MusicPlayer.currentTime/MusicPlayer.duration).toFixed(4)*100+'%';
-          scrollLrc();
-          progressTimer=setTimeout(update,300);
+      _this.cSong.duration = timeFormat(MusicPlayer.duration)
+      const update = function() {
+        if (!MusicPlayer.paused) {
+          _this.player.cTime = timeFormat(MusicPlayer.currentTime)
+          _this.player.cProcess = (MusicPlayer.currentTime / MusicPlayer.duration).toFixed(4) * 100 + '%'
+          scrollLrc()
+          progressTimer = setTimeout(update, 300)
         }
-      };
-      update();
-      //旋转封面
-      let rotateCover=function(){
-        if(!MusicPlayer.paused){
-          let rotate=$cover.data("rotate");
-          rotate=~~rotate+1;
-          if(rotate===360){rotate=0}
+      }
+      update()
+      // 旋转封面
+      const rotateCover = function() {
+        if (!MusicPlayer.paused) {
+          let rotate = $cover.data('rotate')
+          rotate = ~~rotate + 1
+          if (rotate === 360) { rotate = 0 }
           $cover.css({
-            'webkitTransform':'rotate3d(0, 0, 1, '+rotate+'deg)',
-            'transform':'rotate3d(0, 0, 1, '+rotate+'deg)'
-          }).data("rotate",rotate);
-          rotateTimer=setTimeout(rotateCover,50);
+            'webkitTransform': 'rotate3d(0, 0, 1, ' + rotate + 'deg)',
+            'transform': 'rotate3d(0, 0, 1, ' + rotate + 'deg)'
+          }).data('rotate', rotate)
+          rotateTimer = setTimeout(rotateCover, 50)
         }
-      };
-      rotateCover();
+      }
+      rotateCover()
     },
-    toggleSong:function(index){
-      this.index=index;
-      this.cSong=this.songList[this.index];
-      MusicPlayer.src=this.cSong.src;
-      MusicPlayer.load();
-      this.initState();
+    toggleSong: function(index) {
+      this.index = index
+      this.cSong = this.songList[this.index]
+      MusicPlayer.src = this.cSong.src
+      MusicPlayer.load()
+      this.initState()
     },
-    toggleProgress:function(e){
-      let x=e.offsetX,w=document.querySelector('.control-progress>.bar-bg').offsetWidth;
-      let rate=(x/w).toFixed(4);
-      MusicPlayer.currentTime=MusicPlayer.duration*rate;
-      this.player.cProcess=rate*100+'%';
+    toggleProgress: function(e) {
+      const x = e.offsetX; const w = document.querySelector('.control-progress>.bar-bg').offsetWidth
+      const rate = (x / w).toFixed(4)
+      MusicPlayer.currentTime = MusicPlayer.duration * rate
+      this.player.cProcess = rate * 100 + '%'
     },
-    toggleVolumn:function(e){
-      let x=e.offsetX,w=document.querySelector('.control-volumn>.bar-bg').offsetWidth;
-      let rate=(x/w).toFixed(4);
-      MusicPlayer.volume=rate;
-      this.player.cVolumn=rate*100+"%";
-      this.player.muted=MusicPlayer.muted=false;
+    toggleVolumn: function(e) {
+      const x = e.offsetX; const w = document.querySelector('.control-volumn>.bar-bg').offsetWidth
+      const rate = (x / w).toFixed(4)
+      MusicPlayer.volume = rate
+      this.player.cVolumn = rate * 100 + '%'
+      this.player.muted = MusicPlayer.muted = false
     },
-    toggleMuted:function(){
-      if(MusicPlayer.muted){
-        this.player.muted=MusicPlayer.muted=false;
-        document.querySelector('.control-volumn>.bar-bg>.bar-current').style.width=MusicPlayer.volume*100+"%";
-      }else{
-        this.player.muted=MusicPlayer.muted=true;
-        document.querySelector('.control-volumn>.bar-bg>.bar-current').style.width="0%";
+    toggleMuted: function() {
+      if (MusicPlayer.muted) {
+        this.player.muted = MusicPlayer.muted = false
+        document.querySelector('.control-volumn>.bar-bg>.bar-current').style.width = MusicPlayer.volume * 100 + '%'
+      } else {
+        this.player.muted = MusicPlayer.muted = true
+        document.querySelector('.control-volumn>.bar-bg>.bar-current').style.width = '0%'
       }
     },
-    initState:function(){
-      this.player.paused=true;
-      this.player.cTime='00:00';
-      this.player.cProcess='0%';
-      this.getLrc();
+    initState: function() {
+      this.player.paused = true
+      this.player.cTime = '00:00'
+      this.player.cProcess = '0%'
+      this.getLrc()
     }
   }
 }
@@ -441,7 +485,7 @@ export default {
   background:#ff4949;
   color:#fff;
   text-align:center;
-  
+
   border-radius:50%;
   cursor:pointer;
 }

@@ -2,15 +2,22 @@
   <div class="wrapper-full">
     <el-alert
       :center="true"
-      type="warning">
-      <p slot="title">原网站服务到期已关闭，此站点为 <a href="https://EvanLiu2968.github.io">https://EvanLiu2968.github.io</a> CNAME镜像站点</p>
+      type="warning"
+    >
+      <p slot="title">
+        原网站服务到期已关闭，此站点为 <a href="https://EvanLiu2968.github.io">https://EvanLiu2968.github.io</a> CNAME镜像站点
+      </p>
     </el-alert>
     <div class="box-image">
-      <img src="/public/images/horse.png"/>
+      <img src="/public/images/horse.png">
     </div>
     <div class="box-intro">
-      <h1 class="title">Evan Liu</h1>
-      <h2 class="subtitle">Fake it till you make it</h2>
+      <h1 class="title">
+        Evan Liu
+      </h1>
+      <h2 class="subtitle">
+        Fake it till you make it
+      </h2>
       <ul class="column-list">
         <li><a href="https://github.com/EvanLiu2968" target="_blank">Github</a></li>
         <li><a href="https://evanliu2968.github.io/react-component" target="_blank">Components</a></li>
@@ -18,9 +25,21 @@
         <li><a href="https://www.zhihu.com/people/evanliu2968" target="_blank">Zhihu</a></li>
       </ul>
       <ul class="column-list">
-        <li><router-link to="/photo">Photo</router-link></li>
-        <li><router-link to="/article">Article</router-link></li>
-        <li><router-link to="/blog">Blog</router-link></li>
+        <li>
+          <router-link to="/photo">
+            Photo
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/article">
+            Article
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/blog">
+            Blog
+          </router-link>
+        </li>
       </ul>
     </div>
     <p class="copyright">

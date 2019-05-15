@@ -6,7 +6,9 @@
           <div class="img-box" :title="item.title">
             <el-image :src="item.img" lazy></el-image>
           </div>
-          <p class="description">{{ item.desc }}</p>
+          <p class="description">
+            {{ item.desc }}
+          </p>
         </div>
       </div>
     </div>
@@ -14,7 +16,7 @@
 </template>
 <script>
 import MainContainer from './Container.vue'
-import { getCloverPhotos } from '@/api';
+import { getCloverPhotos } from '@/api'
 export default {
   components: {
     MainContainer
@@ -30,7 +32,7 @@ export default {
       this.photos = res.photoList
     })
   },
-  methods:{
+  methods: {
   }
 }
 </script>

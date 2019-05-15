@@ -12,9 +12,9 @@ const service = function(url) {
         })
         reject(error)
       } else {
-        resolve(res);
+        resolve(res)
       }
-    });
+    })
   })
 }
 export default service
