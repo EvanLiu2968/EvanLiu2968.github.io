@@ -1,8 +1,12 @@
 <template>
-<div class="page-container">
-  <h3 class="error-title">404</h3>
-  <p class="error-desc"> 抱歉，页面没有找到！</p>
-</div>
+  <div class="page-container">
+    <h3 class="error-title">
+      404
+    </h3>
+    <p class="error-desc">
+      抱歉，页面没有找到！
+    </p>
+  </div>
 </template>
 
 <style lang="less" scoped>

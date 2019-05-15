@@ -1,22 +1,36 @@
 <template>
   <div class="header">
     <div class="header-left">
-      <div class="logo">{{logoText}}</div>
+      <div class="logo">
+        {{ logoText }}
+      </div>
     </div>
     <div class="header-right">
       <div class="user-info">
         <el-dropdown trigger="hover" @command="handleCommand">
           <span class="el-dropdown-link">
             <img class="user-logo" :src="userInfo.avatar">
-            {{userInfo.username}}
+            {{ userInfo.username }}
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="github">github</el-dropdown-item>
-            <el-dropdown-item command="wechat">wechat</el-dropdown-item>
-            <el-dropdown-item command="zhihu">zhihu</el-dropdown-item>
-            <el-dropdown-item command="facebook">facebook</el-dropdown-item>
-            <el-dropdown-item v-if="login" divided command="loginout">注销</el-dropdown-item>
-            <el-dropdown-item v-else divided command="login">登录</el-dropdown-item>
+            <el-dropdown-item command="github">
+              github
+            </el-dropdown-item>
+            <el-dropdown-item command="wechat">
+              wechat
+            </el-dropdown-item>
+            <el-dropdown-item command="zhihu">
+              zhihu
+            </el-dropdown-item>
+            <el-dropdown-item command="facebook">
+              facebook
+            </el-dropdown-item>
+            <el-dropdown-item v-if="login" divided command="loginout">
+              注销
+            </el-dropdown-item>
+            <el-dropdown-item v-else divided command="login">
+              登录
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -24,61 +38,68 @@
         <template v-for="(item, i) in BlogRoutes">
           <template v-if="item.meta.isMenu">
             <el-submenu :key="i" :index="i+''" v-if="item.meta.isParent">
-              <template slot="title"><i :class="item.meta.icon"></i>{{ item.meta.title }}</template>
+              <template slot="title">
+                <i :class="item.meta.icon"></i>{{ item.meta.title }}
+              </template>
               <template v-for="(subItem, k) in item.children">
-                <el-menu-item v-if="subItem.meta.isMenu" :index="subItem.path" :key="k">{{ subItem.meta.title }}</el-menu-item>
+                <el-menu-item v-if="subItem.meta.isMenu" :index="subItem.path" :key="k">
+                  {{ subItem.meta.title }}
+                </el-menu-item>
               </template>
             </el-submenu>
-            <el-menu-item v-else :key="i" :index="item.path"><i :class="item.meta.icon"></i>{{ item.meta.title }}</el-menu-item>
+            <el-menu-item v-else :key="i" :index="item.path">
+              <i :class="item.meta.icon"></i>{{ item.meta.title }}
+            </el-menu-item>
           </template>
         </template>
       </el-menu>
     </div>
     <el-dialog :visible.sync="wechatBox" title="微信二维码" width="400px">
       <img src="/public/images/weixin.jpg" style="display:block;margin:0 auto;width:200px;height: auto;">
-      <p style="text-align:center">微信扫描二维码</p>
+      <p style="text-align:center">
+        微信扫描二维码
+      </p>
     </el-dialog>
   </div>
 </template>
 <script>
-import tool from '@/libs/tool.js';
 import BlogRoutes from '@/router/blog'
 export default {
   data() {
     return {
       BlogRoutes,
-      wechatBox:false,
+      wechatBox: false,
       logoText: '这里有个宝藏，它空无一物，它价值千金',
       name: '游客'
     }
   },
   computed: {
-    userInfo(){
-      return this.$store.getters.getUserInfo;
+    userInfo() {
+      return this.$store.getters.getUserInfo
     },
-    login(){
-      return this.$store.state.login;
+    login() {
+      return this.$store.state.login
     }
   },
   mounted() {
     // console.log(BlogRoutes)
   },
-  methods:{
+  methods: {
     handleCommand(command) {
-      if(command == 'loginout'){
-        this.$store.commit('loginOut');
-      } else if (command == 'login'){
+      if (command == 'loginout') {
+        this.$store.commit('loginOut')
+      } else if (command == 'login') {
         this.$router.push({
-          path:'/login'
-        });
-      } else if (command == 'github'){
-        window.open("https://github.com/EvanLiu2968");
-      } else if (command == 'zhihu'){
-        window.open("https://www.zhihu.com/people/evanliu2968");
-      } else if (command == 'wechat'){
-        this.wechatBox=true;
-      } else if (command == 'facebook'){
-        window.open("https://www.facebook.com/evanliu2968");
+          path: '/login'
+        })
+      } else if (command == 'github') {
+        window.open('https://github.com/EvanLiu2968')
+      } else if (command == 'zhihu') {
+        window.open('https://www.zhihu.com/people/evanliu2968')
+      } else if (command == 'wechat') {
+        this.wechatBox = true
+      } else if (command == 'facebook') {
+        window.open('https://www.facebook.com/evanliu2968')
       }
     }
   }

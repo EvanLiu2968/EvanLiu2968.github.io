@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrap" id="particlesJS">
-    <div class="login-box" v-bind:class="{'scaleIn': scaleIn }">
+    <div class="login-box" :class="{'scaleIn': scaleIn }">
       <el-form :model="loginForm" :rules="loginFormRules" ref="loginForm" label-width="0px">
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
@@ -9,10 +9,16 @@
           <el-input type="password" placeholder="密码" v-model="loginForm.password" @keyup.enter.native="adminLogin('loginForm')"></el-input>
         </el-form-item>
         <div class="text-center">
-          <el-button type="primary" @click="adminLogin" class="login-btn">登录</el-button>
-          <el-button type="text" @click="visitorLogin" class="pull-right">我是游客</el-button>
+          <el-button type="primary" @click="adminLogin" class="login-btn">
+            登录
+          </el-button>
+          <el-button type="text" @click="visitorLogin" class="pull-right">
+            我是游客
+          </el-button>
         </div>
-        <p style="font-size:12px;line-height:30px;color:#999;">Tips : 管理员帐号登录。</p>
+        <p style="font-size:12px;line-height:30px;color:#999;">
+          Tips : 管理员帐号登录。
+        </p>
       </el-form>
     </div>
   </div>
@@ -22,7 +28,7 @@
 import webInject from 'web-inject'
 
 export default {
-  data: function(){
+  data: function() {
     return {
       scaleIn: false,
       loginForm: {
@@ -39,143 +45,143 @@ export default {
       }
     }
   },
+  mounted: function() {
+    // https://github.com/VincentGarreau/particles.js
+    webInject.js('https://cdn.bootcss.com/particles.js/2.0.0/particles.min.js', () => {
+      window.particlesJS('particlesJS', {
+        'particles': {
+          'number': {
+            'value': 100,
+            'density': {
+              'enable': true,
+              'value_area': 800
+            }
+          },
+          'color': {
+            'value': '#ffffff'
+          },
+          'shape': {
+            'type': ['image'],
+            'stroke': {
+              'width': 0,
+              'color': '#000000'
+            },
+            'polygon': {
+              'nb_sides': 5
+            },
+            'image': {
+              'src': '/public/images/star.png',
+              'width': 100,
+              'height': 100
+            }
+          },
+          'opacity': {
+            'value': 0.5,
+            'random': true,
+            'anim': {
+              'enable': true,
+              'speed': 1,
+              'opacity_min': 0.2,
+              'sync': false
+            }
+          },
+          'size': {
+            'value': 5,
+            'random': true,
+            'anim': {
+              'enable': true,
+              'speed': 1,
+              'size_min': 0.3,
+              'sync': true
+            }
+          },
+          'line_linked': {
+            'enable': false,
+            'distance': 100,
+            'color': '#ffffff',
+            'opacity': 0.4,
+            'width': 0.5
+          },
+          'move': {
+            'enable': true,
+            'speed': 1,
+            'direction': 'bottom-right',
+            'random': true,
+            'straight': true,
+            'out_mode': 'out',
+            'bounce': false,
+            'attract': {
+              'enable': true,
+              'rotateX': 600,
+              'rotateY': 1200
+            }
+          }
+        },
+        'interactivity': {
+          'detect_on': 'canvas',
+          'events': {
+            'onhover': {
+              'enable': true,
+              'mode': 'grab'
+            },
+            'onclick': {
+              'enable': false,
+              'mode': 'push'
+            },
+            'resize': true
+          },
+          'modes': {
+            'grab': {
+              'distance': 120,
+              'line_linked': {
+                'opacity': 0.5
+              }
+            },
+            'bubble': {
+              'distance': 100,
+              'size': 5,
+              'duration': 2,
+              'opacity': 0.8,
+              'speed': 1
+            },
+            'repulse': {
+              'distance': 400,
+              'duration': 0.4
+            },
+            'push': {
+              'particles_nb': 4
+            },
+            'remove': {
+              'particles_nb': 2
+            }
+          }
+        },
+        'retina_detect': true
+      })
+    })
+
+    this.scaleIn = true
+  },
   methods: {
     adminLogin() {
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
-          let userInfo = JSON.parse(JSON.stringify(this.loginForm));
-          if(userInfo.username==="admin"&&userInfo.password==="123456"){
-            userInfo.role='admin';
-            this.$store.commit('loginIn',userInfo);
-            this.$router.push('/blog/home');
+          const userInfo = JSON.parse(JSON.stringify(this.loginForm))
+          if (userInfo.username === 'admin' && userInfo.password === '123456') {
+            userInfo.role = 'admin'
+            this.$store.commit('loginIn', userInfo)
+            this.$router.push('/blog/home')
           } else {
-            this.$message.error("用户名或密码错误！")
+            this.$message.error('用户名或密码错误！')
           }
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     visitorLogin() {
-      this.$router.push('/blog/home');
+      this.$router.push('/blog/home')
     }
-  },
-  mounted:function(){
-    //https://github.com/VincentGarreau/particles.js
-    webInject.js('https://cdn.bootcss.com/particles.js/2.0.0/particles.min.js', ()=>{
-      particlesJS("particlesJS",{
-        "particles": {
-          "number": {
-            "value": 100,
-            "density": {
-              "enable": true,
-              "value_area": 800
-            }
-          },
-          "color": {
-            "value": "#ffffff"
-          },
-          "shape": {
-            "type": ["image"],
-            "stroke": {
-              "width": 0,
-              "color": "#000000"
-            },
-            "polygon": {
-              "nb_sides": 5
-            },
-            "image": {
-              "src": "/public/images/star.png",
-              "width": 100,
-              "height": 100
-            }
-          },
-          "opacity": {
-            "value": 0.5,
-            "random": true,
-            "anim": {
-              "enable": true,
-              "speed": 1,
-              "opacity_min": 0.2,
-              "sync": false
-            }
-          },
-          "size": {
-            "value": 5,
-            "random": true,
-            "anim": {
-              "enable": true,
-              "speed": 1,
-              "size_min": 0.3,
-              "sync": true
-            }
-          },
-          "line_linked": {
-            "enable": false,
-            "distance": 100,
-            "color": "#ffffff",
-            "opacity": 0.4,
-            "width": 0.5
-          },
-          "move": {
-            "enable": true,
-            "speed": 1,
-            "direction": "bottom-right",
-            "random": true,
-            "straight": true,
-            "out_mode": "out",
-            "bounce": false,
-            "attract": {
-              "enable": true,
-              "rotateX": 600,
-              "rotateY": 1200
-            }
-          }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "grab"
-            },
-            "onclick": {
-              "enable": false,
-              "mode": "push"
-            },
-            "resize": true
-          },
-          "modes": {
-            "grab": {
-              "distance": 120,
-              "line_linked": {
-                "opacity": 0.5
-              }
-            },
-            "bubble": {
-              "distance": 100,
-              "size": 5,
-              "duration": 2,
-              "opacity": 0.8,
-              "speed": 1
-            },
-            "repulse": {
-              "distance": 400,
-              "duration": 0.4
-            },
-            "push": {
-              "particles_nb": 4
-            },
-            "remove": {
-              "particles_nb": 2
-            }
-          }
-        },
-        "retina_detect": true
-      });
-    })
-    
-    this.scaleIn=true;
   }
 }
 </script>

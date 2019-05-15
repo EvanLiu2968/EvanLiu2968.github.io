@@ -1,30 +1,30 @@
 <template>
-<div class="wrapper">
-  <main-header></main-header>
-  <div class="blog-container">
-    <transition name="move" mode="out-in">
-      <slot v-if="isContainer"></slot>
-      <router-view v-else></router-view>
-    </transition>
+  <div class="wrapper">
+    <main-header></main-header>
+    <div class="blog-container">
+      <transition name="move" mode="out-in">
+        <slot v-if="isContainer"></slot>
+        <router-view v-else></router-view>
+      </transition>
+    </div>
   </div>
-</div>
 </template>
 <script>
-import MainHeader from './header';
+import MainHeader from './header'
 export default {
+  components: {
+    MainHeader
+  },
   props: {
     isContainer: {
       type: Boolean,
       default: false
     }
   },
-  components: {
-    MainHeader
-  },
   data() {
     return {}
   },
-  methods:{
+  methods: {
   }
 }
 </script>

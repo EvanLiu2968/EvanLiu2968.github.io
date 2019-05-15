@@ -9,10 +9,35 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: ['eslint:recommended'],
+  extends: ['plugin:vue/recommended', 'eslint:recommended'],
 
   // add your custom rules here
   rules: {
+    "vue/max-attributes-per-line": [2, {
+      "singleline": 10,
+      "multiline": {
+        "max": 1,
+        "allowFirstLine": false
+      }
+    }],
+    "vue/attributes-order": ["waning"],
+    "vue/name-property-casing": ["error", "PascalCase"],
+    "vue/html-indent": ["error", 2, {
+      "attribute": 1,
+      "baseIndent": 1,
+      "closeBracket": 0,
+      "alignAttributesVertically": false,
+      "ignores": []
+    }],
+    "vue/html-self-closing": ["error", {
+      "html": {
+        "void": "never",
+        "normal": "any",
+        "component": "any"
+      },
+      "svg": "always",
+      "math": "always"
+    }],
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
       'before': true,
