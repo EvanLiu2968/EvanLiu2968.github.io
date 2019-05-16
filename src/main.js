@@ -2,13 +2,12 @@ import Vue from 'vue'
 import App from './App'
 
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 
 import router from './router'
 import store from './store'
 
 import '@/libs/nprogress/nprogress.css'// 不从moduel引入是为方便修改样式
-import '@/assets/css/index.less'
+import '@/assets/css/index.scss'
 import '@/libs/util'
 import NProgress from '@/libs/nprogress/nprogress' // Progress 进度条
 
