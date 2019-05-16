@@ -1,17 +1,17 @@
-webpackJsonp([4],{
+webpackJsonp([3],{
 
-/***/ 534:
+/***/ 529:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(648)
+__webpack_require__(637)
 
 var Component = __webpack_require__(93)(
   /* script */
-  __webpack_require__(607),
+  __webpack_require__(596),
   /* template */
-  __webpack_require__(634),
+  __webpack_require__(624),
   /* scopeId */
   "data-v-3a870c70",
   /* cssModules */
@@ -23,7 +23,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 590:
+/***/ 585:
 /***/ (function(module, exports) {
 
 /**
@@ -111,7 +111,7 @@ module.exports = class Loader {
 
 /***/ }),
 
-/***/ 607:
+/***/ 596:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -121,11 +121,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _stringify = __webpack_require__(142);
+var _stringify = __webpack_require__(207);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _webInject = __webpack_require__(658);
+var _webInject = __webpack_require__(647);
 
 var _webInject2 = _interopRequireDefault(_webInject);
 
@@ -145,6 +145,122 @@ exports.default = {
       }
     };
   },
+  mounted: function mounted() {
+    _webInject2.default.js('https://cdn.bootcss.com/particles.js/2.0.0/particles.min.js', function () {
+      window.particlesJS('particlesJS', {
+        'particles': {
+          'number': {
+            'value': 100,
+            'density': {
+              'enable': true,
+              'value_area': 800
+            }
+          },
+          'color': {
+            'value': '#ffffff'
+          },
+          'shape': {
+            'type': ['image'],
+            'stroke': {
+              'width': 0,
+              'color': '#000000'
+            },
+            'polygon': {
+              'nb_sides': 5
+            },
+            'image': {
+              'src': '/public/images/star.png',
+              'width': 100,
+              'height': 100
+            }
+          },
+          'opacity': {
+            'value': 0.5,
+            'random': true,
+            'anim': {
+              'enable': true,
+              'speed': 1,
+              'opacity_min': 0.2,
+              'sync': false
+            }
+          },
+          'size': {
+            'value': 5,
+            'random': true,
+            'anim': {
+              'enable': true,
+              'speed': 1,
+              'size_min': 0.3,
+              'sync': true
+            }
+          },
+          'line_linked': {
+            'enable': false,
+            'distance': 100,
+            'color': '#ffffff',
+            'opacity': 0.4,
+            'width': 0.5
+          },
+          'move': {
+            'enable': true,
+            'speed': 1,
+            'direction': 'bottom-right',
+            'random': true,
+            'straight': true,
+            'out_mode': 'out',
+            'bounce': false,
+            'attract': {
+              'enable': true,
+              'rotateX': 600,
+              'rotateY': 1200
+            }
+          }
+        },
+        'interactivity': {
+          'detect_on': 'canvas',
+          'events': {
+            'onhover': {
+              'enable': true,
+              'mode': 'grab'
+            },
+            'onclick': {
+              'enable': false,
+              'mode': 'push'
+            },
+            'resize': true
+          },
+          'modes': {
+            'grab': {
+              'distance': 120,
+              'line_linked': {
+                'opacity': 0.5
+              }
+            },
+            'bubble': {
+              'distance': 100,
+              'size': 5,
+              'duration': 2,
+              'opacity': 0.8,
+              'speed': 1
+            },
+            'repulse': {
+              'distance': 400,
+              'duration': 0.4
+            },
+            'push': {
+              'particles_nb': 4
+            },
+            'remove': {
+              'particles_nb': 2
+            }
+          }
+        },
+        'retina_detect': true
+      });
+    });
+
+    this.scaleIn = true;
+  },
   methods: {
     adminLogin: function adminLogin() {
       var _this = this;
@@ -152,12 +268,12 @@ exports.default = {
       this.$refs['loginForm'].validate(function (valid) {
         if (valid) {
           var userInfo = JSON.parse((0, _stringify2.default)(_this.loginForm));
-          if (userInfo.username === "admin" && userInfo.password === "123456") {
+          if (userInfo.username === 'admin' && userInfo.password === '123456') {
             userInfo.role = 'admin';
             _this.$store.commit('loginIn', userInfo);
             _this.$router.push('/blog/home');
           } else {
-            _this.$message.error("用户名或密码错误！");
+            _this.$message.error('用户名或密码错误！');
           }
         } else {
           return false;
@@ -167,128 +283,12 @@ exports.default = {
     visitorLogin: function visitorLogin() {
       this.$router.push('/blog/home');
     }
-  },
-  mounted: function mounted() {
-    _webInject2.default.js('https://cdn.bootcss.com/particles.js/2.0.0/particles.min.js', function () {
-      particlesJS("particlesJS", {
-        "particles": {
-          "number": {
-            "value": 100,
-            "density": {
-              "enable": true,
-              "value_area": 800
-            }
-          },
-          "color": {
-            "value": "#ffffff"
-          },
-          "shape": {
-            "type": ["image"],
-            "stroke": {
-              "width": 0,
-              "color": "#000000"
-            },
-            "polygon": {
-              "nb_sides": 5
-            },
-            "image": {
-              "src": "/public/images/star.png",
-              "width": 100,
-              "height": 100
-            }
-          },
-          "opacity": {
-            "value": 0.5,
-            "random": true,
-            "anim": {
-              "enable": true,
-              "speed": 1,
-              "opacity_min": 0.2,
-              "sync": false
-            }
-          },
-          "size": {
-            "value": 5,
-            "random": true,
-            "anim": {
-              "enable": true,
-              "speed": 1,
-              "size_min": 0.3,
-              "sync": true
-            }
-          },
-          "line_linked": {
-            "enable": false,
-            "distance": 100,
-            "color": "#ffffff",
-            "opacity": 0.4,
-            "width": 0.5
-          },
-          "move": {
-            "enable": true,
-            "speed": 1,
-            "direction": "bottom-right",
-            "random": true,
-            "straight": true,
-            "out_mode": "out",
-            "bounce": false,
-            "attract": {
-              "enable": true,
-              "rotateX": 600,
-              "rotateY": 1200
-            }
-          }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "grab"
-            },
-            "onclick": {
-              "enable": false,
-              "mode": "push"
-            },
-            "resize": true
-          },
-          "modes": {
-            "grab": {
-              "distance": 120,
-              "line_linked": {
-                "opacity": 0.5
-              }
-            },
-            "bubble": {
-              "distance": 100,
-              "size": 5,
-              "duration": 2,
-              "opacity": 0.8,
-              "speed": 1
-            },
-            "repulse": {
-              "distance": 400,
-              "duration": 0.4
-            },
-            "push": {
-              "particles_nb": 4
-            },
-            "remove": {
-              "particles_nb": 2
-            }
-          }
-        },
-        "retina_detect": true
-      });
-    });
-
-    this.scaleIn = true;
   }
 };
 
 /***/ }),
 
-/***/ 618:
+/***/ 610:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(92)();
@@ -303,7 +303,7 @@ exports.push([module.i, ".login-wrap[data-v-3a870c70]{position:relative;width:10
 
 /***/ }),
 
-/***/ 634:
+/***/ 624:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -371,7 +371,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.adminLogin
     }
-  }, [_vm._v("登录")]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("\n          登录\n        ")]), _vm._v(" "), _c('el-button', {
     staticClass: "pull-right",
     attrs: {
       "type": "text"
@@ -379,24 +379,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.visitorLogin
     }
-  }, [_vm._v("我是游客")])], 1), _vm._v(" "), _c('p', {
+  }, [_vm._v("\n          我是游客\n        ")])], 1), _vm._v(" "), _c('p', {
     staticStyle: {
       "font-size": "12px",
       "line-height": "30px",
       "color": "#999"
     }
-  }, [_vm._v("Tips : 管理员帐号登录。")])], 1)], 1)])
+  }, [_vm._v("\n        Tips : 管理员帐号登录。\n      ")])], 1)], 1)])
 },staticRenderFns: []}
 
 /***/ }),
 
-/***/ 648:
+/***/ 637:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(618);
+var content = __webpack_require__(610);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -404,10 +404,10 @@ var update = __webpack_require__(94)("79fb4ea4", content, true);
 
 /***/ }),
 
-/***/ 653:
+/***/ 642:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(590)
+const Loader = __webpack_require__(585)
 
 class AudioLoader extends Loader {
   constructor(){
@@ -432,10 +432,10 @@ module.exports = new AudioLoader()
 
 /***/ }),
 
-/***/ 654:
+/***/ 643:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(590)
+const Loader = __webpack_require__(585)
 
 class CSSLoader extends Loader {
   constructor(){
@@ -493,10 +493,10 @@ module.exports = new CSSLoader()
 
 /***/ }),
 
-/***/ 655:
+/***/ 644:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(590)
+const Loader = __webpack_require__(585)
 
 class ImageLoader extends Loader {
   constructor(){
@@ -518,10 +518,10 @@ module.exports = new ImageLoader()
 
 /***/ }),
 
-/***/ 656:
+/***/ 645:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(590)
+const Loader = __webpack_require__(585)
 
 class JSLoader extends Loader {
   constructor(){
@@ -568,10 +568,10 @@ module.exports = new JSLoader()
 
 /***/ }),
 
-/***/ 657:
+/***/ 646:
 /***/ (function(module, exports, __webpack_require__) {
 
-const Loader = __webpack_require__(590)
+const Loader = __webpack_require__(585)
 
 class VideoLoader extends Loader {
   constructor(){
@@ -596,7 +596,7 @@ module.exports = new VideoLoader()
 
 /***/ }),
 
-/***/ 658:
+/***/ 647:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -617,11 +617,11 @@ class Loader {
       maxConnection: 4
     }, options)
     this.Loader = {
-      'js': __webpack_require__(656),
-      'css': __webpack_require__(654),
-      'image': __webpack_require__(655),
-      'audio': __webpack_require__(653),
-      'video': __webpack_require__(657),
+      'js': __webpack_require__(645),
+      'css': __webpack_require__(643),
+      'image': __webpack_require__(644),
+      'audio': __webpack_require__(642),
+      'video': __webpack_require__(646),
     };
     this.taskCount = 0;
   }
