@@ -242,8 +242,12 @@ export default {
     MusicPlayer = this.$refs.player
     this.toggleSong(this.index)
     MusicPlayer.addEventListener('canplaythrough', () => {
-      // MusicPlayer.play();
-      // this.player.paused=false;
+      try {
+        MusicPlayer.play()
+        this.player.paused = false
+      } catch (e) {
+        console.log(e)
+      }
       this.updateState()
     }, false)
     MusicPlayer.addEventListener('ended', () => {
