@@ -134,9 +134,9 @@
 </template>
 
 <script>
-import jQuery from 'libs/jquery/jquery-2.2.3.js'
 import axios from '@/libs/request'
 
+const jQuery = window.$
 let MusicPlayer = null; let progressTimer = 0; let rotateTimer = 0
 
 export default {

@@ -48,7 +48,7 @@
 
 <script>
 import { searchDoubanMovie } from '@/api'
-import jQuery from 'libs/jquery/jquery-2.2.3.js'
+
 export default {
   name: 'MovieSearch',
   data: function() {
@@ -65,14 +65,6 @@ export default {
     }
   },
   mounted() {
-    jQuery('.el-input__inner').on('keyup', (e) => {
-      if (e.keyCode == 13) {
-        this.searchMovie()
-      }
-    })
-  },
-  beforeDestroy() {
-    jQuery('.el-input__inner').off('keyup')
   },
   methods: {
     searchMovie() {
