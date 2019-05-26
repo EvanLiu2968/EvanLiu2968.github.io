@@ -6,6 +6,8 @@ import ElementUI from 'element-ui'
 import router from './router'
 import store from './store'
 
+import '@/assets/css/libs/reset.css'
+import '@/assets/fonts/iconfont.css'
 import '@/libs/nprogress/nprogress.css'// 不从moduel引入是为方便修改样式
 import '@/assets/css/index.scss'
 import '@/libs/util'

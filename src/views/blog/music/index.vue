@@ -240,7 +240,6 @@ export default {
   },
   mounted: function() {
     MusicPlayer = this.$refs.player
-    this.toggleSong(this.index)
     MusicPlayer.addEventListener('canplaythrough', () => {
       try {
         MusicPlayer.play()
@@ -253,6 +252,7 @@ export default {
     MusicPlayer.addEventListener('ended', () => {
       this.toggleNext()
     }, false)
+    this.toggleSong(this.index)
   },
   beforeDestroy: function() {
     MusicPlayer.pause()
@@ -407,7 +407,6 @@ export default {
 }
 </script>
 <style scoped>
-@import '~@/assets/fonts/iconfont.css';
 .song-container{
   display:block;
   margin:20px auto;
@@ -603,6 +602,7 @@ export default {
   border-bottom: 2px solid #c20c0c;
 }
 .u-title h3 {
+  margin: 0;
   font-weight: normal;
   float:left;
   font-size: 20px;
