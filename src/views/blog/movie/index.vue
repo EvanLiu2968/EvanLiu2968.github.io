@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import jsonp from 'jsonp'
+import { getDoubanMovieList } from '@/api'
 // import MovieSearch from './search.vue'
 
 export default {
@@ -142,12 +142,11 @@ export default {
   },
   mounted: function() {
     this.lists.forEach((list, index) => {
-      jsonp('https://api.douban.com/v2/movie/' + list.api + '?start=0&count=1', null, (err, data) => {
-        if (err) {
-          console.error(err.message)
-        } else {
-          this.lists[index].cover = data.subjects[0].images.large
-        }
+      getDoubanMovieList(list.api, 0, 1).then(res => {
+        console.log(res)
+        this.lists[index].cover = res.subjects[0].images.large
+      }).catch(e => {
+        console.log(e)
       })
     })
   },
@@ -162,15 +161,12 @@ export default {
       const start = (this.pagination.currentPage - 1) * count
       const api = this.activeList.api
       this.loading = true
-      jsonp('https://api.douban.com/v2/movie/' + api + '?start=' + start + '&count=' + count, null, (err, data) => {
-        if (err) {
-          this.loading = false
-          console.error(err.message)
-        } else {
-          this.loading = false
-          this.pagination.total = data.total
-          this.subjects = data.subjects
-        }
+      getDoubanMovieList(api, start, count).then(res => {
+        this.loading = false
+        this.pagination.total = res.total
+        this.subjects = res.subjects
+      }).catch(e => {
+        this.loading = false
       })
     },
     handleCurrentChange(current) {

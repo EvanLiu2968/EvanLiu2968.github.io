@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import jsonp from 'jsonp'
+import { getDoubanMovieDetail } from '@/api'
 
 export default {
   data: function() {
@@ -86,20 +86,17 @@ export default {
       return
     }
     this.loading = true
-    jsonp('https://api.douban.com/v2/movie/subject/' + id, null, (err, data) => {
-      if (err) {
-        this.loading = false
+    getDoubanMovieDetail(id).then(res => {
+      this.loading = false
+      if (res.code == 5000) {
         this.errorMsgShow = true
-        console.error(err.message)
       } else {
-        this.loading = false
-        if (data.code == 5000) {
-          this.errorMsgShow = true
-        } else {
-          this.subject = data
-        }
-        // console.log(data);
+        this.subject = res
       }
+    }).catch(e => {
+      this.loading = false
+      this.errorMsgShow = true
+      console.error(e)
     })
   }
 }

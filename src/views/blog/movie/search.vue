@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import jsonp from 'jsonp'
+import { searchDoubanMovie } from '@/api'
 import jQuery from 'libs/jquery/jquery-2.2.3.js'
 export default {
   name: 'MovieSearch',
@@ -89,16 +89,11 @@ export default {
       this.searchLoading = true
       const start = (this.searchPagination.currentPage - 1) * this.searchPagination.pageSize; const count = this.searchPagination.pageSize
       // q:搜索关键字 tag:标签
-      jsonp('https://api.douban.com/v2/movie/search?q=' + q + '&start=' + start + '&count=' + count, null, (err, data) => {
-        if (err) {
-          this.$message({
-            type: 'error',
-            message: err.message
-          })
-        } else {
-          this.searchList = data.subjects
-          this.searchPagination.total = data.total
-        }
+      searchDoubanMovie(q, start, count).then(res => {
+        this.searchList = res.subjects
+        this.searchPagination.total = res.total
+        this.searchLoading = false
+      }).catch(e => {
         this.searchLoading = false
       })
     },
