@@ -7,11 +7,13 @@ import router from './router'
 import store from './store'
 
 import '@/assets/css/libs/reset.css'
-import '@/assets/fonts/iconfont.css'
-import '@/libs/nprogress/nprogress.css'// 不从moduel引入是为方便修改样式
 import '@/assets/css/index.scss'
-import '@/libs/util'
-import NProgress from '@/libs/nprogress/nprogress' // Progress 进度条
+import '@/assets/fonts/iconfont.css'
+import 'nprogress/nprogress.css'
+
+import '@/libs/extend'
+import NProgress from 'nprogress'
+NProgress.configure({ showSpinner: false })// NProgress configuration
 
 // this.author = 'evanliu2968'
 Object.defineProperties(Vue.prototype, {

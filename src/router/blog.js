@@ -9,7 +9,7 @@ export default [
       title: '首页',
       isMenu: true,
       isParent: false,
-      icon: 'el-icon-star-on'
+      icon: 'el-icon-s-home'
     }
   },
   {
@@ -84,7 +84,7 @@ export default [
       title: '搜索',
       isMenu: true,
       isParent: true,
-      icon: 'el-icon-search'
+      icon: 'el-icon-location'
     },
     children: [
       {

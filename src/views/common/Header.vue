@@ -164,7 +164,7 @@ export default {
 
 /*菜单栏主题色*/
 .el-menu-item i, .el-submenu__title i {
-  color: #fff;
+  color: #fff !important;
 }
 .el-menu-blue {
   background-color: #20A0FF !important;
@@ -184,5 +184,8 @@ export default {
 .el-menu-blue>.el-submenu.is-active>.el-submenu__title,
 .el-menu-blue>.el-submenu.is-active .el-submenu__icon-arrow{
   color:#04f56f !important;
+}
+.el-menu.el-menu--horizontal {
+  border-bottom: none !important;
 }
 </style>

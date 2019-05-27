@@ -20,7 +20,7 @@
       </h2>
       <ul class="column-list">
         <li><a href="https://github.com/EvanLiu2968" target="_blank">Github</a></li>
-        <li><a href="https://evanliu2968.github.io/react-component" target="_blank">Components</a></li>
+        <li><a href="https://www.evanliu2968.github.io/react-component" target="_blank">Components</a></li>
         <li><a href="/public/images/weixin.jpg" target="_blank">Wechat</a></li>
         <li><a href="https://www.zhihu.com/people/evanliu2968" target="_blank">Zhihu</a></li>
       </ul>
