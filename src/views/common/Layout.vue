@@ -3,8 +3,8 @@
     <div slot="header">
       <el-dropdown class="pull-right" trigger="hover" @command="handleCommand">
         <span class="user-info">
-          <img class="user-avatar" :src="userInfo.avatar">
-          {{ userInfo.username }}
+          <img class="user-avatar" :src="userinfo.avatar">
+          {{ userinfo.username }}
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="github">
@@ -62,6 +62,8 @@
 <script>
 import MainContainer from '@/component/layout/Container'
 import BlogRoutes from '@/router/blog'
+import { mapGetters } from 'vuex'
+
 export default {
   components: {
     MainContainer
@@ -79,12 +81,9 @@ export default {
     }
   },
   computed: {
-    userInfo() {
-      return this.$store.getters.getUserInfo
-    },
-    login() {
-      return this.$store.state.login
-    }
+    ...mapGetters([
+      'userinfo'
+    ])
   },
   methods: {
     handleCommand(command) {

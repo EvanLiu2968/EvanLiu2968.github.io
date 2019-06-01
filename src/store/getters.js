@@ -1,4 +1,6 @@
-// 类似vue的计算属性computed
-export const getUserInfo = state => {
-  return state.userInfo
+const getters = {
+  device: state => state.app.device,
+  token: state => state.user.token,
+  userinfo: state => state.user.userinfo
 }
+export default getters
