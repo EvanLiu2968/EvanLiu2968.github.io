@@ -22,12 +22,14 @@
         </el-col>
         <el-col :xs="24" :sm="16">
           <div class="article">
-            <p>猫喜欢吃鱼，可猫不会游泳。</p>
-            <p>鱼喜欢吃蚯蚓，可鱼又不能上岸。</p>
-            <p>上帝给了你很多诱惑，却不让你轻易得到。</p>
-            <p>但是总不能流血就喊痛，怕黑就开灯，想念就联系，我们最多也就是个有故事的人。</p>
-            <p>所以，人生就像蒲公英，看似自由，却身不由己。</p>
-            <p>得不到的永远在骚动。</p>
+            <p>
+              猫喜欢吃鱼，可猫不会游泳。<br>
+              鱼喜欢吃蚯蚓，可鱼又不能上岸。<br>
+              上帝给了你很多诱惑，却不让你轻易得到。<br>
+              但是总不能流血就喊痛，怕黑就开灯，想念就联系，我们最多也就是个有故事的人。<br>
+              所以，人生就像蒲公英，看似自由，却身不由己。<br>
+              得不到的永远在骚动。<br>
+            </p>
           </div>
         </el-col>
       </el-row>
@@ -69,6 +71,15 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'webfont';
+  font-display: swap;
+  src: url('//at.alicdn.com/t/webfont_0lwmgnvh35g.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/webfont_0lwmgnvh35g.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/webfont_0lwmgnvh35g.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/webfont_0lwmgnvh35g.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/webfont_0lwmgnvh35g.svg#AlibabaPuHuiTiL') format('svg'); /* iOS 4.1- */
+}
 .lunar{
   position: relative;
   margin-left:auto;
@@ -113,10 +124,11 @@ export default {
   margin-bottom:15px;
 }
 .article p {
-  text-indent: 2em;
+  padding-left: 2em;
+  font-family: "webfont";
   color: #63707d;
-  line-height: 1.5;
-  font-size:14px;
+  line-height: 1.8;
+  font-size:16px;
   margin-bottom:10px;
 }
 </style>

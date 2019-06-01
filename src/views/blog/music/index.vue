@@ -103,14 +103,14 @@
     <div class="song-control">
       <div class="control-play">
         <span class="control-icon" @click="togglePrev">
-          <i class="iconfont icon-bofangqishangyiqu"></i>
+          <i class="iconfont icon-player-prev"></i>
         </span>
         <span class="control-icon" @click="toggleMusicPlayer">
-          <i class="iconfont icon-bofangqibofang" v-if="player.paused"></i>
-          <i class="iconfont icon-bofangqizanting" v-else></i>
+          <i class="iconfont icon-player-paused" v-if="player.paused"></i>
+          <i class="iconfont icon-player-play" v-else></i>
         </span>
         <span class="control-icon" @click="toggleNext">
-          <i class="iconfont icon-bofangqishangyiqu1"></i>
+          <i class="iconfont icon-player-next"></i>
         </span>
       </div>
       <div class="control-progress">
@@ -122,8 +122,8 @@
       </div>
       <div class="control-volumn">
         <span class="volumn-icon" @click="toggleMuted">
-          <i class="iconfont icon-bofangqi_shengyin" v-if="!player.muted"></i>
-          <i class="iconfont icon-yinliangjingyin" v-else></i>
+          <i class="iconfont icon-player-voice" v-if="!player.muted"></i>
+          <i class="iconfont icon-player-muted" v-else></i>
         </span>
         <div class="bar-bg" @click="toggleVolumn">
           <div class="bar-current" :style="{width:player.cVolumn}"></div>
@@ -685,7 +685,7 @@ export default {
   width: 25px;
 }
 .m-table .w1 {
-  width: 74px;
+  width: 80px;
 }
 .m-table .w2 {
   width: 111px;

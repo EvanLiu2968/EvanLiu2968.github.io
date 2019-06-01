@@ -9,7 +9,7 @@ export default [
       title: '首页',
       isMenu: true,
       isParent: false,
-      icon: 'el-icon-s-home'
+      icon: 'icon-colors'
     }
   },
   {
@@ -18,10 +18,10 @@ export default [
     redirect: '/blog/game/music',
     name: 'game',
     meta: {
-      title: '小程序',
+      title: '应用',
       isMenu: true,
       isParent: true,
-      icon: 'el-icon-menu'
+      icon: 'icon-player'
     },
     children: [
       {
@@ -81,10 +81,10 @@ export default [
     component: Layout,
     name: 'search',
     meta: {
-      title: '搜索',
+      title: '小助手',
       isMenu: true,
       isParent: true,
-      icon: 'el-icon-location'
+      icon: 'icon-program'
     },
     children: [
       {

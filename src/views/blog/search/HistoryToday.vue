@@ -55,7 +55,7 @@
       </div>
     </div>
     <el-dialog title="内容详情" :visible.sync="detailVisible">
-      <p style="text-indent:2em">
+      <p style="text-indent:2em; line-height: 1.8">
         {{ detailContent }}
       </p>
       <div slot="footer" class="dialog-footer">

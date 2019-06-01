@@ -8,8 +8,10 @@ import store from './store'
 
 import '@/assets/css/libs/reset.css'
 import '@/assets/css/index.scss'
-import '@/assets/fonts/iconfont.css'
 import 'nprogress/nprogress.css'
+
+import webInject from 'web-inject'
+webInject.css('//at.alicdn.com/t/font_404468_w43yg5g622o.css')
 
 import '@/libs/extend'
 import NProgress from 'nprogress'
