@@ -1,19 +1,70 @@
 <template>
-  <div class="wrapper">
-    <main-header></main-header>
-    <div class="blog-container">
-      <transition name="move" mode="out-in">
-        <slot v-if="isContainer"></slot>
-        <router-view v-else></router-view>
-      </transition>
+  <MainContainer>
+    <div slot="header">
+      <el-dropdown class="pull-right" trigger="hover" @command="handleCommand">
+        <span class="user-info">
+          <img class="user-avatar" :src="userInfo.avatar">
+          {{ userInfo.username }}
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="github">
+            github
+          </el-dropdown-item>
+          <el-dropdown-item command="wechat">
+            wechat
+          </el-dropdown-item>
+          <el-dropdown-item command="zhihu">
+            zhihu
+          </el-dropdown-item>
+          <el-dropdown-item command="facebook">
+            facebook
+          </el-dropdown-item>
+          <el-dropdown-item v-if="login" divided command="loginout">
+            注销
+          </el-dropdown-item>
+          <el-dropdown-item v-else divided command="login">
+            登录
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-menu :default-active="$route.path" class="inline" unique-opened router mode="horizontal">
+        <template v-for="(item, i) in BlogRoutes">
+          <template v-if="item.meta.isMenu">
+            <el-submenu :key="i" :index="i+''" v-if="item.meta.isParent">
+              <template slot="title">
+                <i class="iconfont" :class="item.meta.icon"></i>{{ item.meta.title }}
+              </template>
+              <template v-for="(subItem, k) in item.children">
+                <el-menu-item v-if="subItem.meta.isMenu" :index="subItem.path" :key="k">
+                  {{ subItem.meta.title }}
+                </el-menu-item>
+              </template>
+            </el-submenu>
+            <el-menu-item v-else :key="i" :index="item.path">
+              <i class="iconfont" :class="item.meta.icon"></i>{{ item.meta.title }}
+            </el-menu-item>
+          </template>
+        </template>
+      </el-menu>
     </div>
-  </div>
+    <el-dialog :visible.sync="wechatBox" title="微信二维码" width="400px">
+      <img src="/public/images/weixin.jpg" style="display:block;margin:0 auto;width:200px;height: auto;">
+      <p style="text-align:center">
+        微信扫描二维码
+      </p>
+    </el-dialog>
+    <transition name="move" mode="out-in">
+      <slot v-if="isContainer"></slot>
+      <router-view v-else></router-view>
+    </transition>
+  </MainContainer>
 </template>
 <script>
-import MainHeader from './header'
+import MainContainer from '@/component/layout/Container'
+import BlogRoutes from '@/router/blog'
 export default {
   components: {
-    MainHeader
+    MainContainer
   },
   props: {
     isContainer: {
@@ -22,71 +73,68 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      BlogRoutes,
+      wechatBox: false
+    }
+  },
+  computed: {
+    userInfo() {
+      return this.$store.getters.getUserInfo
+    },
+    login() {
+      return this.$store.state.login
+    }
   },
   methods: {
+    handleCommand(command) {
+      if (command == 'loginout') {
+        this.$store.commit('loginOut')
+      } else if (command == 'login') {
+        this.$router.push({
+          path: '/login'
+        })
+      } else if (command == 'github') {
+        window.open('https://github.com/EvanLiu2968')
+      } else if (command == 'zhihu') {
+        window.open('https://www.zhihu.com/people/evanliu2968')
+      } else if (command == 'wechat') {
+        this.wechatBox = true
+      } else if (command == 'facebook') {
+        window.open('https://www.facebook.com/evanliu2968')
+      }
+    }
   }
 }
 </script>
-<style scoped>
-
-</style>
 <style >
-.wrapper{
-  overflow: hidden;
+.inline {
+  display: inline-block;
 }
-.blog-container {
-  padding: 25px;
+.user-info {
+  position: relative;
+  display: inline-block;
+  padding-left: 50px;
+  height: 50px;
+  line-height: 50px;
+  cursor: pointer;
 }
-
-/* 电影条目 */
-.movie-list-title{
-  padding-left:20px;
-  color:#8492A6;
-  font-size:16px;
-}
-.movie-list-title>i{
-  margin-right:5px;
-}
-.movie-list{
-  padding:20px;
-}
-.movie-item{
-  display:block;
-  position:relative;
-  color:#99A9BF;
-  padding-left: 70px;
-  height:90px;
-  margin-bottom:15px;
-}
-.movie-cover{
-  position:absolute;
-  top:0;
+.user-info .user-avatar{
+  position: absolute;
   left:0;
-  width:60px;
-  height:90px;
+  top:5px;
+  width:40px;
+  height:40px;
+  border-radius: 50%;
+  text-align: center;
 }
-.movie-cover>img{
-  display:block;
-  height:100%;
-  width:100%;
+.el-menu.el-menu--horizontal {
+  border-bottom: none !important;
+  background: transparent !important;
 }
-.movie-content{
-  position:relative;
-  padding:5px;
-}
-.movie-row{
-  position:relative;
-  font-size:14px;
-  line-height:20px;
-}
-.movie-tag{
-  display:inline-block;
-  margin-right:15px;
-}
-.movie-genre{
-  margin-left:10px;
-  height:20px;
-  line-height:18px;
+.el-menu--horizontal > .el-menu-item,
+.el-menu--horizontal > .el-submenu .el-submenu__title {
+  height: 50px !important;
+  line-height: 50px !important;
 }
 </style>

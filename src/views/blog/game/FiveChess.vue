@@ -1,9 +1,9 @@
 <template>
   <div class="fivechess-wrap">
-    <canvas id="board" width="1200" height="600"></canvas>
-    <canvas id="chess" width="1200" height="600"></canvas>
-    <canvas id="animate" width="1200" height="600"></canvas>
-    <div style="position:absolute;top:20px;right:0;width:300px" :style="{display:didMount?'block':'none'}">
+    <canvas id="board" width="1000" height="600"></canvas>
+    <canvas id="chess" width="1000" height="600"></canvas>
+    <canvas id="animate" width="1000" height="600"></canvas>
+    <div style="position:absolute;top:20px;right:0;" :style="{display:didMount?'block':'none'}">
       <el-button type="primary" id="resetBtn">
         重新开始
       </el-button>
@@ -15,13 +15,17 @@
 </template>
 <style scoped>
   .fivechess-wrap{
-    position:relative;margin:0 auto;width:1200px;
+    position:relative;
+    margin:0 auto;
   }
   #chess,#animate{
-    position:absolute;top:0;left:0;width:1200px;height:600px;
+    position:absolute;
+    top:0;
+    left:0;
   }
   #board{
-    position:relative;width:1200px;height:600px;border-radius:6px;
+    position:relative;
+    border-radius:6px;
   }
 </style>
 <script>
@@ -46,16 +50,16 @@ export default {
     const backimage = new Image() // 创建背景
     backimage.src = '/public/images/board.jpg'
     backimage.onload = function() { // 加载背景
-      b.drawImage(backimage, 0, 0, 1200, 600) // 绘制背景
+      b.drawImage(backimage, 0, 0, 1000, 600) // 绘制背景
       drawChessBoard() // 绘制棋盘
-      drawTaiJi(b, 200, 300, 150, '#000000', Math.PI) // 绘制太极
-      drawTaiJi(b, 1000, 300, 150, '#ffffff', 0)
-      drawChessPiece(b, 200, 225, false) // 绘制太极棋眼
-      drawChessPiece(b, 1000, 375, true)
+      drawTaiJi(b, 800, 300, 150, '#000000', Math.PI) // 绘制太极
+      drawTaiJi(b, 800, 300, 150, '#ffffff', 0)
+      drawChessPiece(b, 800, 225, false) // 绘制太极棋眼
+      drawChessPiece(b, 800, 375, true)
       b.font = 'bolder 50px 宋体'
-      b.fillText('Player', 950, 540)
+      b.fillText('Player', 720, 520)
       b.fillStyle = '#ffffff'
-      b.fillText('AlphaDog', 50, 540)
+      b.fillText('AlphaDog', 700, 120)
       reset()
       $this.didMount = true
     }
@@ -83,7 +87,7 @@ export default {
     function clearStep(i, j) {
       console.log(i, j)
       chessBoard[i][j] = 0
-      c.clearRect(320 + i * 40 - 15, 20 + j * 40 - 15, 30, 30)
+      c.clearRect(20 + i * 40 - 15, 20 + j * 40 - 15, 30, 30)
     }
     function reset() { // 重置棋盘；
       for (let i = 0; i < 15; i += 1) {
@@ -96,8 +100,8 @@ export default {
         myWin[i] = 0
         computerWin[i] = 0
       }
-      a.clearRect(0, 0, 1200, 600)
-      c.clearRect(0, 0, 1200, 600)
+      a.clearRect(0, 0, 1000, 600)
+      c.clearRect(0, 0, 1000, 600)
       me = true // 设定第一步为me落棋，即黑子
       over = false
     }
@@ -153,13 +157,13 @@ export default {
       b.lineWidth = 1
       for (let i = 0; i < 15; i += 1) {
         b.beginPath()
-        b.moveTo(320 + i * 40, 20)
-        b.lineTo(320 + i * 40, 580)
+        b.moveTo(20 + i * 40, 20)
+        b.lineTo(20 + i * 40, 580)
         b.stroke()
         b.closePath()
         b.beginPath()
-        b.moveTo(320, 20 + i * 40)
-        b.lineTo(880, 20 + i * 40)
+        b.moveTo(20, 20 + i * 40)
+        b.lineTo(580, 20 + i * 40)
         b.stroke()
         b.closePath()
       }
@@ -167,9 +171,9 @@ export default {
 
     function oneStep(i, j, me) { // 定义落子函数；
       c.beginPath()
-      c.arc(320 + i * 40, 20 + j * 40, 15, 0, Math.PI * 2)
+      c.arc(20 + i * 40, 20 + j * 40, 15, 0, Math.PI * 2)
       c.closePath()
-      const gradient = c.createRadialGradient(320 + i * 40, 20 + j * 40, 10, 320 + i * 40 + 2, 20 + j * 40 - 2, 0)// 创建圆形渐变，两个圆之间为渐变区域；
+      const gradient = c.createRadialGradient(20 + i * 40, 20 + j * 40, 10, 20 + i * 40 + 2, 20 + j * 40 - 2, 0)// 创建圆形渐变，两个圆之间为渐变区域；
       if (me) { // 绘制黑棋；
         gradient.addColorStop(0, '#0a0a0a') // gradient.addColorStop(0.3,"blue"); 可以在渐变区域渐变多种颜色；
         gradient.addColorStop(1, '#636363')
@@ -196,11 +200,11 @@ export default {
       }
       const x = e.offsetX // 用offset方法获取屏幕点与canvas元素原点的相对坐标；
       const y = e.offsetY
-      const i = Math.floor(x / 40 - 7.5) // 向下取整；完整算法为：（x-边距+棋格宽度/2）/40，此处边距等于320,棋格40；
+      const i = Math.floor(x / 40 - 0.5) // 向下取整；完整算法为：（x-边距+棋格宽度/2）/40，此处边距等于20,棋格40；
       const j = Math.floor(y / 40)
       console.log(chessBoard[i][j])
       if (chessBoard[i][j] == 0) { // 判断当前位置是否有棋子，无则执行落棋
-        const m = i * 40 + 320 // 计算计算落子的坐标
+        const m = i * 40 + 20 // 计算计算落子的坐标
         const n = j * 40 + 20
         animation(m, n, me) // 执行落子动画；
         flash = true
@@ -289,7 +293,7 @@ export default {
           }
         }
       }
-      const m = u * 40 + 320 // 计算计算落子的坐标
+      const m = u * 40 + 20 // 计算计算落子的坐标
       const n = v * 40 + 20
       animation(m, n, me) // 执行落子动画；
       flash = true
@@ -353,10 +357,10 @@ export default {
     function animation(i, j, me) { // 棋子落子时的动画函数；
       const chessEye = {}
       if (me) { // 判断哪方落子
-        chessEye.x = 1000
+        chessEye.x = 800
         chessEye.y = 375
-      } else { // 白子落子；
-        chessEye.x = 200
+      } else { // 白子落子
+        chessEye.x = 800
         chessEye.y = 225
       }
       const sx = (chessEye.x - i) / 10 // 将两点之间x轴、y轴分别分成10段
@@ -365,20 +369,16 @@ export default {
       timer()
       function timer() {
         if (k < 11) {
-          a.clearRect(0, 0, 1200, 600)
+          a.clearRect(0, 0, 1000, 600)
           drawChessPiece(a, chessEye.x - sx * k, chessEye.y - sy * k, me) // 绘制十次棋子
           k++
           setTimeout(timer, 50)
         } else {
-          a.clearRect(0, 0, 1200, 600)
+          a.clearRect(0, 0, 1000, 600)
         }
       }
     }
   },
-  methods: {
-    onSubmit() {
-      this.$message.success('提交成功！')
-    }
-  }
+  methods: {}
 }
 </script>

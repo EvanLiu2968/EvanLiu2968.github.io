@@ -38,7 +38,7 @@ export default {
       mdShow: false,
       mdDetail: '',
       category: [],
-      active: 'learning'
+      active: this.$route.params.category
     }
   },
   computed: {
@@ -50,7 +50,6 @@ export default {
   watch: {
     '$route': {
       handler(val) {
-        console.log(val)
         const { category, article } = val.params
         if (article) {
           this.mdShow = true
@@ -70,6 +69,7 @@ export default {
   methods: {
     toggleCategory(item) {
       this.active = item.category
+      this.$router.replace(`/article/${item.category}`)
     },
     getArticles() {
       getCloverArticles().then(res => {

@@ -96,12 +96,12 @@
     float:left;
   }
   .header-right{
-    padding:10px 0;
     float:right;
   }
 }
 
 .header-category{
+  padding:10px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

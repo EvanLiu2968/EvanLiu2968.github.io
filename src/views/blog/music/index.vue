@@ -474,6 +474,7 @@ export default {
   padding:6px 30px 6px 140px;
   border-top:1px solid #eee;
   background:#F9FAFC;
+  z-index: 9;
 }
 .control-play{
   position:absolute;

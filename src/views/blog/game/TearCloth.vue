@@ -13,7 +13,6 @@
   height:800px;
   background-image: url('/public/images/hope/jump.jpg');
   background-size:cover;
-  z-index:-1
 }
 #tearCloth{
   position:relative;
