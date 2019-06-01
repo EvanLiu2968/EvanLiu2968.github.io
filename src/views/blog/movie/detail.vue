@@ -1,5 +1,5 @@
 <template>
-  <div class="content" v-loading.fullscreen.lock="loading">
+  <div class="content">
     <div class="fix-container">
       <template v-if="errorMsgShow">
         <h1 class="text-gray text-center" style="padding:20px 0">
@@ -69,8 +69,7 @@ export default {
   data: function() {
     return {
       subject: {},
-      errorMsgShow: false,
-      loading: false
+      errorMsgShow: false
     }
   },
   computed: {
@@ -85,18 +84,14 @@ export default {
       this.errorMsgShow = true
       return
     }
-    this.loading = true
     getDoubanMovieDetail(id).then(res => {
-      this.loading = false
       if (res.code == 5000) {
         this.errorMsgShow = true
       } else {
         this.subject = res
       }
     }).catch(e => {
-      this.loading = false
       this.errorMsgShow = true
-      console.error(e)
     })
   }
 }

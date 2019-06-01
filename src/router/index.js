@@ -31,6 +31,26 @@ const routes = [
     }
   },
   {
+    path: '/article',
+    redirect: '/article/learning'
+  },
+  {
+    path: '/article/:category',
+    name: 'article',
+    component: () => import('../views/article/index.vue'),
+    meta: {
+      title: '文章'
+    }
+  },
+  {
+    path: '/article/:category/:article',
+    name: 'articleDetail',
+    component: () => import('../views/article/index.vue'),
+    meta: {
+      title: '文章详情'
+    }
+  },
+  {
     path: '/blog',
     name: 'blog',
     component: RouterView,

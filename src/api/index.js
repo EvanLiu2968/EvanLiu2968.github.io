@@ -24,6 +24,12 @@ export function getCloverArticles(data = {}) {
     params: data
   })
 }
+export function getCloverArticleDetail(category, src) {
+  if (CORS) {
+    return jsonp(`https://raw.githubusercontent.com/EvanLiu2968/clover/master/${category}/${src}.md`, true)
+  }
+  return request.get(`https://raw.githubusercontent.com/EvanLiu2968/clover/master/${category}/${src}.md`)
+}
 // getHistoryTodayList
 export function getHistoryTodayList(month, day) {
   if (CORS) {

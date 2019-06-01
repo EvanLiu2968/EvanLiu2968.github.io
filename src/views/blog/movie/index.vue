@@ -1,5 +1,5 @@
 <template>
-  <div class="content" v-loading.fullscreen.lock="loading">
+  <div class="content">
     <!-- <movie-search></movie-search> -->
     <div style="position:relative;padding-left:250px;">
       <div style="position:absolute;top:0;left:0;width:250px;background:#f6f6f6">
@@ -127,8 +127,7 @@ export default {
         currentPage: 1,
         pageSize: 10,
         total: 0
-      },
-      loading: false
+      }
     }
   },
   beforeMount: function() {
@@ -160,13 +159,9 @@ export default {
       const count = this.pagination.pageSize
       const start = (this.pagination.currentPage - 1) * count
       const api = this.activeList.api
-      this.loading = true
       getDoubanMovieList(api, start, count).then(res => {
-        this.loading = false
         this.pagination.total = res.total
         this.subjects = res.subjects
-      }).catch(e => {
-        this.loading = false
       })
     },
     handleCurrentChange(current) {

@@ -15,7 +15,7 @@
   </MainContainer>
 </template>
 <script>
-import MainContainer from './Container.vue'
+import MainContainer from '@/component/layout/Container'
 import { getCloverPhotos } from '@/api'
 export default {
   components: {
