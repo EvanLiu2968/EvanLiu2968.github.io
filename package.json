@@ -2,7 +2,7 @@
   "name": "evanliu2968.github.io",
   "version": "1.0.0",
   "description": "基于Vue.js的github个人主页",
-  "author": "",
+  "author": "evanliu2968",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
