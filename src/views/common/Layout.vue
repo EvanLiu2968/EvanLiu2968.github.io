@@ -19,7 +19,7 @@
           <el-dropdown-item command="facebook">
             facebook
           </el-dropdown-item>
-          <el-dropdown-item v-if="login" divided command="loginout">
+          <el-dropdown-item v-if="userinfo.username!='游客'" divided command="loginout">
             注销
           </el-dropdown-item>
           <el-dropdown-item v-else divided command="login">

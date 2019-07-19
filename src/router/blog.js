@@ -92,7 +92,7 @@ export default [
         component: () => import('@/views/blog/search/Repository.vue'),
         name: 'Repository',
         meta: {
-          title: 'Git仓库',
+          title: 'Github仓库',
           isMenu: true,
           isParent: false
         }
@@ -103,6 +103,16 @@ export default [
         name: 'HistoryToday',
         meta: {
           title: '历史今天',
+          isMenu: true,
+          isParent: false
+        }
+      },
+      {
+        path: '/blog/search/createID',
+        component: () => import('@/views/blog/search/createID.vue'),
+        name: 'createID',
+        meta: {
+          title: '随机身份证',
           isMenu: true,
           isParent: false
         }
