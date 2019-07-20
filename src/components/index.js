@@ -1,9 +1,9 @@
 import Icon from './icon'
-// import Table from './table'
+import Table from './table'
 // import VCharts from './vue-echarts'
 
 const components = [
-  // Table,
+  Table,
   // VCharts,
   Icon
 ]

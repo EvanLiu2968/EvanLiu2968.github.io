@@ -68,7 +68,7 @@ export default [
         component: () => import('@/views/blog/game/TearCloth.vue'),
         name: 'TearCloth',
         meta: {
-          title: '信仰之跃',
+          title: '来撕吧',
           isMenu: true,
           isParent: false
         }
@@ -112,7 +112,7 @@ export default [
         component: () => import('@/views/blog/search/createID.vue'),
         name: 'createID',
         meta: {
-          title: '随机身份证',
+          title: '身份证生成器',
           isMenu: true,
           isParent: false
         }

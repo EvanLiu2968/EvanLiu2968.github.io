@@ -16,28 +16,28 @@
         Evan Liu
       </h1>
       <h2 class="subtitle">
-        Fake it till you make it
+        十日画一水，五日画一石
       </h2>
       <ul class="column-list">
         <li><a href="https://github.com/EvanLiu2968" target="_blank">Github</a></li>
-        <li><a href="https://evanliu2968.github.io/react-component" target="_blank">Components</a></li>
-        <li><a href="/public/images/weixin.jpg" target="_blank">Wechat</a></li>
-        <li><a href="https://www.zhihu.com/people/evanliu2968" target="_blank">Zhihu</a></li>
+        <li><a href="https://evanliu2968.github.io/react-component" target="_blank">组件库</a></li>
+        <li><a href="/public/images/weixin.jpg" target="_blank">微信</a></li>
+        <li><a href="https://www.zhihu.com/people/evanliu2968" target="_blank">知乎</a></li>
       </ul>
       <ul class="column-list">
         <li>
           <router-link to="/photo">
-            Photo
+            照片
           </router-link>
         </li>
         <li>
           <router-link to="/article">
-            Article
+            文章
           </router-link>
         </li>
         <li>
           <router-link to="/blog">
-            Blog
+            应用
           </router-link>
         </li>
       </ul>
@@ -106,7 +106,8 @@
     left: 4px;
   }
   .subtitle{
-    font-family: "SimSun", "Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei", sans-serif;
+    // font-family: "SimSun", "Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei", sans-serif;
+    font-family: "webfont";
     margin:10px auto 30px auto;
     font-weight:300;
     font-size: 20px;

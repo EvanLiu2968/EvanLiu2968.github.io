@@ -26,43 +26,48 @@
         <i class="el-icon-menu"></i>{{ activeList.name }}
       </h1>
       <div class="movie-list">
-        <div class="movie-item" v-for="(subject, index) in subjects" :key="index">
-          <div class="movie-cover">
-            <img :src="subject.images.small">
-          </div>
-          <div class="movie-content">
-            <div class="movie-row">
-              {{ subject.title }} ( {{ subject.original_title }} )
-              <el-tag class="movie-genre" type="success" v-for="(genre, i) in subject.genres" :key="i">
-                {{ genre }}
-              </el-tag>
-            </div>
-            <div class="movie-row">
-              年份：<span class="movie-tag">{{ subject.year }}</span>导演：
-              <a class="movie-tag" :href="director.alt" v-for="(director, i) in subject.directors" :key="i" target="_blank">{{ director.name }}</a>
-            </div>
-            <div class="movie-row">
-              主演：
-              <a class="movie-tag" :href="cast.alt" v-for="(cast, i) in subject.casts" :key="i" target="_blank">{{ cast.name }}</a>
-            </div>
-            <div class="movie-row">
-              评分：<span style="color:#F7BA2A">{{ subject.rating.average }}</span>
-              <span class="movie-tag">/{{ subject.rating.max }}</span>
-              <router-link class="movie-tag" :to="{ name: 'movie-detail', params: { id: subject.id }}">
-                查看详情 <i class="el-icon-d-arrow-right text-small"></i>
-              </router-link>
-            </div>
-          </div>
+        <div v-if="subjects.length === 0" class="movie-list-title text-center" style="padding-top:100px">
+          豆瓣电影已关闭对外接口，服务不可用 ("▔□▔)
         </div>
+        <template v-else>
+          <div class="movie-item" v-for="(subject, index) in subjects" :key="index">
+            <div class="movie-cover">
+              <img :src="subject.images.small">
+            </div>
+            <div class="movie-content">
+              <div class="movie-row">
+                {{ subject.title }} ( {{ subject.original_title }} )
+                <el-tag class="movie-genre" type="success" v-for="(genre, i) in subject.genres" :key="i">
+                  {{ genre }}
+                </el-tag>
+              </div>
+              <div class="movie-row">
+                年份：<span class="movie-tag">{{ subject.year }}</span>导演：
+                <a class="movie-tag" :href="director.alt" v-for="(director, i) in subject.directors" :key="i" target="_blank">{{ director.name }}</a>
+              </div>
+              <div class="movie-row">
+                主演：
+                <a class="movie-tag" :href="cast.alt" v-for="(cast, i) in subject.casts" :key="i" target="_blank">{{ cast.name }}</a>
+              </div>
+              <div class="movie-row">
+                评分：<span style="color:#F7BA2A">{{ subject.rating.average }}</span>
+                <span class="movie-tag">/{{ subject.rating.max }}</span>
+                <router-link class="movie-tag" :to="{ name: 'movie-detail', params: { id: subject.id }}">
+                  查看详情 <i class="el-icon-d-arrow-right text-small"></i>
+                </router-link>
+              </div>
+            </div>
+          </div>
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page="pagination.currentPage"
+            :page-size="pagination.pageSize"
+            layout="prev, pager, next, sizes, jumper"
+            :total="pagination.total"
+          >
+          </el-pagination>
+        </template>
       </div>
-      <el-pagination
-        @current-change="handleCurrentChange"
-        :current-page="pagination.currentPage"
-        :page-size="pagination.pageSize"
-        layout="prev, pager, next, jumper"
-        :total="pagination.total"
-      >
-      </el-pagination>
     </div>
   </div>
 </template>
@@ -79,41 +84,23 @@ export default {
           name: 'TOP250',
           api: 'top250',
           route: 'top250',
-          cover: '',
+          cover: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p480747492.webp',
           color: '#20A0FF'
-        },
-        {
-          name: '正在热映',
-          route: 'theaters',
-          api: 'in_theaters',
-          cover: '',
-          color: '#13CE66'
-        },
-        {
-          name: '即将上映',
-          api: 'coming_soon',
-          route: 'coming',
-          cover: '',
-          color: '#F7BA2A'
         }
-        /* {
-          name:'口碑榜',
-          api:'weekly',
-          cover:'',
-          color:'#FF4949'
-        },
-        {
-          name:'新片榜',
-          api:'new_movies',
-          cover:'',
-          color:'#324057'
-        },
-        {
-          name:'北美票房榜',
-          api:'us_box',
-          cover:'',
-          color:'#CC3399'
-        }*/
+        // {
+        //   name: '正在热映',
+        //   route: 'theaters',
+        //   api: 'in_theaters',
+        //   cover: '',
+        //   color: '#13CE66'
+        // },
+        // {
+        //   name: '即将上映',
+        //   api: 'coming_soon',
+        //   route: 'coming',
+        //   cover: '',
+        //   color: '#F7BA2A'
+        // }
       ],
       activeList: {},
       subjects: [],

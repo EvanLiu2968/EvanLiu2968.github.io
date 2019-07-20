@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <el-alert
-      title="身份证号码生成器是按身份证验证规则生成虚拟身份证号，非真实身份证，仅供测试使用，请勿用于非法用途。"
+      title="身份证生成器是按身份证验证规则生成虚拟身份证号，非真实身份证，仅供测试使用，请勿用于非法用途。"
       type="warning"
       style="margin-bottom:20px"
     >

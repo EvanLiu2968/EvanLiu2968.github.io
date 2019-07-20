@@ -1,23 +1,23 @@
 <template>
   <MainContainer>
     <div slot="header">
-      <el-dropdown class="pull-right" trigger="hover" @command="handleCommand">
+      <el-dropdown class="pull-right" size="medium" trigger="hover" @command="handleCommand">
         <span class="user-info">
           <img class="user-avatar" :src="userinfo.avatar">
           {{ userinfo.username }}
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="github">
-            github
-          </el-dropdown-item>
-          <el-dropdown-item command="wechat">
-            wechat
-          </el-dropdown-item>
-          <el-dropdown-item command="zhihu">
-            zhihu
+            Github
           </el-dropdown-item>
           <el-dropdown-item command="facebook">
-            facebook
+            Facebook
+          </el-dropdown-item>
+          <el-dropdown-item command="wechat">
+            微信
+          </el-dropdown-item>
+          <el-dropdown-item command="zhihu">
+            知乎
           </el-dropdown-item>
           <el-dropdown-item v-if="userinfo.username!='游客'" divided command="loginout">
             注销

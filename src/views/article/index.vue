@@ -5,7 +5,7 @@
         {{ item.title }}
       </li>
     </ul>
-    <div class="content">
+    <div class="content" style="min-height:300px" v-loading="showLoading">
       <Markdown v-if="mdShow" :markdown="mdDetail"></Markdown>
       <ul v-else class="md-list">
         <li v-for="(item ,i) in mdList" :key="i">
@@ -35,6 +35,7 @@ export default {
   },
   data() {
     return {
+      showLoading: false,
       mdShow: false,
       mdDetail: '',
       category: [],
@@ -72,13 +73,17 @@ export default {
       this.$router.replace(`/article/${item.category}`)
     },
     getArticles() {
+      this.showLoading = true
       getCloverArticles().then(res => {
         this.category = res.category
+        this.showLoading = false
       })
     },
     getArticleDetail(category, article) {
+      this.showLoading = true
       getCloverArticleDetail(category, article).then(res => {
         this.mdDetail = res
+        this.showLoading = false
       })
     }
   }

@@ -1,0 +1,62 @@
+.app-table {
+  position: relative;
+  margin-bottom: 20px;
+  &-tools {
+    position: relative;
+    padding: 10px 0;
+    font-size: 12px;
+  }
+  &-selected {
+    margin-left: 15px;
+    &>i {
+      margin: 0 2px;
+      color: #ff5d5b;
+      font-weight: bold;
+      font-style: normal;
+    }
+  }
+  &-left {
+    display: inline-block;
+    line-height: 28px;
+  }
+  &-right {
+    float: right;
+  }
+  .el-table thead th {
+    color: #333;
+    font-weight: bold;
+    background: #e6e7eb;
+    // border-bottom: 1px solid #ebeef5;
+    border-right: 1px solid #ebeef5;
+  }
+}
+.el-pagination {
+  .btn-prev {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border: 1px solid #e3e3e3;
+  }
+  .btn-next {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border: 1px solid #e3e3e3;
+  }
+}
+.el-pager {
+  li {
+    border-top: 1px solid #e3e3e3;
+    border-right: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+    &:last-child {
+      border-right: none;
+    }
+    &.active{
+      color: #fff;
+      border-color: #20A0FF;
+      background: #20A0FF;
+    }
+  }
+}
+.el-pagination__jump {
+  margin-left: 0;
+}

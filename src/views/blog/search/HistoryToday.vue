@@ -48,7 +48,7 @@
           :current-page="pagination.currentPage"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="pagination.pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
+          layout="total, prev, pager, next, sizes, jumper"
           :total="pagination.total"
         >
         </el-pagination>

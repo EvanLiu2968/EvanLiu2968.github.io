@@ -23,12 +23,13 @@
         <el-col :xs="24" :sm="16">
           <div class="article">
             <p>
-              猫喜欢吃鱼，可猫不会游泳。<br>
-              鱼喜欢吃蚯蚓，可鱼又不能上岸。<br>
-              上帝给了你很多诱惑，却不让你轻易得到。<br>
-              但是总不能流血就喊痛，怕黑就开灯，想念就联系，我们最多也就是个有故事的人。<br>
-              所以，人生就像蒲公英，看似自由，却身不由己。<br>
-              得不到的永远在骚动。<br>
+              一生中总会遇到这样的时候，<br>
+              你的内心已经兵荒马乱天翻地覆了，<br>
+              可是在别人看来你只是比平时沉默了，<br>
+              没人会觉得奇怪。<br>
+              这种战争，<br>
+              注定单枪匹马。<br><br>
+              -----《痛并快乐着》<br>
             </p>
           </div>
         </el-col>
@@ -71,15 +72,6 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: 'webfont';
-  font-display: swap;
-  src: url('//at.alicdn.com/t/webfont_0lwmgnvh35g.eot'); /* IE9*/
-  src: url('//at.alicdn.com/t/webfont_0lwmgnvh35g.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('//at.alicdn.com/t/webfont_0lwmgnvh35g.woff') format('woff'), /* chrome、firefox */
-  url('//at.alicdn.com/t/webfont_0lwmgnvh35g.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-  url('//at.alicdn.com/t/webfont_0lwmgnvh35g.svg#AlibabaPuHuiTiL') format('svg'); /* iOS 4.1- */
-}
 .lunar{
   position: relative;
   margin-left:auto;
