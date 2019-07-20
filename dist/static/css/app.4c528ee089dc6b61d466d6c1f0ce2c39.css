@@ -46213,6 +46213,14 @@ body {
   font-family: "Helvetica Neue",Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
   color: #1F2D3D; }
 
+@font-face {
+  font-family: 'webfont';
+  font-display: swap;
+  src: url("//at.alicdn.com/t/webfont_8fdn4mdiiky.eot");
+  /* IE9*/
+  src: url("//at.alicdn.com/t/webfont_8fdn4mdiiky.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/webfont_8fdn4mdiiky.woff2") format("woff2"), url("//at.alicdn.com/t/webfont_8fdn4mdiiky.woff") format("woff"), url("//at.alicdn.com/t/webfont_8fdn4mdiiky.ttf") format("truetype"), url("//at.alicdn.com/t/webfont_8fdn4mdiiky.svg#AlibabaPuHuiTiL") format("svg");
+  /* iOS 4.1- */ }
+
 .move-enter-active, .move-leave-active {
   transition: opacity .5s; }
 
@@ -46371,3 +46379,51 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+.app-table {
+  position: relative;
+  margin-bottom: 20px; }
+  .app-table-tools {
+    position: relative;
+    padding: 10px 0;
+    font-size: 12px; }
+  .app-table-selected {
+    margin-left: 15px; }
+    .app-table-selected > i {
+      margin: 0 2px;
+      color: #ff5d5b;
+      font-weight: bold;
+      font-style: normal; }
+  .app-table-left {
+    display: inline-block;
+    line-height: 28px; }
+  .app-table-right {
+    float: right; }
+  .app-table .el-table thead th {
+    color: #333;
+    font-weight: bold;
+    background: #e6e7eb;
+    border-right: 1px solid #ebeef5; }
+
+.el-pagination .btn-prev {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border: 1px solid #e3e3e3; }
+
+.el-pagination .btn-next {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border: 1px solid #e3e3e3; }
+
+.el-pager li {
+  border-top: 1px solid #e3e3e3;
+  border-right: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3; }
+  .el-pager li:last-child {
+    border-right: none; }
+  .el-pager li.active {
+    color: #fff;
+    border-color: #20A0FF;
+    background: #20A0FF; }
+
+.el-pagination__jump {
+  margin-left: 0; }
