@@ -103,14 +103,14 @@
     <div class="song-control">
       <div class="control-play">
         <span class="control-icon" @click="togglePrev">
-          <i class="iconfont icon-player-prev"></i>
+          <i class="el-icon-app-player-prev"></i>
         </span>
         <span class="control-icon" @click="toggleMusicPlayer">
-          <i class="iconfont icon-player-paused" v-if="player.paused"></i>
-          <i class="iconfont icon-player-play" v-else></i>
+          <i class="el-icon-app-player-paused" v-if="player.paused"></i>
+          <i class="el-icon-app-player-play" v-else></i>
         </span>
         <span class="control-icon" @click="toggleNext">
-          <i class="iconfont icon-player-next"></i>
+          <i class="el-icon-app-player-next"></i>
         </span>
       </div>
       <div class="control-progress">
@@ -122,8 +122,8 @@
       </div>
       <div class="control-volumn">
         <span class="volumn-icon" @click="toggleMuted">
-          <i class="iconfont icon-player-voice" v-if="!player.muted"></i>
-          <i class="iconfont icon-player-muted" v-else></i>
+          <i class="el-icon-app-player-voice" v-if="!player.muted"></i>
+          <i class="el-icon-app-player-muted" v-else></i>
         </span>
         <div class="bar-bg" @click="toggleVolumn">
           <div class="bar-current" :style="{width:player.cVolumn}"></div>
@@ -493,7 +493,7 @@ export default {
   border-radius:50%;
   cursor:pointer;
 }
-.control-icon>.iconfont{
+.control-icon>i{
   font-size:12px;
   line-height:24px;
   margin:0;

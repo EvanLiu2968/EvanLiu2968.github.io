@@ -60,7 +60,7 @@
   </MainContainer>
 </template>
 <script>
-import MainContainer from '@/component/layout/Container'
+import MainContainer from '@/components/layout/Container'
 import BlogRoutes from '@/router/blog'
 import { mapGetters } from 'vuex'
 

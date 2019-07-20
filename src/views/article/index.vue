@@ -24,8 +24,8 @@
   </MainContainer>
 </template>
 <script>
-import MainContainer from '@/component/layout/Container'
-import Markdown from '@/component/markdown/markdown'
+import MainContainer from '@/components/layout/Container'
+import Markdown from '@/components/markdown/markdown'
 import './index.less'
 import { getCloverArticles, getCloverArticleDetail } from '@/api'
 export default {

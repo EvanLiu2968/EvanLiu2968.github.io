@@ -9,7 +9,7 @@ export default [
       title: '首页',
       isMenu: true,
       isParent: false,
-      icon: 'icon-colors'
+      icon: 'el-icon-app-colors'
     }
   },
   {
@@ -21,7 +21,7 @@ export default [
       title: '应用',
       isMenu: true,
       isParent: true,
-      icon: 'icon-player'
+      icon: 'el-icon-app-player'
     },
     children: [
       {
@@ -84,7 +84,7 @@ export default [
       title: '小助手',
       isMenu: true,
       isParent: true,
-      icon: 'icon-program'
+      icon: 'el-icon-app-program'
     },
     children: [
       {

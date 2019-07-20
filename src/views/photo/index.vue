@@ -22,7 +22,7 @@
   </MainContainer>
 </template>
 <script>
-import MainContainer from '@/component/layout/Container'
+import MainContainer from '@/components/layout/Container'
 import { getCloverPhotos } from '@/api'
 import './index.less'
 export default {
