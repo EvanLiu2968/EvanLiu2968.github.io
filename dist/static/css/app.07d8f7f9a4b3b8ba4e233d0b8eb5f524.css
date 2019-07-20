@@ -58,6 +58,13 @@ template {
   display: none !important;
 }
 @charset "UTF-8";
+/*
+ 重写theme-chalk主题变量
+ */
+/* Colors
+-------------------------- */
+/* Font
+-------------------------- */
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
@@ -372,7 +379,7 @@ template {
 --------------------------*/
 @font-face {
   font-family: 'element-icons';
-  src: url(./dist/static/fonts/element-icons.535877f.woff) format("woff"), url(./dist/static/fonts/element-icons.732389d.ttf) format("truetype");
+  src: url(/dist/static/fonts/element-icons.535877f.woff) format("woff"), url(/dist/static/fonts/element-icons.732389d.ttf) format("truetype");
   /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
   font-weight: normal;
   font-style: normal; }
