@@ -12,6 +12,7 @@ module.exports = {
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
 
   // add your custom rules here
+  //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
     "vue/max-attributes-per-line": [2, {
       "singleline": 10,
@@ -21,14 +22,8 @@ module.exports = {
       }
     }],
     "vue/attributes-order": ["waning"],
+    "vue/require-default-prop": ["off"],
     "vue/name-property-casing": ["error", "PascalCase"],
-    "vue/html-indent": ["error", 2, {
-      "attribute": 1,
-      "baseIndent": 1,
-      "closeBracket": 0,
-      "alignAttributesVertically": true,
-      "ignores": []
-    }],
     "vue/html-self-closing": ["error", {
       "html": {
         "void": "never",
@@ -185,7 +180,7 @@ module.exports = {
       'after': true
     }],
     'space-before-blocks': [2, 'always'],
-    'space-before-function-paren': [2, 'never'],
+    'space-before-function-paren': 0,
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [2, {
