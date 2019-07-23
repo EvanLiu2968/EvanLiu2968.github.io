@@ -10,9 +10,7 @@
       <ul v-else class="md-list">
         <li v-for="(item ,i) in mdList" :key="i">
           <router-link :to="`/article/${active}/${item.src}`">
-            <h3 class="md-title">
-              {{ item.title }}
-            </h3>
+            <h3 class="md-title">{{ item.title }}</h3>
             <div class="md-desc">
               <span class="md-time">{{ item.createTime }}</span>
               <span v-for="(keyword ,k) in item.keywords" :key="k" class="md-tag">{{ keyword }}</span>
