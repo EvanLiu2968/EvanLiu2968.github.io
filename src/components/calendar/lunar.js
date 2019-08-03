@@ -29,8 +29,8 @@ var LunarCalendar = (function() {
     // var mm = DateGL.getMonth() + 1
     // var dd = DateGL.getDate()
     if (yyyy < 100) yyyy += 1900
-    if ((yyyy < 1997) || (yyyy > 2020)) {
-      console.error('仅支持查询1997-2020年')
+    if ((yyyy < 1997) || (yyyy > 2050)) {
+      console.error('仅支持查询1997-2050年')
       return
     }
     Bytes[0] = CnData[(yyyy - 1997) * 4]
@@ -127,7 +127,7 @@ var LunarCalendar = (function() {
         return CnMonthStr[Month] + '月'
       }
     },
-    getDay: function(DateGL) {
+    getDay: function(DateGL, showFestival) {
       var CnDayStr = ['零',
         '初一', '初二', '初三', '初四', '初五',
         '初六', '初七', '初八', '初九', '初十',
@@ -138,10 +138,10 @@ var LunarCalendar = (function() {
       var Day
       Day = (Math.abs(CnDateofDate(DateGL))) % 100
       // mod
-      if (CnDayStr[Day] == '初一') {
-        return CnDayStr[Day]// this.getMonth(DateGl),初一可返回月份
+      if (showFestival && CnDayStr[Day] == '初一') {
+        return this.getMonth(DateGL) // 初一可返回月份
       } else {
-        if (this.getSolarTerm(DateGL) != '') {
+        if (showFestival && this.getSolarTerm(DateGL) != '') {
           return this.getSolarTerm(DateGL)
         } else {
           return CnDayStr[Day]

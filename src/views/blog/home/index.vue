@@ -6,7 +6,11 @@
       </h3>
       <el-row :gutter="10">
         <el-col :xs="24" :sm="8">
-          <div class="lunar" style="background-image:url('/public/images/lunar.png')">
+          <el-radio-group v-model="dateType" size="mini" style="margin-bottom: 10px;">
+            <el-radio-button label="today">今天</el-radio-button>
+            <el-radio-button label="calendar">日历</el-radio-button>
+          </el-radio-group>
+          <div v-if="dateType == 'today'" class="lunar" style="background-image:url('/public/images/lunar.png')">
             <div class="date-month">
               {{ date.year+' / '+date.month }}
             </div>
@@ -15,9 +19,25 @@
             </div>
             <div class="lunar-detail">
               <span>{{ date.lunarYear }}</span>
-              <span>{{ date.lunarMonth }}</span>
-              <span>{{ date.lunarDay }}</span>
+              <span>{{ date.lunarMonth }}{{ date.lunarDay }}</span>
             </div>
+          </div>
+          <div v-else class="calendar-wrap">
+            <calendar :first-day-of-week="7">
+              <template
+                slot="dateCell"
+                slot-scope="{date, data}">
+                <div class="text-center" :class="{ 'is-selected': data.isSelected }">
+                  {{ date.format('dd') }}
+                  <div class="text-lunar-day">
+                    {{ getLunarDay(date, true) }}
+                  </div>
+                </div>
+              </template>
+              <div slot="calendar-footer" class="app-calendar__footer">
+                驿马动，火迫金行，大利西方。
+              </div>
+            </calendar>
           </div>
         </el-col>
         <el-col :xs="24" :sm="16">
@@ -39,15 +59,19 @@
 </template>
 
 <script>
-import lunar from '@/libs/lunar.js'
+import lunar from '@/components/calendar/lunar'
 import Layout from '@/views/common/Layout.vue'
+import Calendar from '@/components/calendar/main'
+import './calendar.scss'
 
 export default {
   components: {
+    Calendar,
     Layout
   },
   data: function() {
     return {
+      dateType: 'today',
       date: {
         lunarYear: '',
         lunarMonth: '',
@@ -59,15 +83,19 @@ export default {
     }
   },
   beforeMount: function() {
-    const date = new Date()
-    this.date.lunarYear = lunar.getYear(date)
-    this.date.lunarMonth = lunar.getMonth(date)
-    this.date.lunarDay = lunar.getDay(date)
-    this.date.year = date.format('yyyy')
-    this.date.month = date.format('MM')
-    this.date.day = date.format('dd')
+    const now = new Date()
+    this.date.lunarYear = lunar.getYear(now)
+    this.date.lunarMonth = lunar.getMonth(now)
+    this.date.lunarDay = lunar.getDay(now)
+    this.date.year = now.format('yyyy')
+    this.date.month = now.format('MM')
+    this.date.day = now.format('dd')
   },
-  methods: {}
+  methods: {
+    getLunarDay(date, showFestival) {
+      return lunar.getDay(date, showFestival)
+    }
+  }
 }
 </script>
 

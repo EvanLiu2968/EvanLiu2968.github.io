@@ -1,10 +1,11 @@
 /*
  重写theme-chalk主题变量
  */
+@import "./var.scss";
 /* Colors
 -------------------------- */
 
-$--color-primary: #20A0FF;
+$--color-primary: $color-primary;
 
 /* Font
 -------------------------- */
