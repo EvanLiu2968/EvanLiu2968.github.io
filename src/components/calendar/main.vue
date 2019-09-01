@@ -7,10 +7,12 @@
       </el-col>
       <el-col :span="12" class="app-calendar__header-item">
         <div>
+          <div class="el-calendar__button-group pull-left" v-if="validatedRange.length === 0">
+            <span class="el-calendar__button" @click="selectDate('prev-month')"><i class="el-icon-arrow-left"></i></span>
+          </div>
           <span class="app-calendar__header-date">{{ i18nDate }}</span>
           <div class="el-calendar__button-group pull-right" v-if="validatedRange.length === 0">
-            <span class="el-calendar__button" @click="selectDate('prev-month')"><i class="el-icon-caret-left"></i></span>
-            <span class="el-calendar__button" @click="selectDate('next-month')"><i class="el-icon-caret-right"></i></span>
+            <span class="el-calendar__button" @click="selectDate('next-month')"><i class="el-icon-arrow-right"></i></span>
           </div>
         </div>
         <div class="app-calendar__header-lunar">{{ lunarDate }}</div>
