@@ -2,13 +2,14 @@ import request from '@/libs/request'
 import jsonp from '@/libs/jsonp'
 
 const CORS = true
+const dataSource = 'https://raw.githubusercontent.com/EvanLiu2968/clover/master'
 
 export function getCloverPhotos(data = {}) {
   if (CORS) {
-    return jsonp('https://raw.githubusercontent.com/EvanLiu2968/clover/master/photo.json', true)
+    return jsonp(`${dataSource}/photo.json`, true)
   }
   return request({
-    url: 'https://raw.githubusercontent.com/EvanLiu2968/clover/master/photo.json',
+    url: `${dataSource}/photo.json`,
     method: 'get',
     params: data
   })
@@ -16,19 +17,19 @@ export function getCloverPhotos(data = {}) {
 
 export function getCloverArticles(data = {}) {
   if (CORS) {
-    return jsonp('https://raw.githubusercontent.com/EvanLiu2968/clover/master/blog.json', true)
+    return jsonp(`${dataSource}/blog.json`, true)
   }
   return request({
-    url: 'https://raw.githubusercontent.com/EvanLiu2968/clover/master/blog.json',
+    url: `${dataSource}/blog.json`,
     method: 'get',
     params: data
   })
 }
 export function getCloverArticleDetail(category, src) {
   if (CORS) {
-    return jsonp(`https://raw.githubusercontent.com/EvanLiu2968/clover/master/${category}/${src}.md`, true)
+    return jsonp(`${dataSource}/${category}/${src}.md`, true)
   }
-  return request.get(`https://raw.githubusercontent.com/EvanLiu2968/clover/master/${category}/${src}.md`)
+  return request.get(`${dataSource}/${category}/${src}.md`)
 }
 // getHistoryTodayList
 export function getHistoryTodayList(month, day) {

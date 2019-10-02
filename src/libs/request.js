@@ -10,7 +10,7 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
-    config.headers['accessToken'] = 'evanliu2968' // 接口令牌
+    config.headers['accessToken'] = '' // 接口令牌
     return config
   },
   error => {

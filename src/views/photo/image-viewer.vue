@@ -297,3 +297,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.el-image-viewer__close {
+  color: #fff;
+}
+</style>

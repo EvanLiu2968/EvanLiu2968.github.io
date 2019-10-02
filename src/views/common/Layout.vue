@@ -19,7 +19,7 @@
           <el-dropdown-item command="zhihu">
             知乎
           </el-dropdown-item>
-          <el-dropdown-item v-if="userinfo.username!='游客'" divided command="loginout">
+          <el-dropdown-item v-if="isLogined" divided command="loginout">
             注销
           </el-dropdown-item>
           <el-dropdown-item v-else divided command="login">
@@ -74,7 +74,7 @@
 <script>
 import MainContainer from '@/components/layout/Container'
 import BlogRoutes from '@/router/blog'
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 import { isMobile } from '@/libs/validate'
 
 export default {
@@ -96,9 +96,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'userinfo'
-    ])
+    // ...mapGetters([
+    //   'userinfo'
+    // ])
+    userinfo() {
+      return this.$store.getters.userinfo || {
+        avatar: '/public/images/github.png',
+        username: '游客'
+      }
+    },
+    isLogined() {
+      return !!this.$store.getters.userinfo
+    }
   },
   methods: {
     toggleClick() {

@@ -100,7 +100,7 @@
     font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
     font-weight: 700;
     font-size: 30px;
-    letter-spacing: 9px;
+    letter-spacing: 6px;
     text-transform: uppercase;
     margin: 12px 0;
     left: 4px;
