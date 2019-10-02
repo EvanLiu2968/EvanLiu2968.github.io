@@ -204,4 +204,3 @@ module.exports = {
     'array-bracket-spacing': [2, 'never']
   }
 }
-

@@ -11,15 +11,15 @@
 
 <style lang="less" scoped>
 .page-container {
-  padding-top:50px;
+  padding-top: 100px;
   text-align: center;
-  .error-title{
-    font-size:36px;
-    color:#ed6b75;
+  .error-title {
+    font-size: 60px;
+    color: #ed6b75;
   }
-  .error-desc{
-    padding:15px;
-    margin-bottom:20px;
+  .error-desc {
+    padding: 15px;
+    margin-bottom: 20px;
     font-size: 16px;
     color: #c0ccda;
   }

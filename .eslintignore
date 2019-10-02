@@ -1,7 +1,5 @@
-build/*.js
-config/*.js
-src/assets
-src/libs/jquery
-src/libs/nprogress
 node_modules/
+dist/
+src/assets
 *.html
+*.config.js
