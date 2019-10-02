@@ -20,10 +20,21 @@ module.exports = {
   // 打包后的地址
   indexPath: resolve('./index.html'),
   chainWebpack: config => {
+    // 移除 prefetch 插件
+    config.plugins.delete('prefetch-index')
+    // 移除 preload 插件
+    config.plugins.delete('preload-index')
+    // 修复HMR
+    // config.resolve.symlinks(true)
+    // 多页应用自定义name chunks
     config.plugins.delete('named-chunks')
+    // 添加别名
+    config.resolve.alias
+    .set('@', resolve('src'))
   },
   transpileDependencies: [
     // 'resize-detector',
+    'web-inject',
     'element-ui'
   ],
   devServer: {
