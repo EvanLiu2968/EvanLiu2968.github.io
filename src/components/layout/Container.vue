@@ -16,7 +16,7 @@
       </div>
     </div>
     <p class="copyright">
-      <span>© 2019 EvanLiu, Inc.</span>
+      <span>© {{ new Date().getFullYear() }} EvanLiu, Inc.</span>
       <a rel="nofollow" target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备18035883号</a>
     </p>
   </div>
