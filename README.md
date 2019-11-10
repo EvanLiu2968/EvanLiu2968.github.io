@@ -1,9 +1,9 @@
 # Github主页
 
 - [https://www.evanliu2968.com.cn](https://www.evanliu2968.com.cn/)
-- [https://www.evanliu2968.com.cn/react-component](https://www.evanliu2968.com.cn/react-component)
-- [https://www.evanliu2968.com.cn/vue-component](https://www.evanliu2968.com.cn/vue-component)
 - [https://github.com/EvanLiu2968](https://github.com/EvanLiu2968)
+- [https://EvanLiu2968.github.io/react-component](https://EvanLiu2968.github.io/react-component)
+- [https://EvanLiu2968.github.io/vue-component](https://EvanLiu2968.github.io/vue-component)
 
 ## 说明
 ```bash
